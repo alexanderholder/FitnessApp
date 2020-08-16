@@ -1,0 +1,24 @@
+= form_with model: @workout, url: workouts_new_path, local: true do |form|
+  = if @workout.errors.any?
+    %div{:id => "error_explanation"}
+      %h2
+        = pluralize(@workout.errors.count, "error")
+        prohibited this workout from being saved:
+      %ul
+        - @workout.errors.full_messages.each do |msg|
+          %li
+            = msg
+
+  %p
+    = form.label :name
+    %br
+    = form.text_field :name
+  %p
+    = form.label :day_number
+    %br
+    = form.number_field :day_number
+
+  = form.hidden_field :training_template_id, value: params[:training_template_id]
+
+  %p
+    = form.submit

@@ -5,6 +5,7 @@ class TrainingTemplatesController < ApplicationController
 
   def show
     @training_template = TrainingTemplate.find(params[:id])
+    @workouts = @training_template.workouts
   end
 
   def new
