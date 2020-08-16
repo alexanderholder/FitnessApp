@@ -1,6 +1,8 @@
 %p
-  %strong Name:
-  = @training_template.name
+  %h1
+    = @training_template.name
+
+= render 'workouts/index'
 
 = link_to 'Edit', edit_training_template_path(@training_template)
 |
