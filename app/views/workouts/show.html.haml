@@ -1,0 +1,10 @@
+%p
+  %bold
+    = @workout.name
+    %br
+    Day:
+    = @workout.day_number
+
+= link_to 'Edit', edit_training_template_workout_path(@workout)
+|
+= link_to 'Back', training_template_path(@workout.training_template_id)
