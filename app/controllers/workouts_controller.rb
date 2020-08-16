@@ -16,7 +16,8 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    @workout = Workout.new(workout_params)
+    @training_template = TrainingTemplate.find(params[:training_template_id])
+    @workout = @training_template.workouts.new(workout_params)
 
     if @workout.save
       redirect_to training_template_path(@workout.training_template_id)
@@ -44,6 +45,6 @@ class WorkoutsController < ApplicationController
 
   private
   def workout_params
-    params.require(:workout).permit(:name, :day_number, :training_template_id)
+    params.require(:workout).permit(:name, :day_number)
   end
 end
