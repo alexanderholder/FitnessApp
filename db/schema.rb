@@ -10,50 +10,57 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_15_075719) do
+ActiveRecord::Schema.define(version: 2020_08_19_095136) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "blocks", force: :cascade do |t|
-    t.string "name"
-    t.string "style"
-    t.integer "sets"
-    t.integer "workout_id", null: false
+    t.text "name"
+    t.bigint "workout_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["workout_id"], name: "index_blocks_on_workout_id"
   end
 
   create_table "excercises", force: :cascade do |t|
-    t.string "name"
-    t.integer "block_id", null: false
+    t.text "movement"
+    t.text "measurement_metric"
+    t.integer "measurement_value"
+    t.text "weight_metric"
+    t.integer "weight_value"
+    t.bigint "block_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["block_id"], name: "index_excercises_on_block_id"
   end
 
-  create_table "params", force: :cascade do |t|
-    t.string "movement"
-    t.integer "set"
-    t.string "metric"
-    t.integer "value"
-    t.integer "excercise_id", null: false
+  create_table "training_templates", force: :cascade do |t|
+    t.text "name"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["excercise_id"], name: "index_params_on_excercise_id"
+    t.index ["user_id"], name: "index_training_templates_on_user_id"
   end
 
-  create_table "training_templates", force: :cascade do |t|
-    t.string "name"
+  create_table "users", force: :cascade do |t|
+    t.text "name"
+    t.text "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "workouts", force: :cascade do |t|
-    t.string "name"
+    t.text "name"
     t.integer "day_number"
-    t.integer "training_template_id", null: false
+    t.bigint "training_template_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["training_template_id"], name: "index_workouts_on_training_template_id"
   end
 
+  add_foreign_key "blocks", "workouts", on_delete: :cascade
+  add_foreign_key "excercises", "blocks", on_delete: :cascade
+  add_foreign_key "training_templates", "users", on_delete: :cascade
+  add_foreign_key "workouts", "training_templates", on_delete: :cascade
 end

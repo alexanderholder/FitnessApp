@@ -1,9 +1,10 @@
-%p
-  %h1
-    = @training_template.name
+%div{class: "container"}
+  %p
+    %h1
+      = @training_template.name
 
-= render 'workouts/index'
+  = link_to 'Edit', edit_training_template_path(@training_template)
+  |
+  = link_to 'Back', training_templates_path
 
-= link_to 'Edit', edit_training_template_path(@training_template)
-|
-= link_to 'Back', training_templates_path
+  = render 'workouts/index'
