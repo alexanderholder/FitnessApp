@@ -1,0 +1,43 @@
+= form_with model: @block, local: true do |block_form|
+  - if @blocks.any?
+    - @blocks.map do |block|
+      %p{class: "container"}
+        %table
+          %tr
+            %th= block_form.text_field :name, value: block.name
+            %th= block_form.number_field :sets, value: block.excercises.count
+            %th= block_form.select :style, ["Fixed", "Variable"]
+
+        %p{class: "container"}
+          %table
+            = form_with model: @excercise, local: true do |excercise_form|
+              %tr
+                %th Movement
+                %th For
+                %th Units
+                %th Weight metric
+                %th Weight value
+
+              - if block.excercises.any?
+                - block.excercises.map do |excercise|
+                  %tr
+                    %th= excercise_form.text_field :movement, value: excercise.movement
+                    %th= excercise_form.text_field :measurement_metric, value: excercise.measurement_metric
+                    %th= excercise_form.number_field :measurement_value, value: excercise.measurement_value
+                    %th= excercise_form.text_field :weight_metric, value: excercise.weight_metric
+                    %th= excercise_form.number_field :weight_value, value: excercise.weight_value
+              - else
+                %tr
+                  %th= excercise_form.text_field :movement
+                  %th= excercise_form.text_field :measurement_metric
+                  %th= excercise_form.number_field :measurement_value
+                  %th= excercise_form.text_field :weight_metric
+                  %th= excercise_form.number_field :weight_value
+        %br
+
+  - else
+    %table
+      %tr
+        %th= block_form.text_field :name
+        %th= block_form.number_field :sets
+        %th= block_form.select :style, ["Fixed", "Variable"]

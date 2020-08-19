@@ -1,23 +1,39 @@
 %h2 Workouts
 = link_to 'New Workout', new_training_template_workout_path(@training_template)
 
-%table
-  %tr
-    %th Name
-    %th Day Number
-    %th{colspan: "3"}
+- header = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+%div{class: "row"}
+  %div{class: "col-md-12"}
+    %table{class: "calendar table table-bordered table-striped"}
+      %tr
+        - header.map do |day|
+          %th= day
+      %tr
+        - [0,1,2,3,4,5].each do |week|
+          %tr
+            - [1,2,3,4,5,6,7].each do |day|
+              %td
+                = workout_day = day+(7*week)
+                - @workouts.where(day_number: workout_day).map do |workout|
+                  %li= link_to workout.name, training_template_workout_path(@training_template, workout)
 
-  - @workouts.each do |workout|
-    %tr
-      %td
-        = workout.name
-      %td
-        = workout.day_number
-      %td
-        = link_to 'Show', training_template_workout_path(@training_template, workout)
-      %td
-        = link_to 'Edit', edit_training_template_workout_path(@training_template, workout)
-      %td
-        = link_to 'Destroy', training_template_workout_path(@training_template, workout),
-          method: :delete,
-          data: { confirm: 'Are you sure?' }
+-# %table
+-#   %tr
+-#     %th Name
+-#     %th Day Number
+-#     %th{colspan: "3"}
+
+-#   - @workouts.each do |workout|
+-#     %tr
+-#       %td
+-#         = workout.name
+-#       %td
+-#         = workout.day_number
+-#       %td
+-#         = link_to 'Show', training_template_workout_path(@training_template, workout)
+-#       %td
+-#         = link_to 'Edit', edit_training_template_workout_path(@training_template, workout)
+-#       %td
+-#         = link_to 'Destroy', training_template_workout_path(@training_template, workout),
+-#           method: :delete,
+-#           data: { confirm: 'Are you sure?' }
