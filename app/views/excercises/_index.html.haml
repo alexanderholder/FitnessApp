@@ -1,0 +1,11 @@
+%p{class: "container"}
+  %table
+    %tr
+      %th Movement
+      %th For
+      %th Units
+      %th Weight metric
+      %th Weight value
+
+      - block.excercises.map do |excercise|
+        = render "excercises/form", excercise: excercise
