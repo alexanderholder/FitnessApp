@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+*.log
 /.config
 /coverage/
 /InstalledFiles
@@ -9,6 +10,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+/log/
 
 # Used by dotenv library to load environment variables.
 # .env
