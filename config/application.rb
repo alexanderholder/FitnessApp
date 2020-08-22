@@ -12,6 +12,13 @@ module FitnessApp
     config.load_defaults 5.2
     config.autoload_paths += %W(#{config.root}/lib)
 
+    config.time_zone = "Brisbane"
+
+    # omniauth requirements https://github.com/omniauth/omniauth
+    # config.session_store :cookie_store, key: '_interslice_session'
+    # config.middleware.use ActionDispatch::Cookies # Required for all session management
+    # config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
