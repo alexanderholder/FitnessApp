@@ -5,9 +5,15 @@ Rails.application.routes.draw do
   end
   post "workouts/new" => "workouts#create"
 
-  resources :blocks
+  resources :workouts do
+    post "blocks/new" => "blocks#create"
+  end
+
+  resources :blocks do
+    post "excercises/new" => "excercises#create"
+  end
+
   resources :excercises
-  resources :params
 
   get "/" => redirect("/training_templates"), as: "root"
 end

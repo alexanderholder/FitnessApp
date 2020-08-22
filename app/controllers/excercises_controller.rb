@@ -1,12 +1,13 @@
-# Currently not in use
+# Currently only in use for excercsise 2 & 3 to update??
+# Using create too
 
 class ExcercisesController < ApplicationController
   def create
-    @workout = Workout.find(params[:workout_id])
-    @excercise = @workout.excercises.new(excercise_params)
+    @block = Block.find(params[:block_id])
+    @excercise = @block.excercises.new(movement: "New Excercise")
 
     if @excercise.save
-      redirect_to workout_path(@excercise.workout_id)
+      redirect_to workout_path(@excercise.block.workout_id)
     else
       render 'new'
     end
@@ -16,7 +17,7 @@ class ExcercisesController < ApplicationController
     @excercise = Excercise.find(params[:id])
 
     if @excercise.update(excercise_params)
-      redirect_to training_template_workout_path(@excercise.block.workout_id), notice: "Saved"
+      redirect_to workout_path(@excercise.block.workout_id)
     else
       render 'index', notice: "failed save"
     end
@@ -26,7 +27,7 @@ class ExcercisesController < ApplicationController
     @excercise = Excercise.find(params[:id])
     @excercise.destroy
 
-    redirect_to workout_path(@excercise.workout_id)
+    redirect_to workout_path(@excercise.block.workout_id)
   end
 
   private

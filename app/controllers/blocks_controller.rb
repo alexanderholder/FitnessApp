@@ -1,7 +1,7 @@
 class BlocksController < ApplicationController
   def create
     @workout = Workout.find(params[:workout_id])
-    @block = @workout.blocks.new(block_params)
+    @block = @workout.blocks.create(name: "New Block")
 
     if @block.save
       redirect_to workout_path(@block.workout_id)
@@ -12,12 +12,14 @@ class BlocksController < ApplicationController
 
   def update
     @block = Block.find(params[:id])
-    @excercise = Excercise.find(excercise_params[:id])
 
-    @excercise.update(excercise_params)
+    if excercise_params
+      @excercise = Excercise.find(excercise_params[:id])
+      @excercise.update(excercise_params)
+    end
 
     if @block.update(block_params)
-      redirect_to training_template_workout_path(@block.workout_id), notice: "Saved"
+      redirect_to workout_path(@block.workout_id)
     else
       render 'index', notice: "failed save"
     end
@@ -36,6 +38,8 @@ class BlocksController < ApplicationController
   end
 
   def excercise_params
-    params.require(:excercise).permit(:id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
+    if params[:excercise]
+      params.require(:excercise).permit(:id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
+    end
   end
 end
