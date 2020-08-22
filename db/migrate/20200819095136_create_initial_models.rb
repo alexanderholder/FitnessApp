@@ -24,6 +24,8 @@ class CreateInitialModels < ActiveRecord::Migration[5.2]
 
     create_table :blocks do |t|
       t.text :name
+      t.integer :sets
+      t.text :style
       t.references(:workout, null: false, foreign_key: { on_delete: :cascade }, index: true)
 
       t.timestamps

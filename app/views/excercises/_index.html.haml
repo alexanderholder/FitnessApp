@@ -1,14 +1,27 @@
 %p{class: "container"}
-  %table
-    %tr
-      %th Movement
-      %th For
-      %th Units
-      %th Weight metric
-      %th Weight value
+  - if block.style == "Variable"
+    %table
+      %tr
+        %th Movement
+        %th For
+        %th Units
+        %th Weight metric
+        %th Weight value
 
-      - block.excercises.map do |excercise|
-        %tr= render "excercises/form", excercise: excercise
+        - block.excercises.map do |excercise|
+          %tr= render "excercises/form", excercise: excercise
 
-    %tr= link_to 'Add Excercise', block_excercises_new_path(block), method: "post"
+  - else
+    %table
+      %tr
+        %th Movement
+        %th For
+        %th Units
+        %th Weight metric
+        %th Weight value
+
+        - block.excercises.map do |excercise|
+          %tr= render "excercises/form", excercise: excercise
+
+      %tr= link_to 'Add Excercise', block_excercises_new_path(block), method: "post"
   %hr
