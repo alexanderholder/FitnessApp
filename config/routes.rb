@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :training_templates do
     resources :workouts, except: :index
@@ -15,5 +16,8 @@ Rails.application.routes.draw do
 
   resources :excercises
 
+  # root to: 'home#index'
   get "/" => redirect("/training_templates"), as: "root"
+
+  get '/auth/:provider/callback', to: 'sessions#create'
 end
