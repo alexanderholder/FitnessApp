@@ -1,6 +1,6 @@
 class TrainingTemplatesController < ApplicationController
   def index
-    @training_templates = TrainingTemplate.all
+    @training_templates = TrainingTemplate.where(user_id: current_user.id)
   end
 
   def show
@@ -18,6 +18,7 @@ class TrainingTemplatesController < ApplicationController
 
   def create
     @training_template = TrainingTemplate.new(training_template_params)
+    @training_template.user_id = current_user.id
 
     if @training_template.save
       redirect_to @training_template
