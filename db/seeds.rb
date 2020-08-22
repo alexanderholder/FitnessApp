@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create(name: 'Alex Holder')
-training_template = TrainingTemplate.create(name: 'Plyo Basketball', user: user)
+# user = User.create(name: 'Alex Holder')
+training_template = TrainingTemplate.create(name: 'Plyo Basketball', user: User.first)
 workouts = Workout.create(
   [
     { name: 'AM Jumping', day_number: 1, training_template: training_template },
