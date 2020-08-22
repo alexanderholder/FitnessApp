@@ -1,2 +1,5 @@
-- @blocks.map do |block|
-  = render "blocks/form", block: block
+%p{class: "container"}
+  - @blocks.map do |block|
+    = render "blocks/form", block: block
+
+  = link_to 'Add Block', workout_blocks_new_path(@workout), method: "post"

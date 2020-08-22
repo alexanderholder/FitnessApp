@@ -8,4 +8,7 @@
       %th Weight value
 
       - block.excercises.map do |excercise|
-        = render "excercises/form", excercise: excercise
+        %tr= render "excercises/form", excercise: excercise
+
+    %tr= link_to 'Add Excercise', block_excercises_new_path(block), method: "post"
+  %hr

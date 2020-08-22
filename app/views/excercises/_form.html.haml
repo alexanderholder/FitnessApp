@@ -1,9 +1,9 @@
 = form_with model: excercise, local: true do |f|
   = f.hidden_field :id
-  %tr
-    %th= f.text_field :movement, value: excercise.movement
-    %th= f.select :measurement_metric, ["cals", "reps", "distance", "time", "max"], value: excercise.measurement_metric
-    %th= f.number_field :measurement_value, value: excercise.measurement_value
-    %th= f.select :weight_metric, ["kg", "lbs", "none"], value: excercise.weight_metric
-    %th= f.number_field :weight_value, value: excercise.weight_value
-    %th= f.submit
+  %th= f.text_field :movement, value: excercise.movement
+  %th= f.select :measurement_metric, ["cals", "reps", "distance", "time", "max"], value: excercise.measurement_metric
+  %th= f.number_field :measurement_value, value: excercise.measurement_value
+  %th= f.select :weight_metric, ["kg", "lbs", "none"], value: excercise.weight_metric
+  %th= f.number_field :weight_value, value: excercise.weight_value
+  %th= f.submit
+  %th= link_to 'Delete', excercise_path(excercise), method: :delete, data: { confirm: 'Are you sure?' }
