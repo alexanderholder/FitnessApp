@@ -1,5 +1,6 @@
 class WorkoutsController < ApplicationController
   def index
+    # TODO
     @workouts = Workout.all
   end
 
