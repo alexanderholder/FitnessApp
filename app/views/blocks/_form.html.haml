@@ -1,0 +1,13 @@
+= form_with model: block, local: true do |f|
+  %p{class: "container"}
+    %table
+      %tr
+        %th= f.text_field :name, value: block.name
+        -# sets count
+        %th= "sets: #{block.excercises.count}"
+        -# %th= f.number_field :sets, value: block.excercises.count
+        %th= f.select :style, ["Fixed", "Variable"]
+        %th= f.submit
+
+        = render "excercises/index", block: block
+    %br
