@@ -1,12 +1,13 @@
 class BlocksController < ApplicationController
   def create
     @workout = Workout.find(params[:workout_id])
-    @block = @workout.blocks.create(name: "New Block")
+    @block = @workout.blocks.create(name: 'New Block', style: 'Fixed')
+    @block.excercises.create
 
     if @block.save
       redirect_to workout_path(@block.workout_id)
     else
-      render 'new'
+      flash[:error] = 'failed save'
     end
   end
 
@@ -33,13 +34,21 @@ class BlocksController < ApplicationController
   end
 
   private
+
   def block_params
-    params.require(:block).permit(:name, :day_number, :sets)
+    params.require(:block).permit(:name, :day_number, :sets, :style)
   end
 
   def excercise_params
-    if params[:excercise]
-      params.require(:excercise).permit(:id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
-    end
+    return unless params[:excercise]
+
+    params.require(:excercise).permit(
+      :id,
+      :movement,
+      :measurement_metric,
+      :measurement_value,
+      :weight_metric,
+      :weight_value
+    )
   end
 end

@@ -1,4 +1,5 @@
-= form_with model: [@training_temaplate, @workout], url: training_template_workouts_path, local: true do |form|
+= form_with model: @workout, local: true do |f|
+  = f.hidden_field :training_template_id, value: @workout.training_template_id
   = if @workout.errors.any?
     %div{:id => "error_explanation"}
       %h2
@@ -10,13 +11,13 @@
             = msg
 
   %p
-    = form.label :name
+    = f.label :name
     %br
-    = form.text_field :name
+    = f.text_field :name
   %p
-    = form.label :day_number
+    = f.label :day_number
     %br
-    = form.number_field :day_number
+    = f.number_field :day_number
 
   %p
-    = form.submit
+    = f.submit

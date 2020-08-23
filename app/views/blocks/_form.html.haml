@@ -2,7 +2,10 @@
   %table
     %tr
       %th= f.text_field :name, value: block.name
-      %th= f.number_field :sets, value: block.sets
+      - if f.object.variable?
+        %th= f.number_field :sets, value: block.sets
+      - else
+        %th= f.object.excercises.count
       %th= f.select :style, ["Fixed", "Variable"], value: block.style
       %th= f.submit
       %th= link_to 'Delete', block_path(block), method: :delete, data: { confirm: 'Are you sure?' }

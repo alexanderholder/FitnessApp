@@ -45,6 +45,7 @@ class TrainingTemplatesController < ApplicationController
   end
 
   private
+
   def training_template_params
     params.require(:training_template).permit(:name)
   end
