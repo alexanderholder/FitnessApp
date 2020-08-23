@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_135446) do
     t.datetime "updated_at", null: false
     t.integer "sets"
     t.text "style"
+    t.integer "order"
     t.index ["workout_id"], name: "index_blocks_on_workout_id"
   end
 
