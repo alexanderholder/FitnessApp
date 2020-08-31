@@ -63,6 +63,8 @@ end
 
 # Current view, might remove in favour for react later
 gem 'haml'
+# react
+gem 'webpacker'
 
 # gem 'omniauth'
 # # this patches a bug for omniauth
