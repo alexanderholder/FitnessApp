@@ -15,39 +15,49 @@
  */
 
 
- .bg_primary-color {
-  background-color: #FFFFFF;
+body {
+  color: #3c4043;
+  font-family: 'Google Sans',Roboto,Arial,sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
 }
-.primary-color {
-  background-color: #FFFFFF;
+
+.cell {
+  text-align: center;
+  color: #70757a;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+  border-left: #dadce0 1px solid;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(218, 220, 224);
 }
-.bg_secondary-color {
-  background-color: #293241;
+
+div {
+  color: #70757a;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
 }
-.secondary-color {
-  color: #293241;
+
+.cell:focus {
+  outline: none;
 }
-.custom-button.btn {
-  background-color: #293241;
-  color: #FFF;
-  border: none;
-}
-.custom-button.btn:hover {
-  color: #FFF !important;
-  border: none;
-}
-.hero {
-  width: 100vw;
-  height: 50vh;
-}
-.hero img {
-  object-fit: cover;
-  object-position: top;
-  height: 100%;
+
+table {
+  table-layout: fixed;
   width: 100%;
+  border-collapse: collapse;
 }
-.overlay {
-  height: 100%;
-  width: 100%;
-  opacity: 0.4;
+
+div.gboEAb {
+  border-left: #dadce0 1px solid;
+  border-left-width: 1px;
+  border-left-style: solid;
+  border-left-color: rgb(218, 220, 224);
+  display: flex;
 }

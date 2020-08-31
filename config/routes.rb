@@ -26,5 +26,5 @@ Rails.application.routes.draw do
   resources :excercises
 
   # root to: 'home#index'
-  get '/' => redirect('/training_templates'), as: 'root'
+  # get '/' => redirect('/training_templates'), as: 'root'
 end
