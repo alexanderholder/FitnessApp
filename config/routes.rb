@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     resources :workouts, except: :index
   end
   post 'workouts/new' => 'workouts#create'
-  root 'workouts#index'
 
   resources :workouts do
     post 'blocks/new' => 'blocks#create'
@@ -25,6 +24,6 @@ Rails.application.routes.draw do
 
   resources :excercises
 
-  # root to: 'home#index'
-  # get '/' => redirect('/training_templates'), as: 'root'
+  # root 'workouts#index'
+  get '/' => redirect('/workouts'), as: 'root'
 end

@@ -15,7 +15,7 @@
  */
 
 
-body {
+ body {
   color: #3c4043;
   font-family: 'Google Sans',Roboto,Arial,sans-serif;
   font-size: 22px;
@@ -25,16 +25,31 @@ body {
   white-space: nowrap;
 }
 
+.hyperlink-button {
+  cursor: pointer
+}
+
+.header-cell {
+  text-align: center;
+  color: #70757a;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(218, 220, 224);
+}
+
 .cell {
   text-align: center;
   color: #70757a;
   font-size: 11px;
   font-weight: 500;
   line-height: 20px;
-  border-left: #dadce0 1px solid;
   border-width: 1px;
   border-style: solid;
   border-color: rgb(218, 220, 224);
+  height: 100px;
 }
 
 div {
@@ -44,20 +59,8 @@ div {
   line-height: 20px;
 }
 
-.cell:focus {
-  outline: none;
-}
-
 table {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-}
-
-div.gboEAb {
-  border-left: #dadce0 1px solid;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-left-color: rgb(218, 220, 224);
-  display: flex;
 }
