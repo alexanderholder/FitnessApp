@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import SimplePopover from "./Button"
+
 class NewWorkout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false,
-      showForm: false
+      clicked: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -14,19 +15,15 @@ class NewWorkout extends React.Component {
 
   handleClick() {
     this.setState(state => ({
-      clicked: !state.clicked,
-      showForm: true
+      clicked: !state.clicked
     }));
   }
 
   render() {
-    const { showForm } = this.state;
-
     return (
-      // this.renderForm()
-      <div onClick={this.handleClick}>
-        {this.state.clicked ? "creating" : '+ New Workout'}
-        {/* {showForm && this.renderForm()} */}
+      <div class="hyperlink-button" onClick={this.handleClick}>
+        {/* {this.state.clicked ? "creating..." : "+ New Workout"} */}
+        <SimplePopover />
       </div>
     )
   }
@@ -49,22 +46,12 @@ function WorkoutDetails() {
 class DayCell extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isCellHighlighted: false};
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState(state => ({
-      isCellHighlighted: !state.isCellHighlighted
-    }));
   }
 
   render() {
     return (
-      <td onClick={this.handleClick} key={this.props.daynumber} className="cell">
-        <h3>{this.props.daynumber}</h3>
-        {/* {this.state.isCellHighlighted ? 'ON' : 'OFF'} */}
+      <td key={this.props.daynumber} className="cell">
+        {this.props.daynumber}
         <WorkoutDetails />
       </td>
     );
@@ -75,7 +62,7 @@ function Head() {
   const daysoftheweek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 
   var header = []
-  daysoftheweek.map((day) => header.push(<th key={day} className="cell">{day}</th>))
+  daysoftheweek.map((day) => header.push(<th key={day} className="header-cell">{day}</th>))
 
   return <thead><tr>{header}</tr></thead>
 }
@@ -110,7 +97,7 @@ class Calendar extends React.Component {
   render() {
     return (
       <div>
-        <h2>Calendar</h2>
+        <h2>Workout Calendar</h2>
         <table>
           <Head />
           <Body />
