@@ -64,6 +64,9 @@ node_modules
 # Dependency directories
 node_modules/
 
+### OSX ###
+*.DS_Store
+
 /public/packs
 /public/packs-test
 /node_modules
