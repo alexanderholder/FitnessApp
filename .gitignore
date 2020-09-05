@@ -77,3 +77,4 @@ yarn-debug.log*
 *Db.*
 config/database.yml
 config/database.yml
+db
