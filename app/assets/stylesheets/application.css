@@ -18,7 +18,7 @@
  body {
   color: #3c4043;
   font-family: 'Google Sans',Roboto,Arial,sans-serif;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 28px;
@@ -32,7 +32,7 @@
 .header-cell {
   text-align: center;
   color: #70757a;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 20px;
   border-width: 1px;
@@ -50,6 +50,7 @@
   border-style: solid;
   border-color: rgb(218, 220, 224);
   height: 100px;
+  vertical-align:top;
 }
 
 div {
