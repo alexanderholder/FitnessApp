@@ -17,7 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: demo_test_development
+  database: fitness-app_development
   pool: 5
   username: alexholder
   password:
@@ -47,7 +47,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: demo_test_test
+  database: fitness-app_test
   pool: 5
   username: alexholder
   password:
