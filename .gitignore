@@ -73,3 +73,8 @@ node_modules/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+*Db.*
+config/database.yml
+config/database.yml
+db
