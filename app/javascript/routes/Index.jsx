@@ -1,12 +1,13 @@
+// @flow
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "../components/Home";
+import Calendar from "../components/calendar/Calendar";
 
 export default (
   <Router>
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/workouts" exact component={Home} />
+      <Route path="/" exact component={Calendar} />
+      <Route path="/workouts" exact component={Calendar} />
     </Switch>
   </Router>
 );

@@ -1,0 +1,44 @@
+-#
+  - initial_data: Initial data to hydrate the redux store, can be excluded if no initial state is needed
+  - name: Used to load webpack bundle. should be close to name of app and should be setup in /config/webpack/shared.js
+  - root: the id for the root node of your react application
+  eg:
+  = render 'common/spa_setup', initial_state: data_streams_spa_initial_state, name: :data_streams, root: 'DataStreamsAppMount'
+  ------------------------------------------------------------------------------------------------------------------
+- if defined?(no_layout)
+  - @no_layout = true
+- if defined?(spa_nav_help)
+  - content_for(:nav_help, spa_nav_help)
+- if defined?(spa_nav_help_page)
+  - content_for(:nav_help_page, spa_nav_help_page)
+- if defined?(spa_page_title)
+  - content_for(:title, spa_page_title)
+- instance_index = defined?(state_instance_index) ? state_instance_index : ""
+
+- if defined?(root)
+  - unless root == false
+    %div{id: root}
+- else
+  - unless Rails.env.production?
+    - raise ArgumentError, "spa_setup requires a `root` prop, but none was provided. A div with the given ID will be rendered, and the SPA will be mounted inside that div. You can opt out of this by passing `root: false`, do this if you render the relevant div elsewhere (usually a bad idea)."
+
+%script{nonce: content_security_policy_script_nonce}
+  :plain
+    window["#{defined?(initial_state_key) ? j(initial_state_key) : '__INITIAL_STATE__'}"] = #{defined?(initial_state) ? initial_state : 'undefined'}
+
+- if defined?(name)
+  -# if your SPA doesn't have any stylesheets, pass `css: false` to not render a stylesheet
+  - if !Rails.env.development? && (!defined?(css) || css) # We do not use a CSS extractor in development mode
+    = stylesheet_link_tag_with_fallback "webpack/#{name}", media: :all, skip_pipeline: skip_asset_pipeline_for_webpack?
+
+  %script{nonce: content_security_policy_script_nonce}
+    :plain
+      (function() {
+        var script = document.createElement("script")
+        script.src = "#{javascript_path_with_fallback("webpack/#{name}", skip_pipeline: skip_asset_pipeline_for_webpack?)}"
+        script.async = false
+        script.onload = function() {
+          window.SPA.#{name.to_s.camelize}.run("#{instance_index}")
+        }
+        document.body.appendChild(script)
+      })()
