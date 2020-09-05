@@ -1,9 +1,7 @@
-// @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -13,8 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimplePopover() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isShown, setIsShown] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,8 +26,8 @@ export default function SimplePopover() {
 
   return (
     <div>
-      <div onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        {isShown && ( <div> + New Workout </div> )}
+      <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
+        <div> + New Workout </div>
       </div>
       <Popover
         id={id}
@@ -65,13 +62,6 @@ export default function SimplePopover() {
           <input onFocus={() => this.setState({show_overlay: true})} placeholder="placeholder" />
           <br/>
           <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Value" />
-          {/* <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            // value={this.state.item.name}
-            // onChange={this.changeHandler}
-          /> */}
         </Typography>
       </Popover>
     </div>
