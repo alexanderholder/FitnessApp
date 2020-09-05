@@ -2,11 +2,12 @@ import React from "react";
 import NewWorkout from "../workouts/WorkoutIndex"
 
 function WorkoutDetails() {
-  var workoutsperday = 0
+  var workoutsperday = 1
   var workouts = []
   if (workoutsperday > 0) {
     for (var i = 0; i < workoutsperday; i++) {
-      workouts.push(<div>Workout</div>)
+      workouts.push(<div>Leg Workout</div>)
+      workouts.push(<NewWorkout />)
     }
   } else {
     workouts.push(<NewWorkout />)
