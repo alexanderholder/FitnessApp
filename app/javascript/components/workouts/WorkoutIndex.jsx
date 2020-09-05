@@ -1,4 +1,5 @@
 import React from "react";
+import SimplePopover from "../Excercise"
 
 export default class NewWorkout extends React.Component {
   constructor(props) {
@@ -19,8 +20,8 @@ export default class NewWorkout extends React.Component {
   render() {
     return (
       <div class="hyperlink-button" onClick={this.handleClick}>
-        {this.state.clicked ? "creating..." : "+ New Workout"}
-        {/* <SimplePopover /> */}
+        {/* {this.state.clicked ? "creating..." : "+ New Workout"} */}
+        <SimplePopover />
       </div>
     )
   }

@@ -1,30 +1,30 @@
 import React from "react";
 import NewWorkout from "../workouts/WorkoutIndex"
 
+function WorkoutDetails() {
+  var workoutsperday = 0
+  var workouts = []
+  if (workoutsperday > 0) {
+    for (var i = 0; i < workoutsperday; i++) {
+      workouts.push(<div>Workout</div>)
+    }
+  } else {
+    workouts.push(<NewWorkout />)
+  }
+
+  return workouts
+}
+
 export default class DayCell extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  WorkoutDetails() {
-    var workoutsperday = 0
-    var workouts = []
-    if (workoutsperday > 0) {
-      for (var i = 0; i < workoutsperday; i++) {
-        workouts.push(<div>Workout</div>)
-      }
-    } else {
-      workouts.push(<NewWorkout />)
-    }
-
-    return workouts
   }
 
   render() {
     return (
       <td key={this.props.daynumber} className="cell">
         {this.props.daynumber}
-        {/* <WorkoutDetails /> */}
+        <WorkoutDetails />
       </td>
     );
   }
