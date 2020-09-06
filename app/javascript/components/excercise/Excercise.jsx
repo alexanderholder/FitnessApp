@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import Tabs from './components/Tabs'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SimplePopover() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isShown, setIsShown] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,9 +29,18 @@ export default function SimplePopover() {
   return (
     <div>
       <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        <div> + New Workout </div>
+        <div className="hoverable-area"
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}>
+          {isShown && (
+          <div>
+            + New Workout
+          </div>
+        )}
+        </div>
       </div>
       <Popover
+        className="workout-form"
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -44,24 +55,7 @@ export default function SimplePopover() {
         }}
       >
         <Typography className={classes.typography}>
-          <input onFocus={() => this.setState({show_overlay: true})} placeholder="Movement" />
-          <br/>
-          {/* <FormControl>
-            <select value={this.state.value} onChange={this.handleChange}>
-              <option value="grapefruit">Grapefruit</option>
-              <option value="lime">Lime</option>
-              <option value="coconut">Coconut</option>
-              <option value="mango">Mango</option>
-            </select>
-          </FormControl>
-          <br/> */}
-          <input onFocus={() => this.setState({show_overlay: true})} placeholder="Measurement Value" />
-          <br/>
-          <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Metric" />
-          <br/>
-          <input onFocus={() => this.setState({show_overlay: true})} placeholder="placeholder" />
-          <br/>
-          <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Value" />
+          <Tabs />
         </Typography>
       </Popover>
     </div>
