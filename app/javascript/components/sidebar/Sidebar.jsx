@@ -1,19 +1,14 @@
 import React from "react";
 import Button from "./components/Button"
+import SimpleAccordion from "./components/Accordion"
 
 export default () => (
   <div>
     <div>
-      <Button text={"+ New Workout"}/>
+      {/* Bulk adds a program */}
+      <Button text={"+ New Program"}/>
+      <br/>
     </div>
-    <div>
-      Templates
-    </div>
-    <div>
-      Sets and reps
-    </div>
-    <div>
-      Excercise Library
-    </div>
+    <SimpleAccordion />
   </div>
 )

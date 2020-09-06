@@ -2,6 +2,7 @@
 import React from "react";
 import Calendar from "./components/calendar/Calendar";
 import Sidebar from "./components/sidebar/Sidebar";
+import TemplateSearch from "./components/templates/Search";
 
 export default () => (
   <div className="app">
@@ -9,7 +10,8 @@ export default () => (
       <Sidebar />
     </div>
     <div className="calendar">
-      <h2>Program Calendar</h2>
+      <TemplateSearch />
+      {/* <h2>Program Calendar</h2> */}
       <Calendar />
     </div>
   </div>
