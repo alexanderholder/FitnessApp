@@ -15,7 +15,24 @@
  */
 
 
- body {
+div.app {
+  width: auto;
+  padding: 50px;
+}
+
+div.side-bar {
+  height: 100%;
+  width: 15%;
+  display:inline-block;
+}
+
+div.calendar {
+  height: 100%;
+  width: 95%;
+  display:inline-block;
+}
+
+body {
   color: #3c4043;
   font-family: 'Google Sans',Roboto,Arial,sans-serif;
   font-size: 25px;
@@ -50,7 +67,7 @@
   border-style: solid;
   border-color: rgb(218, 220, 224);
   height: 100px;
-  vertical-align:top;
+  vertical-align: top;
 }
 
 div {
@@ -62,7 +79,7 @@ div {
 
 table {
   table-layout: fixed;
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
 }
 

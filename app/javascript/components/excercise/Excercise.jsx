@@ -80,7 +80,7 @@ export default function SimplePopover() {
           <div className="workout-form">
             <FormControl className={classes.formControl}>
               <TextField required id="standard-required" label="Movement" />
-              <br/>
+              {/* <br/> */}
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="measurement_metric">For</InputLabel>
                 <Select
@@ -100,14 +100,90 @@ export default function SimplePopover() {
                   <option value={"max"}>max</option>
                 </Select>
               </FormControl>
-              <br/>
-              <input onFocus={() => this.setState({show_overlay: true})} placeholder="Measurement Value" />
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="measurement_metric">For</InputLabel>
+                <Select
+                  native
+                  value={state.for}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'for',
+                    id: 'measurement_metric',
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  <option value={"cals"}>cals</option>
+                  <option value={"reps"}>reps</option>
+                  <option value={"distance"}>distance</option>
+                  <option value={"time"}>time</option>
+                  <option value={"max"}>max</option>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="measurement_metric">For</InputLabel>
+                <Select
+                  native
+                  value={state.for}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'for',
+                    id: 'measurement_metric',
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  <option value={"cals"}>cals</option>
+                  <option value={"reps"}>reps</option>
+                  <option value={"distance"}>distance</option>
+                  <option value={"time"}>time</option>
+                  <option value={"max"}>max</option>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="measurement_metric">For</InputLabel>
+                <Select
+                  native
+                  value={state.for}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'for',
+                    id: 'measurement_metric',
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  <option value={"cals"}>cals</option>
+                  <option value={"reps"}>reps</option>
+                  <option value={"distance"}>distance</option>
+                  <option value={"time"}>time</option>
+                  <option value={"max"}>max</option>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="measurement_metric">For</InputLabel>
+                <Select
+                  native
+                  value={state.for}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: 'for',
+                    id: 'measurement_metric',
+                  }}
+                >
+                  <option aria-label="None" value="" />
+                  <option value={"cals"}>cals</option>
+                  <option value={"reps"}>reps</option>
+                  <option value={"distance"}>distance</option>
+                  <option value={"time"}>time</option>
+                  <option value={"max"}>max</option>
+                </Select>
+              </FormControl>
+              {/* <br/> */}
+              {/* <input onFocus={() => this.setState({show_overlay: true})} placeholder="Measurement Value" />
               <br/>
               <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Metric" />
               <br/>
               <input onFocus={() => this.setState({show_overlay: true})} placeholder="placeholder" />
               <br/>
-              <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Value" />
+              <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Value" /> */}
             </FormControl>
           </div>
         </Typography>
