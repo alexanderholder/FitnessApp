@@ -33,15 +33,8 @@ function Body() {
 }
 
 export default () => (
-  <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <h2>Workout Calendar</h2>
-        <table>
-          <Head />
-          <Body />
-        </table>
-      </div>
-    </div>
-  </div>
-);
+  <table>
+    <Head />
+    <Body />
+  </table>
+)
