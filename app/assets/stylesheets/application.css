@@ -53,6 +53,10 @@
   vertical-align:top;
 }
 
+.cell:hover {
+  background-color: rgb(232,232,232)
+}
+
 div {
   color: #70757a;
   font-size: 11px;
