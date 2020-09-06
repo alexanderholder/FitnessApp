@@ -6,7 +6,7 @@ function WorkoutDetails() {
   var workouts = []
   if (workoutsperday > 0) {
     for (var i = 0; i < workoutsperday; i++) {
-      workouts.push(<div>Leg Workout</div>)
+      workouts.push(<div className="workout-div">Leg Workout</div>)
       workouts.push(<NewWorkout />)
     }
   } else {
