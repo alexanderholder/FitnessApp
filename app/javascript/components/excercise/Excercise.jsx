@@ -2,21 +2,11 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
+import Tabs from './components/Tabs'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
   },
 }));
 
@@ -24,18 +14,6 @@ export default function SimplePopover() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [isShown, setIsShown] = useState(false);
-  const [state, setState] = useState({
-    age: '',
-    name: 'hai',
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,115 +55,7 @@ export default function SimplePopover() {
         }}
       >
         <Typography className={classes.typography}>
-          <div className="workout-form">
-            <FormControl className={classes.formControl}>
-              <TextField required id="standard-required" label="Movement" />
-              {/* <br/> */}
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="measurement_metric">For</InputLabel>
-                <Select
-                  native
-                  value={state.for}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'for',
-                    id: 'measurement_metric',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={"cals"}>cals</option>
-                  <option value={"reps"}>reps</option>
-                  <option value={"distance"}>distance</option>
-                  <option value={"time"}>time</option>
-                  <option value={"max"}>max</option>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="measurement_metric">For</InputLabel>
-                <Select
-                  native
-                  value={state.for}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'for',
-                    id: 'measurement_metric',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={"cals"}>cals</option>
-                  <option value={"reps"}>reps</option>
-                  <option value={"distance"}>distance</option>
-                  <option value={"time"}>time</option>
-                  <option value={"max"}>max</option>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="measurement_metric">For</InputLabel>
-                <Select
-                  native
-                  value={state.for}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'for',
-                    id: 'measurement_metric',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={"cals"}>cals</option>
-                  <option value={"reps"}>reps</option>
-                  <option value={"distance"}>distance</option>
-                  <option value={"time"}>time</option>
-                  <option value={"max"}>max</option>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="measurement_metric">For</InputLabel>
-                <Select
-                  native
-                  value={state.for}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'for',
-                    id: 'measurement_metric',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={"cals"}>cals</option>
-                  <option value={"reps"}>reps</option>
-                  <option value={"distance"}>distance</option>
-                  <option value={"time"}>time</option>
-                  <option value={"max"}>max</option>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="measurement_metric">For</InputLabel>
-                <Select
-                  native
-                  value={state.for}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: 'for',
-                    id: 'measurement_metric',
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value={"cals"}>cals</option>
-                  <option value={"reps"}>reps</option>
-                  <option value={"distance"}>distance</option>
-                  <option value={"time"}>time</option>
-                  <option value={"max"}>max</option>
-                </Select>
-              </FormControl>
-              {/* <br/> */}
-              {/* <input onFocus={() => this.setState({show_overlay: true})} placeholder="Measurement Value" />
-              <br/>
-              <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Metric" />
-              <br/>
-              <input onFocus={() => this.setState({show_overlay: true})} placeholder="placeholder" />
-              <br/>
-              <input onFocus={() => this.setState({show_overlay: true})} placeholder="Weight Value" /> */}
-            </FormControl>
-          </div>
+          <Tabs />
         </Typography>
       </Popover>
     </div>

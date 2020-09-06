@@ -17,19 +17,19 @@
 
 div.app {
   width: auto;
-  padding: 50px;
+  padding: 25px;
 }
 
 div.side-bar {
-  height: 100%;
-  width: 15%;
-  display:inline-block;
+  width: 17%;
+  display: inline-block;
 }
 
 div.calendar {
-  height: 100%;
-  width: 95%;
-  display:inline-block;
+  width: auto;
+  display: inline-block;
+  position: absolute;
+  padding-left: 50px;
 }
 
 body {
@@ -55,6 +55,7 @@ body {
   border-width: 1px;
   border-style: solid;
   border-color: rgb(218, 220, 224);
+  border-bottom-color: transparent;
 }
 
 .cell {
@@ -79,7 +80,7 @@ div {
 
 table {
   table-layout: fixed;
-  width: 90%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -98,7 +99,7 @@ table {
 .workout-form {
   padding: 10px;
   width: 100%;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 500;
 }
 
