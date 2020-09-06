@@ -26,6 +26,7 @@ class CreateInitialModels < ActiveRecord::Migration[5.2]
       t.text :name
       t.integer :sets
       t.text :style
+      t.integer :order
       t.references(:workout, null: false, foreign_key: { on_delete: :cascade }, index: true)
 
       t.timestamps
