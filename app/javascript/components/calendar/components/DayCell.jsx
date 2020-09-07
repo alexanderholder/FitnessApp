@@ -1,5 +1,5 @@
 import React from "react";
-import NewWorkout from "../workouts/WorkoutIndex"
+import NewWorkout from "./WorkoutItem"
 
 function WorkoutDetails() {
   var workoutsperday = 1

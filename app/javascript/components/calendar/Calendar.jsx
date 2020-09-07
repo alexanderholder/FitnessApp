@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import DayCell from "./DayCell"
+import DayCell from "./components/DayCell"
 
 function Head() {
   const daysoftheweek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]

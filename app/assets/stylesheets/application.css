@@ -29,7 +29,7 @@ div.calendar {
   width: auto;
   display: inline-block;
   position: absolute;
-  padding-left: 50px;
+  padding-left: 25px;
 }
 
 body {
@@ -43,7 +43,8 @@ body {
 }
 
 .hyperlink-button {
-  cursor: pointer
+  cursor: pointer;
+  color: inherit;
 }
 
 .header-cell {
