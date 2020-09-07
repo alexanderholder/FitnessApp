@@ -23,7 +23,7 @@ export default class DayCell extends React.Component {
 
   render() {
     return (
-      <td key={this.props.daynumber} className="cell">
+      <td key={this.props.daynumber} className="cell cell:hover">
         {this.props.daynumber}
         <WorkoutDetails />
       </td>
