@@ -68,7 +68,7 @@ body {
   border-width: 1px;
   border-style: solid;
   border-color: rgb(218, 220, 224);
-  height: 100px;
+  height: 155px;
   vertical-align: top;
 }
 
@@ -89,14 +89,14 @@ table {
   border-collapse: collapse;
 }
 
-.workout-div {
-  top: 407px;
+.workout-element {
   height: 22px;
-  left: 0%;
   width: 100%;
   z-index: 5;
   background-color: grey;
-  border-color: grey;
+  border-color: white;
+  border: solid;
+  border-width: 0.5px;
   border-radius: 5px;
   color: white;
 }
@@ -111,5 +111,5 @@ table {
 .hoverable-area {
   vertical-align: center;
   width: 100%;
-  height: 50px;
+  height: 25px;
 }
