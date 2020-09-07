@@ -1,5 +1,5 @@
 import React from "react";
-import SimplePopover from "../excercise/Excercise"
+import SimplePopover from "../../excercise/Excercise"
 
 export default class NewWorkout extends React.Component {
   constructor(props) {

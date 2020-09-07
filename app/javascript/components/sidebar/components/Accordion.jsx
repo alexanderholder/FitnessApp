@@ -59,7 +59,7 @@ export default function SimpleAccordion() {
           aria-controls="panel3a-content"
           id="panel3a-header"
         >
-          <Typography className={classes.heading}> Excercise Library</Typography>
+          <Typography className={classes.heading}>Excercise Library</Typography>
         </AccordionSummary>
       </Accordion>
     </div>
