@@ -29,14 +29,8 @@ export default function SimplePopover() {
   return (
     <div>
       <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        <div className="hoverable-area"
-          onMouseEnter={() => setIsShown(true)}
-          onMouseLeave={() => setIsShown(false)}>
-          {isShown && (
-          <div>
-            + New Workout
-          </div>
-        )}
+        <div className="hoverable-area" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+          {isShown && (<div>+ New Workout</div>)}
         </div>
       </div>
       <Popover

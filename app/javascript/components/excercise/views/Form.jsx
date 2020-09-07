@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import SearchCreate from '../components/SearchCreate'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -33,25 +34,7 @@ export default function Form() {
 
   return (
     <div className="workout-form">
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="movement">movement</InputLabel>
-        <Select
-          native
-          value={state.for}
-          onChange={handleChange}
-          inputProps={{
-            name: 'movement',
-            id: 'movement',
-          }}
-        >
-          <option aria-label="None" value="" />
-          <option value={"legs"}>legs</option>
-          <option value={"back"}>back</option>
-          <option value={"chest"}>chest</option>
-          <option value={"abs"}>abs</option>
-          <option value={"other legs"}>other legs</option>
-        </Select>
-      </FormControl>
+      <SearchCreate />
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="measurement_metric">For</InputLabel>
         <Select
