@@ -72,10 +72,6 @@ body {
   vertical-align: top;
 }
 
-.cell:hover {
-  background-color: rgb(232,232,232)
-}
-
 div {
   color: #70757a;
   font-size: 11px;
@@ -93,7 +89,7 @@ table {
   height: 22px;
   width: 100%;
   z-index: 5;
-  background-color: grey;
+  background-color: rgb(216,216,216);
   border-color: white;
   border: solid;
   border-width: 0.5px;
@@ -104,7 +100,7 @@ table {
 .workout-form {
   padding: 10px;
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 500;
 }
 
