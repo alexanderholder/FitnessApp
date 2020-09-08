@@ -1,15 +1,15 @@
 import React from "react";
-import SimplePopover from "../../excercise/Excercise"
+import WorkoutPopover from "../../workout/WorkoutPopover"
 
 function WorkoutDetails() {
-  var workoutsperday = 1
+  var workoutsperday = 5
   var workouts = []
   if (workoutsperday > 0) {
     if (workoutsperday < 5) {
       for (var i = 0; i < workoutsperday; i++) {
         workouts.push(
           <div className="workout-element">
-            <SimplePopover name="Leg Workout"/>
+            <WorkoutPopover name="AB Rollout"/>
           </div>
         )
       }
@@ -17,7 +17,7 @@ function WorkoutDetails() {
       for (var i = 0; i < 4; i++) {
         workouts.push(
           <div className="workout-element">
-            Leg Workout
+            <WorkoutPopover name="AB Rollout"/>
           </div>
         )
       }
@@ -37,9 +37,11 @@ export default class DayCell extends React.Component {
     return (
       <td key={this.props.daynumber} className="cell">
         {this.props.daynumber}
-        <div className="hyperlink-button">
+        <div>
           <WorkoutDetails />
-          <SimplePopover />
+          <div className="hyperlink-button">
+            <WorkoutPopover />
+          </div>
         </div>
       </td>
     );

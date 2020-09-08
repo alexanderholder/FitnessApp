@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Form() {
+export default function Form(props) {
   const classes = useStyles();
   const [state, setState] = useState({
     age: '',
@@ -34,7 +33,7 @@ export default function Form() {
 
   return (
     <div className="workout-form">
-      <SearchCreate />
+      <span><SearchCreate label="Excercise Name" value={props.excerciseName} /><SearchCreate label="For" /></span>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="measurement_metric">For</InputLabel>
         <Select

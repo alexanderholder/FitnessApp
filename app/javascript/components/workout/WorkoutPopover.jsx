@@ -10,10 +10,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimplePopover() {
+function WorkoutDetails(props) {
+  const [isShown, setIsShown] = useState(false);
+
+  if (props.name) {
+    return (
+      <div>{props.name}</div>
+    );
+  } else{
+    return (
+      <div className="hoverable-area" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+        {isShown &&(<div>+ New Workout</div>)}
+      </div>
+    );
+  };
+};
+
+export default function WorkoutPopover(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isShown, setIsShown] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,9 +44,7 @@ export default function SimplePopover() {
   return (
     <div>
       <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        <div className="hoverable-area" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
-          {isShown && (<div>+ New Workout</div>)}
-        </div>
+        <WorkoutDetails name={props.name} />
       </div>
       <Popover
         className="workout-form"
@@ -49,7 +62,7 @@ export default function SimplePopover() {
         }}
       >
         <Typography className={classes.typography}>
-          <Tabs />
+          <Tabs workoutName={props.name} />
         </Typography>
       </Popover>
     </div>
