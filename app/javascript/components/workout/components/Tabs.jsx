@@ -83,7 +83,7 @@ export default function FullWidthTabs(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Form />
+          <Form excerciseName={props.excerciseName}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Form />

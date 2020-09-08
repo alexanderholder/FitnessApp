@@ -95,6 +95,7 @@ table {
   border-width: 0.5px;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
 }
 
 .workout-form {
