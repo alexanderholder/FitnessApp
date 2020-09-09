@@ -1,5 +1,6 @@
 import React from "react";
-import WorkoutPopover from "../../workout/WorkoutPopover"
+import Draggable from 'react-draggable'; // The default
+import WorkoutPopover from "../../workout/WorkoutPopover";
 
 function WorkoutDetails() {
   var workoutsperday = 5
@@ -8,17 +9,21 @@ function WorkoutDetails() {
     if (workoutsperday < 5) {
       for (var i = 0; i < workoutsperday; i++) {
         workouts.push(
-          <div className="workout-element">
-            <WorkoutPopover name="AB Rollout"/>
-          </div>
+          <Draggable>
+            <div className="workout-element">
+              <WorkoutPopover name="AB Rollout"/>
+            </div>
+          </Draggable>
         )
       }
     } else {
       for (var i = 0; i < 4; i++) {
         workouts.push(
-          <div className="workout-element">
-            <WorkoutPopover name="AB Rollout"/>
-          </div>
+          <Draggable>
+            <div className="workout-element">
+              <WorkoutPopover name="AB Rollout"/>
+            </div>
+          </Draggable>
         )
       }
       workouts.push(<div>Show More</div>)
