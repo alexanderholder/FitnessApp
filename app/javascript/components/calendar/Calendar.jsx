@@ -33,7 +33,7 @@ function Body() {
 }
 
 export default () => (
-  <table>
+  <table className="calendar">
     <Head />
     <Body />
   </table>
