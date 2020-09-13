@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
-import Tabs from './components/Tabs'
+// import Tabs from './components/Tabs' TODO
+import Form from './views/Form'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -13,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
 function WorkoutDetails(props) {
   const [isShown, setIsShown] = useState(false);
 
-  if (props.name) {
+  if (props.workoutName) {
     return (
-      <div>{props.name}</div>
+      <div>{props.workoutName}</div>
     );
   } else{
     return (
@@ -44,7 +45,7 @@ export default function WorkoutPopover(props) {
   return (
     <div>
       <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        <WorkoutDetails name={props.name} />
+        <WorkoutDetails workoutName={props.workoutName} />
       </div>
       <Popover
         className="workout-form"
@@ -62,9 +63,14 @@ export default function WorkoutPopover(props) {
         }}
       >
         <Typography className={classes.typography}>
-          <Tabs workoutName={props.name} />
+          <Form workoutName={props.workoutName} workoutExcercises={workoutExcercises} />
         </Typography>
       </Popover>
     </div>
   );
 }
+
+var workoutExcercises = [
+  "Clean & Jerk",
+  "Snatch"
+]

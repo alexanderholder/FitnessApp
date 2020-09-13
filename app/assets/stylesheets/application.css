@@ -79,7 +79,7 @@ div {
   line-height: 20px;
 }
 
-table {
+table.calendar {
   table-layout: fixed;
   width: 100%;
   border-collapse: collapse;

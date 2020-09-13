@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Form from '../views/Form'
+import TextField from '@material-ui/core/TextField';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,6 +65,8 @@ export default function FullWidthTabs(props) {
 
   return (
     <div className={classes.root}>
+      <TextField id="standard-basic" label="Standard" />
+      <br/>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
