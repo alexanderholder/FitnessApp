@@ -14,35 +14,26 @@ function ExcerciseForm(props) {
 
   const [isShown, setIsShown] = useState(false);
 
-  // const handleClick = (e) => {
-  //   const index = workoutExcercises.indexOf(5);
-  //   if (index > -1) {
-  //     array.splice(index, 1);
-  //   }
+  var excercises = props.excercises;
+  var excerciseCount = props.excerciseCount;
 
-  //   workoutExcercises.splice(i, 1);
-  // };
-
-  // const handleClick = (e) => {
-  // }
-
-  var workoutExcercises = props.workoutExcercises;
+  // const [excerciseCount, setExcerciseCount] = useState(excerciseCount);
 
   var renderForm = []
-  for (var i = 0; i < workoutExcercises.length; i++) {
+  for (var i = 0; i < excerciseCount; i++) {
     renderForm.push(
       <table>
         <tr>
           <td>
-            <SearchCreate label="Excercise Name" value={workoutExcercises[i]} options={excercises} />
+            <SearchCreate label="Excercise Name" value={excercises} options={excerciseList} />
           </td>
           <td>
-            <SearchCreate label="Sets & Reps" options={setsrepsschemes} />
+            <SearchCreate label="Sets & Reps" options={setsrepsschemeList} />
           </td>
           {isShown &&(
-          <td>
-            <TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/>
-          </td>
+            <td>
+              <TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/>
+            </td>
           )}
           <td>
             <div onClick={() => setIsShown(true)}>
@@ -52,7 +43,7 @@ function ExcerciseForm(props) {
           </td>
           <td>
           <IconButton aria-label="delete" onClick={(e) => this.deleteRow(id, e)}>
-            <DeleteIcon />
+            <DeleteIcon onClick={() => setExcerciseCount(excerciseCount - 1)} />
           </IconButton>
           </td>
         </tr>
@@ -63,26 +54,23 @@ function ExcerciseForm(props) {
   return renderForm;
 }
 
-// TODO add loop for form per excercise
 export default function Form(props) {
-  var workoutExcercises = props.workoutExcercises
-  const handleClick = () => {
-    workoutExcercises.push("")
-  };
+  var excercises = ["Front Squat", "Row"]
+  const [excerciseCount, setExcerciseCount] = useState(excercises.length)
 
   return (
     <div className="workout-form">
       <TextField id="standard-basic" label="Block Name" value={props.workoutName} />
-      <ExcerciseForm workoutExcercises={workoutExcercises}/>
+      <ExcerciseForm excercises={excercises} excerciseCount={excerciseCount} />
       <br/>
-      <div className="hyperlink-button" onClick={handleClick}>
+      <div className="hyperlink-button" onClick={() => setExcerciseCount(excerciseCount + 1)} >
         + Add Excercise
       </div>
     </div>
   );
 }
 
-const setsrepsschemes = [
+const setsrepsschemeList = [
   { title: "3x10" },
   { title: "3x8" },
   { title: "3x10" },
@@ -90,7 +78,7 @@ const setsrepsschemes = [
   { title: "5x10,8,6,4,2" }
 ];
 
-const excercises = [
+const excerciseList = [
   { title: "Clean & Jerk", category: "Clean Variations" },
   { title: "Clean", category: "Clean Variations" },
   { title: "Hang Clean", category: "Clean Variations" },
