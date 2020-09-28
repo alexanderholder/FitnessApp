@@ -1,53 +1,40 @@
-import React, { useState } from 'react';
-import SearchCreate from '../components/SearchCreate';
-import Menu from '../components/Menu'
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MoreVertIcon from '@material-ui/icons/MoreVert'; // TODO remove this
+import React, { useState } from 'react'
+import SearchCreate from '../components/SearchCreate'
+import Menu from '../components/menu/Menu'
+import TextField from '@material-ui/core/TextField'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-function ExcerciseForm(props) {
-  const options = {
-    "weight": ["stuff", "things"],
-    "for": ["otherstuff", "andthings"]
-  };
+function RenderForm(props) {
+  const [isWeightShown, setWeightIsShown] = useState(false)
+  const [isForShown, setForIsShown] = useState(false)
 
-  const [isShown, setIsShown] = useState(false);
-
-  var excercises = props.excercises;
-  var excerciseCount = props.excerciseCount;
-
-  // const [excerciseCount, setExcerciseCount] = useState(excerciseCount);
+  var excercises = props.excercises
+  var excerciseCount = props.excerciseCount
 
   var renderForm = []
   for (var i = 0; i < excerciseCount; i++) {
     renderForm.push(
-      <table>
-        <tr>
-          <td>
-            <SearchCreate label="Excercise Name" value={excercises} options={excerciseList} />
-          </td>
-          <td>
-            <SearchCreate label="Sets & Reps" options={setsrepsschemeList} />
-          </td>
-          {isShown &&(
-            <td>
-              <TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/>
-            </td>
+      <table><tr>
+          <td><SearchCreate label="Excercise Name" value={excercises} options={excerciseList}/></td>
+          {/* <td><input onChange={() => props.setExcerciseCount(excerciseCount - 1)} /></td> */}
+          <td><SearchCreate label="Sets & Reps" options={setsrepsschemeList}/></td>
+          {isWeightShown && (
+            <td><TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/></td>
           )}
-          <td>
-            <div onClick={() => setIsShown(true)}>
-              <MoreVertIcon />
-              {/* <Menu options={["weight", "for"]} /> */}
-            </div>
-          </td>
-          <td>
-          <IconButton aria-label="delete" onClick={(e) => this.deleteRow(id, e)}>
-            <DeleteIcon onClick={() => setExcerciseCount(excerciseCount - 1)} />
-          </IconButton>
-          </td>
-        </tr>
-      </table>
+          {isForShown && (
+            <td><TextField id="standard-basic" label="For" variant="outlined" size="small" width="50"/></td>
+          )}
+          <td><div><Menu
+                isWeightShown={isWeightShown}
+                setWeightIsShown={setWeightIsShown}
+                isForShown={isForShown}
+                setForIsShown={setForIsShown}
+          /></div></td>
+          <td><IconButton aria-label="delete" onClick={() => props.setExcerciseCount(excerciseCount - 1)}>
+            <DeleteIcon/>
+          </IconButton></td>
+      </tr></table>
     );
   };
 
@@ -60,10 +47,14 @@ export default function Form(props) {
 
   return (
     <div className="workout-form">
-      <TextField id="standard-basic" label="Block Name" value={props.workoutName} />
-      <ExcerciseForm excercises={excercises} excerciseCount={excerciseCount} />
+      <TextField id="standard-basic" label="Block Name" value={props.workoutName}/>
+      <RenderForm
+        excercises={excercises}
+        excerciseCount={excerciseCount}
+        setExcerciseCount={setExcerciseCount}
+      />
       <br/>
-      <div className="hyperlink-button" onClick={() => setExcerciseCount(excerciseCount + 1)} >
+      <div className="hyperlink-button" onClick={() => setExcerciseCount(excerciseCount + 1)}>
         + Add Excercise
       </div>
     </div>
@@ -76,7 +67,7 @@ const setsrepsschemeList = [
   { title: "3x10" },
   { title: "3x10,8,6" },
   { title: "5x10,8,6,4,2" }
-];
+]
 
 const excerciseList = [
   { title: "Clean & Jerk", category: "Clean Variations" },
@@ -474,4 +465,4 @@ const excerciseList = [
   { title: "Bike Erg", category: "Cardio" },
   { title: "Ski Erg", category: "Cardio" },
   { title: "Battle Ropes", category: "Cardio" }
-];
+]

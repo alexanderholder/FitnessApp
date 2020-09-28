@@ -5051,6 +5051,11 @@ lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.1
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
+loglevel-plugin-remote@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/loglevel-plugin-remote/-/loglevel-plugin-remote-0.6.8.tgz#9234b75520491dc5b1a34abbbba0101f02dd2b39"
+  integrity sha512-EMhWUOAx4/Wtge1bNzYDvvXzv6PLt07emqTjA+Sc8WfViNSYXxe6kWYFyjcqGS6mqNeOqQ3+AG0xuasynHK0XA==
+
 loglevel@^1.6.8:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.7.0.tgz#728166855a740d59d38db01cf46f042caa041bb0"

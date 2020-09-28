@@ -1,31 +1,28 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import React, { useState } from 'react'
+import Button from '@material-ui/core/Button'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 function MenuItems(props) {
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
-  const options = props.options;
-  const listItems = options.map((option) =>
-    <MenuItem onClick={handleClose}>{option}</MenuItem>
-  );
-
-  return listItems;
-};
+  return (
+    <MenuItem onClick={handleClose}>thing</MenuItem> // TODO return submenu items
+  )
+}
 
 export default function SimpleMenu(props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = () => {
+    setAnchorEl(props.anchorEl)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <div>
@@ -39,8 +36,8 @@ export default function SimpleMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItems options={props.options}/>
+        <MenuItem onClick={handleClose}>thing</MenuItem>
       </Menu>
     </div>
-  );
-};
+  )
+}
