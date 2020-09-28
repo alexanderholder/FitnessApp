@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   resources :excercises
 
+  post 'logger' => 'logger#log'
+
   # root 'workouts#index'
   get '/' => redirect('/workouts'), as: 'root'
 end
