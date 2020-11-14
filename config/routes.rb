@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :workouts, except: :index
   end
   post 'workouts/new' => 'workouts#create'
+  post 'training_templates/data' => 'training_templates#data'
 
   resources :workouts do
     post 'blocks/new' => 'blocks#create'

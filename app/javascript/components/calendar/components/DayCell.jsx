@@ -1,17 +1,19 @@
 import React from "react";
 import Draggable from 'react-draggable'; // The default
-import WorkoutPopover from "../../workout/WorkoutPopover";
+import Workout from "../../workout/Workout";
 
-function WorkoutDetails() {
-  var workoutsperday = 1
+function WorkoutDetails(props) {
+  const workout_details = props.workout_details
+  const workoutsperday = workout_details.length
   var workouts = []
+
   if (workoutsperday > 0) {
     if (workoutsperday < 5) {
       for (var i = 0; i < workoutsperday; i++) {
         workouts.push(
           <Draggable>
             <div className="workout-element">
-              <WorkoutPopover workoutName="EMOM"/>
+              <Workout workoutName={workout_details[i].name}/>
             </div>
           </Draggable>
         )
@@ -21,7 +23,7 @@ function WorkoutDetails() {
         workouts.push(
           <Draggable>
             <div className="workout-element">
-              <WorkoutPopover workoutName="EMOM"/>
+              <Workout workoutName={workout_details[i].name}/>
             </div>
           </Draggable>
         )
@@ -43,9 +45,12 @@ export default class DayCell extends React.Component {
       <td key={this.props.daynumber} className="cell">
         {this.props.daynumber}
         <div>
-          <WorkoutDetails />
+          <WorkoutDetails
+            key = {this.props.daynumber}
+            workout_details={this.props.workouts}
+          />
           <div className="hyperlink-button">
-            <WorkoutPopover />
+            <Workout />
           </div>
         </div>
       </td>

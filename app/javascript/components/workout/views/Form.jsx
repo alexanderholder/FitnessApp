@@ -5,6 +5,20 @@ import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+function SendExcercise(props) {
+  var excercise = props.excercise
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "title": 'React POST Request Example' })
+  }
+
+  fetch('http://localhost:3000/logger', requestOptions)
+    // .then(response => response.json())
+    // .then(data => this.setState({ postId: data.id }));
+}
+
 function RenderForm(props) {
   const [isWeightShown, setWeightIsShown] = useState(false)
   const [isForShown, setForIsShown] = useState(false)
@@ -12,12 +26,14 @@ function RenderForm(props) {
   var excercises = props.excercises
   var excerciseCount = props.excerciseCount
 
+  const [excercise, setExcercise] = useState("")
+
   var renderForm = []
   for (var i = 0; i < excerciseCount; i++) {
     renderForm.push(
       <table><tr>
           <td><SearchCreate label="Excercise Name" value={excercises} options={excerciseList}/></td>
-          {/* <td><input onChange={() => props.setExcerciseCount(excerciseCount - 1)} /></td> */}
+          <td><input onChange={e => setExcercise(e.target.value)} onBlur={() => SendExcercise(excercise)} /></td>
           <td><SearchCreate label="Sets & Reps" options={setsrepsschemeList}/></td>
           {isWeightShown && (
             <td><TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/></td>
@@ -25,12 +41,12 @@ function RenderForm(props) {
           {isForShown && (
             <td><TextField id="standard-basic" label="For" variant="outlined" size="small" width="50"/></td>
           )}
-          <td><div><Menu
+          <td><Menu
                 isWeightShown={isWeightShown}
                 setWeightIsShown={setWeightIsShown}
                 isForShown={isForShown}
                 setForIsShown={setForIsShown}
-          /></div></td>
+          /></td>
           <td><IconButton aria-label="delete" onClick={() => props.setExcerciseCount(excerciseCount - 1)}>
             <DeleteIcon/>
           </IconButton></td>

@@ -5,11 +5,26 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
+function SendData(props) {
+  var data = props
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ "data": data })
+  }
+
+  fetch('http://localhost:3000/training_templates/data', requestOptions)
+    // .then(response => response.json())
+    // .then(data => this.setState({ postId: data.id }));
+}
+
 export default function TemplateSearch() {
   return (
     <Autocomplete
       id="template-list"
       style={{ width: 300 }}
+      onBlur={() => SendData("test")}
       options={options}
       getOptionLabel={(option) => option.title}
       renderInput={(params) => (
