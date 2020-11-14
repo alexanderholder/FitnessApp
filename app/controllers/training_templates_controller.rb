@@ -1,4 +1,11 @@
 class TrainingTemplatesController < ApplicationController
+  skip_before_action :verify_authenticity_token, :only => [:data]
+
+  def data
+    tt = TrainingTemplate.create(name: params["data"])
+    Rails.logger("yeet") if tt.valid?
+  end
+
   def index
     @training_templates = TrainingTemplate.where(user_id: current_user.id)
   end

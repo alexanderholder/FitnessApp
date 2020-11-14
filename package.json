@@ -8,6 +8,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material/textfield": "^7.0.0",
     "@rails/webpacker": "5.2.1",
+    "@reduxjs/toolkit": "^1.4.0",
     "autosuggest-highlight": "^3.1.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.2",
@@ -20,7 +21,8 @@
     "react-draggable": "^4.4.3",
     "react-router-dom": "^5.2.0",
     "react-swipeable-views": "^0.13.9",
-    "react_ujs": "^2.6.1"
+    "react_ujs": "^2.6.1",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
