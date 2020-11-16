@@ -2,7 +2,11 @@
 import React from "react";
 import DayCell from "./components/DayCell"
 
-const workouts = [ { name: "EMOM", day_number: 1 }, { name: "EMOM", day_number: 2 } ]
+const workoutExcercises = ["Clean & Jerk", "Snatch"]
+const workouts = [
+  { name: "EMOM", day_number: 1, excercises: workoutExcercises },
+  { name: "EMOM", day_number: 2, excercises: workoutExcercises }
+]
 
 function Head() {
   const daysoftheweek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]

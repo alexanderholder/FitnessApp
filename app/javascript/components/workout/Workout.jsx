@@ -62,14 +62,9 @@ export default function WorkoutPopover(props) {
         }}
       >
         <Typography className={classes.typography}>
-          <Form workoutName={props.workoutName} workoutExcercises={workoutExcercises} />
+          <Form workoutName={props.workoutName} workoutExcercises={props.workoutExcercises} />
         </Typography>
       </Popover>
     </div>
   );
 }
-
-var workoutExcercises = [
-  "Clean & Jerk",
-  "Snatch"
-]
