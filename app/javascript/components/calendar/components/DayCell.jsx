@@ -4,16 +4,18 @@ import Workout from "../../workout/Workout";
 
 function WorkoutDetails(props) {
   const workout_details = props.workout_details
-  const workoutsperday = workout_details.length
-  var workouts = []
+  const workoutsPerDay = workout_details.length
+  const workouts = []
 
-  if (workoutsperday > 0) {
-    if (workoutsperday < 5) {
-      for (var i = 0; i < workoutsperday; i++) {
+  if (workoutsPerDay > 0) {
+    if (workoutsPerDay < 5) {
+      for (var i = 0; i < workoutsPerDay; i++) {
         workouts.push(
           <Draggable>
             <div className="workout-element">
-              <Workout workoutName={workout_details[i].name}/>
+              <Workout
+                workoutName={workout_details[i].name}
+              />
             </div>
           </Draggable>
         )

@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 function SendExcercise(props) {
-  var excercise = props.excercise
+  const excercise = props.excercise
 
   const requestOptions = {
     method: 'POST',
