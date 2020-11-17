@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SearchCreate from '../components/SearchCreate'
-import Menu from '../components/menu/Menu'
+import Menu from '../components/menu/Index'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
