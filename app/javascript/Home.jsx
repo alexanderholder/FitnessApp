@@ -1,9 +1,9 @@
 // @flow
 import React from "react";
-import Calendar from "./components/calendar/Calendar";
-import Sidebar from "./components/sidebar/Sidebar";
-import TemplateSearch from "./components/templates/Search";
-import Navbar from "./components/navbar/Navbar";
+import Calendar from "./components/calendar/Index";
+import Sidebar from "./components/sidebar/Index";
+import TemplateSearch from "./components/templates/Index";
+import Navbar from "./components/navbar/Index";
 
 export default () => (
   <div className="app">

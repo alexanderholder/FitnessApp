@@ -1,6 +1,6 @@
 import React from "react";
 import Draggable from 'react-draggable'; // The default
-import Workout from "../../workout/Workout";
+import Workout from "../../workout/Index";
 
 function WorkoutDetails(props) {
   const workout_details = props.workout_details
