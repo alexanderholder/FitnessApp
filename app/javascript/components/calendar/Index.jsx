@@ -9,18 +9,28 @@ const workouts = [
 ]
 
 function Head() {
-  const daysoftheweek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+  const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 
-  var header = []
-  daysoftheweek.map(day => {
-    header.push(
-      <th key={day} className="header-cell">
+  const formatedDaysOfTheWeek = []
+  daysOfTheWeek.map(day => {
+    formatedDaysOfTheWeek.push(
+      <th
+        key={day}
+        className="header-cell"
+      >
         {day}
       </th>
     )
   })
 
-  return <thead><tr>{header}</tr></thead>
+  const header =
+    <thead>
+      <tr>
+        {formatedDaysOfTheWeek}
+      </tr>
+    </thead>
+
+  return header
 }
 
 function Row(props) {
