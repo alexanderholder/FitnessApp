@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Draggable from 'react-draggable'; // The default
 import Workout from "../../workout/Index";
 
@@ -13,9 +13,7 @@ function WorkoutDetails(props) {
         workouts.push(
           <Draggable>
             <div className="workout-element">
-              <Workout
-                workoutName={workout_details[i].name}
-              />
+              <Workout workoutDetails={workout_details[i]} />
             </div>
           </Draggable>
         )
@@ -25,7 +23,7 @@ function WorkoutDetails(props) {
         workouts.push(
           <Draggable>
             <div className="workout-element">
-              <Workout workoutName={workout_details[i].name}/>
+              <Workout workoutDetails={workout_details[i]} />
             </div>
           </Draggable>
         )
@@ -48,7 +46,6 @@ export default class DayCell extends React.Component {
         {this.props.daynumber}
         <div>
           <WorkoutDetails
-            key = {this.props.daynumber}
             workout_details={this.props.workouts}
           />
           <div className="hyperlink-button">

@@ -20,57 +20,106 @@ function SendExcercise(props) {
 }
 
 function RenderForm(props) {
+  const excercises = props.excercises
+  const excerciseCount = props.excerciseCount
+
   const [isWeightShown, setWeightIsShown] = useState(false)
   const [isForShown, setForIsShown] = useState(false)
-
-  var excercises = props.excercises
-  var excerciseCount = props.excerciseCount
-
   const [excercise, setExcercise] = useState("")
 
-  var renderForm = []
+  const renderForm = []
   for (var i = 0; i < excerciseCount; i++) {
     renderForm.push(
-      <table><tr>
-          <td><SearchCreate label="Excercise Name" value={excercises} options={excerciseList}/></td>
-          <td><input onChange={e => setExcercise(e.target.value)} onBlur={() => SendExcercise(excercise)} /></td>
-          <td><SearchCreate label="Sets & Reps" options={setsrepsschemeList}/></td>
+      <table>
+        <tr>
+          <td>
+            <SearchCreate
+              label="Excercise Name"
+              value={excercises}
+              options={excerciseList}
+            />
+          </td>
+          <td>
+            <input
+              onChange={e => setExcercise(e.target.value)}
+              onBlur={() => SendExcercise(excercise)} />
+            </td>
+          <td>
+            <SearchCreate
+              label="Sets & Reps"
+              options={setsrepsschemeList}
+            />
+          </td>
           {isWeightShown && (
-            <td><TextField id="standard-basic" label="Weight" variant="outlined" size="small" width="50"/></td>
+            <td>
+              <TextField
+                id="standard-basic"
+                label="Weight"
+                variant="outlined"
+                size="small"
+                width="50"
+              />
+            </td>
           )}
           {isForShown && (
-            <td><TextField id="standard-basic" label="For" variant="outlined" size="small" width="50"/></td>
+            <td>
+              <TextField
+                id="standard-basic"
+                label="For"
+                variant="outlined"
+                size="small"
+                width="50"
+              />
+            </td>
           )}
-          <td><Menu
-                isWeightShown={isWeightShown}
-                setWeightIsShown={setWeightIsShown}
-                isForShown={isForShown}
-                setForIsShown={setForIsShown}
-          /></td>
-          <td><IconButton aria-label="delete" onClick={() => props.setExcerciseCount(excerciseCount - 1)}>
-            <DeleteIcon/>
-          </IconButton></td>
-      </tr></table>
-    );
-  };
+          <td>
+            <Menu
+              isWeightShown={isWeightShown}
+              setWeightIsShown={setWeightIsShown}
+              isForShown={isForShown}
+              setForIsShown={setForIsShown}
+            />
+          </td>
+          <td>
+            <IconButton
+              aria-label="delete"
+              onClick={() => props.setExcerciseCount(excerciseCount - 1)
+            }>
+              <DeleteIcon/>
+            </IconButton>
+          </td>
+        </tr>
+      </table>
+    )
+  }
 
-  return renderForm;
+  return renderForm
 }
 
 export default function Form(props) {
-  var excercises = ["Front Squat", "Row"]
+  const workoutDetails = props.workoutDetails
+  const workoutName = props.workoutDetails.name
+  const excercises = props.workoutDetails.excercises
+
   const [excerciseCount, setExcerciseCount] = useState(excercises.length)
 
   return (
     <div className="workout-form">
-      <TextField id="standard-basic" label="Block Name" value={props.workoutName}/>
+      <TextField
+        d="standard-basic"
+        label="Block Name"
+        value={workoutName}
+      />
       <RenderForm
         excercises={excercises}
         excerciseCount={excerciseCount}
         setExcerciseCount={setExcerciseCount}
       />
       <br/>
-      <div className="hyperlink-button" onClick={() => setExcerciseCount(excerciseCount + 1)}>
+      <div
+        className="hyperlink-button"
+        onClick={() => setExcerciseCount(excerciseCount + 1)}
+      >
         + Add Excercise
       </div>
     </div>
