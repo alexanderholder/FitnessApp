@@ -1,50 +1,61 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Popover from '@material-ui/core/Popover'
+import Typography from '@material-ui/core/Typography'
 import Form from './views/Form'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
-}));
+}))
 
-function WorkoutDetails(props) {
-  const [isShown, setIsShown] = useState(false);
+function Details(props) {
+  const workoutDetails = props.workoutDetails
+  const [isShown, setIsShown] = useState(false)
 
-  if (props.workoutName) {
+  if ( workoutDetails && workoutDetails.name ) {
     return (
-      <div>{props.workoutName}</div>
-    );
-  } else{
+      <div>{ workoutDetails && workoutDetails.name }</div>
+    )
+  } else {
     return (
-      <div className="hoverable-area" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
-        {isShown &&(<div>+ New Workout</div>)}
+      <div
+        className="hoverable-area"
+        onMouseEnter={() => setIsShown(true)}
+        onMouseLeave={() => setIsShown(false)}
+      >
+        { isShown && (<div>+ New Workout</div>) }
       </div>
-    );
-  };
-};
+    )
+  }
+}
 
-export default function WorkoutPopover(props) {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+export default function Card(props) {
+  const workoutDetails = props.workoutDetails
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <div>
-      <div aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-        <WorkoutDetails workoutName={props.workoutName} />
+      <div
+        aria-describedby={id}
+        variant="contained"
+        color="primary"
+        onClick={handleClick}
+      >
+        <Details workoutDetails={workoutDetails} />
       </div>
       <Popover
         className="workout-form"
@@ -61,10 +72,14 @@ export default function WorkoutPopover(props) {
           horizontal: 'center',
         }}
       >
-        <Typography className={classes.typography}>
-          <Form workoutName={props.workoutName} workoutExcercises={props.workoutExcercises} />
+        <Typography
+          className={classes.typography}
+          component={'span'}
+          variant={'body2'}
+        >
+          <Form workoutDetails={workoutDetails} />
         </Typography>
       </Popover>
     </div>
-  );
+  )
 }
