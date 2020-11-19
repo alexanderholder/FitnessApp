@@ -42,8 +42,9 @@ function RenderForm(props) {
           <td>
             <input
               onChange={e => setExcercise(e.target.value)}
-              onBlur={() => SendExcercise(excercise)} />
-            </td>
+              onBlur={() => SendExcercise(excercise)}
+            />
+          </td>
           <td>
             <SearchCreate
               label="Sets & Reps"
