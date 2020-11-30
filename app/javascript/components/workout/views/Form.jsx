@@ -8,13 +8,15 @@ import DeleteIcon from '@material-ui/icons/Delete'
 function SendExcercise(props) {
   const excercise = props.excercise
 
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ "title": 'React POST Request Example' })
-  }
+  localStorage.setItem('excercises', excercise)
 
-  fetch('http://localhost:3000/logger', requestOptions)
+  // const requestOptions = {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ "title": 'React POST Request Example' })
+  // }
+
+  // fetch('http://localhost:3000/logger', requestOptions)
     // .then(response => response.json())
     // .then(data => this.setState({ postId: data.id }));
 }
@@ -35,7 +37,7 @@ function RenderForm(props) {
           <td>
             <SearchCreate
               label="Excercise Name"
-              value={excercises}
+              value={excercises[i]}
               options={excerciseList}
             />
           </td>

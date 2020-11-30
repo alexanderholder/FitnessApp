@@ -4,13 +4,33 @@ import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
 import Form from './views/Form'
 
+// TO REDUX
+import { connect } from 'react-redux'
+
+function mapStateToProps(state) {
+
+  return {
+      count: state
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+
+  return {
+   increment: () => dispatch({type: 'INCREMENT'}),
+   decrement: () => dispatch({type: 'DECREMENT'})
+ };
+}
+
+// the rest of the code --------->
+
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
 }))
 
-function Details(props) {
+function RenderCard(props) {
   const workoutDetails = props.workoutDetails
   const [isShown, setIsShown] = useState(false)
 
@@ -31,7 +51,7 @@ function Details(props) {
   }
 }
 
-export default function Card(props) {
+function Card(props) {
   const workoutDetails = props.workoutDetails
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
@@ -55,7 +75,7 @@ export default function Card(props) {
         color="primary"
         onClick={handleClick}
       >
-        <Details workoutDetails={workoutDetails} />
+        <RenderCard workoutDetails={workoutDetails} />
       </div>
       <Popover
         className="workout-form"
@@ -83,3 +103,5 @@ export default function Card(props) {
     </div>
   )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card)
