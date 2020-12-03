@@ -1,61 +1,23 @@
-import React, { useState } from "react"
-// import Redux from "redux"
-// import { connect } from "react-redux";
-import Draggable from 'react-draggable'; // The default
-import Workout from "../../../workout/Index";
+import React          from "react"
+import Redux          from "redux"
+import { connect }    from "react-redux"
+import WorkoutCards   from "../WorkoutCards"
+import WorkoutCard    from "../WorkoutCard"
 
-// const mapStateToProps = (state, ownProps) => ({
-//   workouts: state.template_workouts,
-// })
-
-function WorkoutDetails(props) {
-  const workout_details = props.workout_details
-  const workoutsPerDay = workout_details.length
-  const workouts = []
-
-  if (workoutsPerDay > 0) {
-    if (workoutsPerDay < 5) {
-      for (var i = 0; i < workoutsPerDay; i++) {
-        workouts.push(
-          <Draggable>
-            <div className="workout-element">
-              <Workout workoutDetails={workout_details[i]} />
-            </div>
-          </Draggable>
-        )
-      }
-    } else {
-      for (var i = 0; i < 4; i++) {
-        workouts.push(
-          <Draggable>
-            <div className="workout-element">
-              <Workout workoutDetails={workout_details[i]} />
-            </div>
-          </Draggable>
-        )
-      }
-      workouts.push(<div>Show More</div>)
-    }
-  }
-
-  return workouts
-}
-
-function Day(props) {
+const Day = (props) => {
   return (
-    <td key={props.daynumber} className="cell">
-      {props.daynumber}
+    <td key={props.dayNumber} className="cell">
+      {props.dayNumber}
       <div>
-        <WorkoutDetails
-          workout_details={props.workouts}
+        <WorkoutCards
+          dayNumber={props.dayNumber}
         />
         <div className="hyperlink-button">
-          <Workout />
+          <WorkoutCard />
         </div>
       </div>
     </td>
   )
 }
 
-export default Day
-// export default connect(mapStateToProps)(DayCell);
+export default connect()(Day)

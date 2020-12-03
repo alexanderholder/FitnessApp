@@ -9,12 +9,12 @@ import { createStore } from 'redux'
 
 const workoutExcercises = ["Clean & Jerk", "Snatch"]
 const workouts = [
-  { name: "EMOM", day_number: 1, excercises: workoutExcercises },
-  { name: "EMOM", day_number: 2, excercises: workoutExcercises }
+  { id: 1, name: "EMOM", day_number: 1, excercises: workoutExcercises },
+  { id: 2, name: "EMOM", day_number: 2, excercises: workoutExcercises }
 ]
 const payload = {
   template_name: "Crossfit",
-  template_length: 1,
+  template_length: 5,
   template_workouts: workouts
 }
 
