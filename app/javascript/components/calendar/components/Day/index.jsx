@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+// import Redux from "redux"
+// import { connect } from "react-redux";
 import Draggable from 'react-draggable'; // The default
-import Workout from "../../workout/Index";
+import Workout from "../../../workout/Index";
+
+// const mapStateToProps = (state, ownProps) => ({
+//   workouts: state.template_workouts,
+// })
 
 function WorkoutDetails(props) {
   const workout_details = props.workout_details
@@ -35,24 +41,21 @@ function WorkoutDetails(props) {
   return workouts
 }
 
-export default class DayCell extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <td key={this.props.daynumber} className="cell">
-        {this.props.daynumber}
-        <div>
-          <WorkoutDetails
-            workout_details={this.props.workouts}
-          />
-          <div className="hyperlink-button">
-            <Workout />
-          </div>
+function Day(props) {
+  return (
+    <td key={props.daynumber} className="cell">
+      {props.daynumber}
+      <div>
+        <WorkoutDetails
+          workout_details={props.workouts}
+        />
+        <div className="hyperlink-button">
+          <Workout />
         </div>
-      </td>
-    );
-  }
+      </div>
+    </td>
+  )
 }
+
+export default Day
+// export default connect(mapStateToProps)(DayCell);
