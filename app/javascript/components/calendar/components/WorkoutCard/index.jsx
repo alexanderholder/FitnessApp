@@ -4,26 +4,6 @@ import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
 import Form from './views/Form'
 
-// TO REDUX
-import { connect } from 'react-redux'
-
-function mapStateToProps(state) {
-
-  return {
-      count: state
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-
-  return {
-   increment: () => dispatch({type: 'INCREMENT'}),
-   decrement: () => dispatch({type: 'DECREMENT'})
- };
-}
-
-// the rest of the code --------->
-
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
@@ -104,4 +84,4 @@ function Card(props) {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card)
+export default Card

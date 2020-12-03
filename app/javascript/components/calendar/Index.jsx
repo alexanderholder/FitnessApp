@@ -17,8 +17,7 @@ const Calendar = (props) => {
       rows.push(
         <Week
           key={i + 1}
-          weekNumber={i + 1}
-          workouts={props.workouts}
+          weekNumber={i}
         />
       )
     }
