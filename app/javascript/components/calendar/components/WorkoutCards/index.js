@@ -6,33 +6,33 @@ import WorkoutCard    from "../WorkoutCard"
 import { getWorkoutsByDayNumberFilter } from "../../selectors"
 
 const WorkoutCards = (props) => {
-  let workouts = []
+  let workoutCards = []
   if (props.workouts.length > 0) {
     if (props.workouts.length < 5) {
       for (let i = 0; i < props.workouts.length; i++) {
-        workouts.push(
+        workoutCards.push(
           <Draggable>
             <div className="workout-element">
-              <WorkoutCard workoutDetails={workouts[i]} />
+              <WorkoutCard workoutDetails={props.workouts[i]} />
             </div>
           </Draggable>
         )
       }
     } else {
       for (var i = 0; i < 4; i++) {
-        workouts.push(
+        workoutCards.push(
           <Draggable>
             <div className="workout-element">
-              <WorkoutCard workoutDetails={workouts[i]} />
+              <WorkoutCard workoutDetails={props.workouts[i]} />
             </div>
           </Draggable>
         )
       }
-      workouts.push(<div>Show More</div>)
+      workoutCards.push(<div>Show More</div>)
     }
   }
 
-  return workouts
+  return workoutCards
 }
 
 const mapStateToProps = (state, ownProps) => {
