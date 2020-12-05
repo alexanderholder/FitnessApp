@@ -1,38 +1,44 @@
+// @flow
 import React          from "react"
 import Redux          from "redux"
+import PropTypes      from 'prop-types'
 import { connect }    from "react-redux"
 import Draggable      from 'react-draggable'
 import WorkoutCard    from "../WorkoutCard"
 import { getWorkoutsByDayNumberFilter } from "../../selectors"
 
 const WorkoutCards = (props) => {
-  let workoutCards = []
-  if (props.workouts.length > 0) {
-    if (props.workouts.length < 5) {
-      for (let i = 0; i < props.workouts.length; i++) {
-        workoutCards.push(
+  if (props.workouts.length === 0) { return [] } else
+  if (props.workouts.length < 5) {
+    return (
+      props.workouts.map(workout =>
+        <Draggable>
+          <div className="workout-element">
+            <WorkoutCard workoutDetails={workout} />
+          </div>
+        </Draggable>
+      )
+    )
+  } else {
+    return (
+      <div>
+        {props.workouts.map(workout =>
           <Draggable>
             <div className="workout-element">
-              <WorkoutCard workoutDetails={props.workouts[i]} />
+              <WorkoutCard workoutDetails={workout} />
             </div>
           </Draggable>
-        )
-      }
-    } else {
-      for (var i = 0; i < 4; i++) {
-        workoutCards.push(
-          <Draggable>
-            <div className="workout-element">
-              <WorkoutCard workoutDetails={props.workouts[i]} />
-            </div>
-          </Draggable>
-        )
-      }
-      workoutCards.push(<div>Show More</div>)
-    }
+        )}
+        <div>Show More</div>
+      </div>
+    )
   }
+}
 
-  return workoutCards
+WorkoutCards.propTypes = {
+  dayNumber: PropTypes.number.isRequired,
+  // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
+  workouts: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {

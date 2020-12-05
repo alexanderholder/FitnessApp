@@ -1,13 +1,9 @@
 // @flow
-import React                    from "react"
-import Redux                    from "redux"
-import { connect, useSelector } from "react-redux"
-import Week                     from "./components/Week"
-
-const mapStateToProps = (state, ownProps) => ({
-  workouts: state.template_workouts,
-  template_length: state.template_length
-})
+import React       from "react"
+import Redux       from "redux"
+import PropTypes   from 'prop-types'
+import { connect } from "react-redux"
+import Week        from "./components/Week"
 
 const Calendar = (props) => {
   const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
@@ -44,6 +40,14 @@ const Calendar = (props) => {
 
 const mapDispatchToProps = {
   // ... normally is an object full of action creators
+}
+
+const mapStateToProps = (state, ownProps) => ({
+  template_length: state.template_length
+})
+
+Calendar.propTypes = {
+  template_length: PropTypes.number.isRequired
 }
 
 export default connect(mapStateToProps)(Calendar)
