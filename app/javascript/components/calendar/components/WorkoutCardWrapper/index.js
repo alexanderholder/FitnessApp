@@ -7,14 +7,14 @@ import Draggable      from 'react-draggable'
 import WorkoutCard    from "../WorkoutCard"
 import { getWorkoutsByDayNumberFilter } from "../../selectors"
 
-const WorkoutCards = (props) => {
+const WorkoutCardWrapper = (props) => {
   if (props.workouts.length === 0) { return [] } else
   if (props.workouts.length < 5) {
     return (
       props.workouts.map(workout =>
-        <Draggable>
+        <Draggable key={workout.id.toString()} >
           <div className="workout-element">
-            <WorkoutCard workoutDetails={workout} />
+            <WorkoutCard workout={workout} />
           </div>
         </Draggable>
       )
@@ -23,9 +23,9 @@ const WorkoutCards = (props) => {
     return (
       <div>
         {props.workouts.map(workout =>
-          <Draggable>
+          <Draggable key={workout.id.toString()} >
             <div className="workout-element">
-              <WorkoutCard workoutDetails={workout} />
+              <WorkoutCard workout={workout} />
             </div>
           </Draggable>
         )}
@@ -35,7 +35,7 @@ const WorkoutCards = (props) => {
   }
 }
 
-WorkoutCards.propTypes = {
+WorkoutCardWrapper.propTypes = {
   dayNumber: PropTypes.number.isRequired,
   // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
   workouts: PropTypes.array.isRequired
@@ -46,4 +46,4 @@ const mapStateToProps = (state, ownProps) => {
   return { workouts }
 }
 
-export default connect(mapStateToProps)(WorkoutCards)
+export default connect(mapStateToProps)(WorkoutCardWrapper)
