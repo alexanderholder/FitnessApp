@@ -1,49 +1,18 @@
-import React, { useState } from 'react'
-import { makeStyles }      from '@material-ui/core/styles'
-import Popover             from '@material-ui/core/Popover'
-import Typography          from '@material-ui/core/Typography'
-import Form                from './views/Form'
+import React, { useState }  from 'react'
+import Redux                from "redux"
+import PropTypes            from 'prop-types'
+import { connect }          from "react-redux"
+import { makeStyles }       from '@material-ui/core/styles'
+import Popover              from '@material-ui/core/Popover'
+import Typography           from '@material-ui/core/Typography'
+import Form                 from './views/Form'
 
-const useStyles = makeStyles((theme) => ({
-  typography: {
-    padding: theme.spacing(2),
-  },
-}))
-
-function RenderCard(props) {
-  const workoutDetails = props.workoutDetails
-  const [isShown, setIsShown] = useState(false)
-
-  if ( workoutDetails && workoutDetails.name ) {
-    return (
-      <div>{ workoutDetails && workoutDetails.name }</div>
-    )
-  } else {
-    return (
-      <div
-        className="hoverable-area"
-        onMouseEnter={() => setIsShown(true)}
-        onMouseLeave={() => setIsShown(false)}
-      >
-        { isShown && (<div>+ New Workout</div>) }
-      </div>
-    )
-  }
-}
-
-function Card(props) {
-  const workoutDetails = props.workoutDetails
+const WorkoutCard = (props) => {
+  const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
+  const handleClick = (event) => { setAnchorEl(event.currentTarget) }
+  const handleClose = () => { setAnchorEl(null) }
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
@@ -55,7 +24,7 @@ function Card(props) {
         color="primary"
         onClick={handleClick}
       >
-        <RenderCard workoutDetails={workoutDetails} />
+        { props.workout && props.workout.name }
       </div>
       <Popover
         className="workout-form"
@@ -77,11 +46,21 @@ function Card(props) {
           component={'span'}
           variant={'body2'}
         >
-          <Form workoutDetails={workoutDetails} />
+          <Form workout={props.workout} />
         </Typography>
       </Popover>
     </div>
   )
 }
 
-export default Card
+// Card.propTypes = {
+//   // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
+//   workouts: PropTypes.array.isRequired
+// }
+
+// const mapStateToProps = (state, ownProps) => {
+//   const workouts = getWorkoutsByDayNumberFilter(state, ownProps.dayNumber)
+//   return { workouts }
+// }
+
+export default connect()(WorkoutCard)
