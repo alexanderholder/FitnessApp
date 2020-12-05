@@ -1,5 +1,7 @@
+// @flow
 import React          from "react"
 import Redux          from "redux"
+import PropTypes      from 'prop-types'
 import { connect }    from "react-redux"
 import WorkoutCards   from "../WorkoutCards"
 import WorkoutCard    from "../WorkoutCard"
@@ -18,6 +20,10 @@ const Day = (props) => {
       </div>
     </td>
   )
+}
+
+Day.propTypes = {
+  dayNumber: PropTypes.number.isRequired
 }
 
 export default connect()(Day)
