@@ -1,9 +1,13 @@
 // @flow
 import React            from "react"
-import App              from "../components/App"
 import { render }       from "react-dom"
 import { Provider }     from 'react-redux'
 import { createStore }  from 'redux'
+
+import Calendar       from "./Calendar"
+import Navbar         from "./Navbar"
+import Sidebar        from "./Sidebar"
+import TemplateSearch from "./Templates"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
@@ -37,7 +41,19 @@ const store = createStore(counter, payload)
 document.addEventListener("DOMContentLoaded", () => {
   render(
     <Provider store={store}>
-      <App />
+      <div className="app">
+        <div className="float-right">
+          <Navbar />
+        </div>
+        <div className="side-bar">
+          <Sidebar />
+        </div>
+        <div className="calendar">
+          <TemplateSearch />
+          {/* <h2>Program Calendar</h2> TODO confirm can remove this in favour of searchbar */}
+          <Calendar />
+        </div>
+      </div>
     </Provider>,
     document.body
       ? document.body.appendChild(document.createElement("div"))
