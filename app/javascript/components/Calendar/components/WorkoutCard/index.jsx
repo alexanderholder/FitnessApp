@@ -1,11 +1,11 @@
-import React, { useState }  from 'react'
+import React, { useState }  from "react"
 import Redux                from "redux"
-import PropTypes            from 'prop-types'
+import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
-import { makeStyles }       from '@material-ui/core/styles'
-import Popover              from '@material-ui/core/Popover'
-import Typography           from '@material-ui/core/Typography'
-import Form                 from './views/Form'
+import { makeStyles }       from "@material-ui/core/styles"
+import Popover              from "@material-ui/core/Popover"
+import Typography           from "@material-ui/core/Typography"
+import Form                 from "./views/Form"
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
@@ -53,14 +53,14 @@ const WorkoutCard = (props) => {
   )
 }
 
-// Card.propTypes = {
-//   // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
-//   workouts: PropTypes.array.isRequired
-// }
+WorkoutCard.propTypes = {
+  // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
+  workouts: PropTypes.array.isRequired
+}
 
-// const mapStateToProps = (state, ownProps) => {
-//   const workouts = getWorkoutsByDayNumberFilter(state, ownProps.dayNumber)
-//   return { workouts }
-// }
+const mapStateToProps = (state, ownProps) => {
+  const workout = getWorkoutById(state, ownProps.workout.id)
+  return { workout }
+}
 
-export default connect()(WorkoutCard)
+export default connect(mapStateToProps)(WorkoutCard)
