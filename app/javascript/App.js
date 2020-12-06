@@ -12,7 +12,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 const workoutExcercises = ["Clean & Jerk", "Snatch"]
 const workouts = [
   { id: 1, name: "EMOM", day_number: 1, excercises: workoutExcercises },
-  { id: 2, name: "EMOM", day_number: 2, excercises: workoutExcercises }
+  { id: 2, name: "AMRAP", day_number: 2, excercises: workoutExcercises }
 ]
 const payload = {
   template_name: "Crossfit",
