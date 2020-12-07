@@ -13,9 +13,7 @@ const WorkoutCardWrapper = (props) => {
     return (
       props.workouts.map(workout =>
         <Draggable key={workout.id.toString()} >
-          <div className="workout-element">
-            <WorkoutCard workout={workout} />
-          </div>
+          <WorkoutCard workout_id={workout.id} />
         </Draggable>
       )
     )
@@ -24,9 +22,7 @@ const WorkoutCardWrapper = (props) => {
       <div>
         {props.workouts.map(workout =>
           <Draggable key={workout.id.toString()} >
-            <div className="workout-element">
-              <WorkoutCard workout={workout} />
-            </div>
+            <WorkoutCard workout_id={workout.id} />
           </Draggable>
         )}
         <div>Show More</div>
