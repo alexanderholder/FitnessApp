@@ -7,7 +7,7 @@ import { makeStyles }       from "@material-ui/core/styles"
 import Popover              from "@material-ui/core/Popover"
 import Typography           from "@material-ui/core/Typography"
 import Form                 from "./views/Form"
-import { getWorkoutById }   from "../../selectors"
+import * as Selectors       from "../../selectors"
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
@@ -18,6 +18,10 @@ const WorkoutCard = (props) => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
+  const workout = props.workout
+  console.log(workout)
+  // issue here is its retuning an array of objects
+
   return (
     <div className="workout-element">
       <div
@@ -26,7 +30,7 @@ const WorkoutCard = (props) => {
         color="primary"
         onClick={handleClick}
       >
-        { props.workout && props.workout.id }
+        { props.workout && props.workout.name }
       </div>
       <Popover
         className="workout-form"
@@ -55,12 +59,12 @@ const WorkoutCard = (props) => {
   )
 }
 
-// WorkoutCard.propTypes = {
-//   workout: PropTypes.Workout.isRequired // TODO fix this later
-// }
+WorkoutCard.propTypes = {
+  workout_id: PropTypes.number.isRequired
+}
 
 const mapStateToProps = (state, ownProps) => {
-  const workout = getWorkoutById(state, ownProps.workout_id)
+  const workout = Selectors.getWorkoutByIdFilter(state, ownProps.workout_id)
   return { workout }
 }
 
