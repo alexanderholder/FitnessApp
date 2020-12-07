@@ -23,5 +23,5 @@ export const getWorkoutsByDayNumberFilter = (store, dayNumber) =>
 // export const getWorkouts = store =>
 //   getWorkoutList(store).map(day_number => getWorkoutByDay(store, day_number))
 
-// export const getWorkoutByIdFilter = (store, id) =>
-//   getWorkoutsState(store).filter(workout => workout.id == id)
+export const getWorkoutByIdFilter = (store, id) =>
+  getWorkoutsState(store).filter(workout => workout.id == id)
