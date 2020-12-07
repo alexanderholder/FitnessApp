@@ -5,7 +5,12 @@ import App                from './App';
 import * as serviceWorker from './serviceWorker';
 
 const renderApp = () => {
-  ReactDOM.render(<App />, document.getElementById('root'));
+  document.addEventListener("DOMContentLoaded", () => {
+    ReactDOM.render(
+      <App />,
+      document.body.appendChild(document.createElement("div"))
+    )
+  });
 };
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {

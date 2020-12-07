@@ -1,3 +1,4 @@
+// flow
 import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
@@ -6,6 +7,7 @@ import { makeStyles }       from "@material-ui/core/styles"
 import Popover              from "@material-ui/core/Popover"
 import Typography           from "@material-ui/core/Typography"
 import Form                 from "./views/Form"
+import { getWorkoutById }   from "../../selectors"
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
@@ -17,14 +19,14 @@ const WorkoutCard = (props) => {
   const id = open ? 'simple-popover' : undefined
 
   return (
-    <div>
+    <div className="workout-element">
       <div
         aria-describedby={id}
         variant="contained"
         color="primary"
         onClick={handleClick}
       >
-        { props.workout && props.workout.name }
+        { props.workout && props.workout.id }
       </div>
       <Popover
         className="workout-form"
@@ -53,13 +55,12 @@ const WorkoutCard = (props) => {
   )
 }
 
-WorkoutCard.propTypes = {
-  // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
-  workouts: PropTypes.array.isRequired
-}
+// WorkoutCard.propTypes = {
+//   workout: PropTypes.Workout.isRequired // TODO fix this later
+// }
 
 const mapStateToProps = (state, ownProps) => {
-  const workout = getWorkoutById(state, ownProps.workout.id)
+  const workout = getWorkoutById(state, ownProps.workout_id)
   return { workout }
 }
 
