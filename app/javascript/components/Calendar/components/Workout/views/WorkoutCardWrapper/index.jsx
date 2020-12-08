@@ -3,9 +3,11 @@ import React          from "react"
 import Redux          from "redux"
 import PropTypes      from 'prop-types'
 import { connect }    from "react-redux"
+
+import { getWorkoutsByDayNumberFilter } from "../../../../selectors"
+
 import Draggable      from 'react-draggable'
-import WorkoutCard    from "../WorkoutCard"
-import { getWorkoutsByDayNumberFilter } from "../../selectors"
+import WorkoutCard    from "../../components/WorkoutCard"
 
 const WorkoutCardWrapper = (props) => {
   if (props.workouts.length === 0) { return [] } else

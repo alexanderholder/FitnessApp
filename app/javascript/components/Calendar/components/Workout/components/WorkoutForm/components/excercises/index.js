@@ -1,135 +1,8 @@
-import React, { useState } from 'react'
-import SearchCreate from '../components/SearchCreate'
-import Menu from '../components/menu/Index'
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
+//////////////////////////////////////
+// the below will be moved to rails //
+//////////////////////////////////////
 
-function SendExcercise(props) {
-  const excercise = props.excercise
-
-  localStorage.setItem('excercises', excercise)
-
-  // const requestOptions = {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ "title": 'React POST Request Example' })
-  // }
-
-  // fetch('http://localhost:3000/logger', requestOptions)
-    // .then(response => response.json())
-    // .then(data => this.setState({ postId: data.id }));
-}
-
-function RenderForm(props) {
-  const excercises = props.excercises
-  const excerciseCount = props.excerciseCount
-
-  const [isWeightShown, setWeightIsShown] = useState(false)
-  const [isForShown, setForIsShown] = useState(false)
-  const [excercise, setExcercise] = useState("")
-
-  const renderForm = []
-  for (var i = 0; i < excerciseCount; i++) {
-    renderForm.push(
-      <table>
-        <tr>
-          <td>
-            <SearchCreate
-              label="Excercise Name"
-              value={excercises[i]}
-              options={excerciseList}
-            />
-          </td>
-          <td>
-            <input
-              onChange={e => setExcercise(e.target.value)}
-              onBlur={() => SendExcercise(excercise)}
-            />
-          </td>
-          <td>
-            <SearchCreate
-              label="Sets & Reps"
-              options={setsrepsschemeList}
-            />
-          </td>
-          {isWeightShown && (
-            <td>
-              <TextField
-                id="standard-basic"
-                label="Weight"
-                variant="outlined"
-                size="small"
-                width="50"
-              />
-            </td>
-          )}
-          {isForShown && (
-            <td>
-              <TextField
-                id="standard-basic"
-                label="For"
-                variant="outlined"
-                size="small"
-                width="50"
-              />
-            </td>
-          )}
-          <td>
-            <Menu
-              isWeightShown={isWeightShown}
-              setWeightIsShown={setWeightIsShown}
-              isForShown={isForShown}
-              setForIsShown={setForIsShown}
-            />
-          </td>
-          <td>
-            <IconButton
-              aria-label="delete"
-              onClick={() => props.setExcerciseCount(excerciseCount - 1)
-            }>
-              <DeleteIcon/>
-            </IconButton>
-          </td>
-        </tr>
-      </table>
-    )
-  }
-
-  return renderForm
-}
-
-export default function Form(props) {
-  const workoutDetails = props.workoutDetails
-  const workoutName = props.workoutDetails.name
-  const excercises = props.workoutDetails.excercises
-
-  const [excerciseCount, setExcerciseCount] = useState(excercises.length)
-
-  return (
-    <div className="workout-form">
-      <TextField
-        d="standard-basic"
-        label="Block Name"
-        value={workoutName}
-      />
-      <RenderForm
-        excercises={excercises}
-        excerciseCount={excerciseCount}
-        setExcerciseCount={setExcerciseCount}
-      />
-      <br/>
-      <div
-        className="hyperlink-button"
-        onClick={() => setExcerciseCount(excerciseCount + 1)}
-      >
-        + Add Excercise
-      </div>
-    </div>
-  );
-}
-
-const setsrepsschemeList = [
+export const setsRepsSchemeList = [
   { title: "3x10" },
   { title: "3x8" },
   { title: "3x10" },
@@ -137,7 +10,7 @@ const setsrepsschemeList = [
   { title: "5x10,8,6,4,2" }
 ]
 
-const excerciseList = [
+export const excerciseList = [
   { title: "Clean & Jerk", category: "Clean Variations" },
   { title: "Clean", category: "Clean Variations" },
   { title: "Hang Clean", category: "Clean Variations" },
