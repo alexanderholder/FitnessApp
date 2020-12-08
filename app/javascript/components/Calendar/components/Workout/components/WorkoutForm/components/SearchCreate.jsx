@@ -78,7 +78,6 @@ export default function SearchCreate(props) {
 
           return filtered;
         }}
-        id="free-solo-dialog-demo"
         options={props.options}
         getOptionLabel={(option) => {
           // e.g value selected with enter, right from the input

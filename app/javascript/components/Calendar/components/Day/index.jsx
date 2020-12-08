@@ -3,7 +3,7 @@ import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from 'prop-types'
 import { connect }          from "react-redux"
-import WorkoutCardWrapper   from "../WorkoutCardWrapper"
+import WorkoutCardWrapper   from "../Workout/views/WorkoutCardWrapper"
 
 const Day = (props) => {
   const [isShown, setIsShown] = useState(false)

@@ -11,9 +11,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 
 const workouts = [
-  { id: 1, name: "EMOM", day_number: 1, excercises: ["Clean & Jerk", "Snatch"] },
-  { id: 2, name: "AMRAP", day_number: 2, excercises: ["Box Jumps", "Squat"] }
+  { id: 1, name: "EMOM", day_number: 1, excercises: [
+    { id: 1, name: "Clean & Jerk" },
+    { id: 2, name: "Snatch" }
+  ]},
+  { id: 2, name: "AMRAP", day_number: 2, excercises: [
+    { id: 3, name: "Box Jumps" },
+    { id: 4, name: "Squat" }
+  ]}
 ]
+
 const payload = {
   template_name: "Crossfit",
   template_length: 5,
