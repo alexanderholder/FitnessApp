@@ -1,4 +1,4 @@
-export const getWorkoutsState = store => store.template_workouts
+export const getWorkoutsState = store => store.workouts
 
 export const getWorkoutsByDayNumberFilter = (store, dayNumber) =>
   getWorkoutsState(store).filter(workout => workout.day_number == dayNumber)

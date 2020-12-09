@@ -43,7 +43,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  template_length: state.template_length
+  template_length: state.template.length
 })
 
 Calendar.propTypes = {
