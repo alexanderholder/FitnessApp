@@ -3,44 +3,17 @@ import React            from "react"
 import { render }       from "react-dom"
 import { Provider }     from 'react-redux'
 import { createStore }  from 'redux'
+
 import ErrorBoundary    from "./errorBoundry"
+import configureStore from './state/store';
 
 import { Calendar, Navbar, Sidebar, TemplateSearch } from "./components"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 
-const workouts = [
-  { id: 1, name: "EMOM", day_number: 1, excercises: [
-    { id: 1, name: "Clean & Jerk" },
-    { id: 2, name: "Snatch" }
-  ]},
-  { id: 2, name: "AMRAP", day_number: 2, excercises: [
-    { id: 3, name: "Box Jumps" },
-    { id: 4, name: "Squat" }
-  ]}
-]
-
-const payload = {
-  template_name: "Crossfit",
-  template_length: 5,
-  template_workouts: workouts
-}
-
-const counter = (state = 0, action) => {
-  switch(action.type) {
-    case 'INCREMENT':
-      return state = state + 1
-
-    case 'DECREMENT':
-      return state = state -1
-    default:
-      return state
-  }
-}
-
 function App() {
-  const store = createStore(counter, payload)
+  const store = configureStore();
 
   return (
     <ErrorBoundary>
