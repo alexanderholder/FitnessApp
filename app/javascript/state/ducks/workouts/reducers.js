@@ -23,6 +23,19 @@ const workouts = (state = {}, action) => {
     // case types.REMOVE_ALL_WORKOUTS: {
     //   return [...state.filter((workout) => !isSameDay(workout.date, payload))];
     // }
+    case types.ADD_EXCERCISE: {
+      return [...state, payload];
+    }
+    case types.REMOVE_EXCERCISE: {
+      const indexToDelete = state.findIndex((el) => el.id === payload);
+      return [
+        ...state.slice(0, indexToDelete),
+        ...state.slice(indexToDelete + 1),
+      ];
+    }
+    case types.REMOVE_ALL_EXCERCISES: {
+      return [...state.filter((workout) => !isSameDay(workout.date, payload))];
+    }
     default:
       return state;
   }
