@@ -14,10 +14,14 @@ import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+import { useActions }       from "../../../../../../hooks"
+import { workoutsActions } from "../../../../../../state/ducks/workouts"
+
 const WorkoutForm = (props) => {
   const [isWeightShown, setWeightIsShown] = useState(false)
   const [isForShown, setForIsShown] = useState(false)
   const [excercise, setExcercise] = useState("")
+  const { removeExcercise } = useActions(workoutsActions)
 
   return (
     <table>
@@ -75,7 +79,7 @@ const WorkoutForm = (props) => {
           <td>
             <IconButton
               aria-label="delete"
-              // onClick={() => props.setExcerciseCount(excerciseCount - 1)}
+              onClick={() => removeExcercise(props.excercise)}
             >
               <DeleteIcon/>
             </IconButton>
