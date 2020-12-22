@@ -2,12 +2,16 @@
 import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
-import { connect }          from "react-redux"
 import * as Selectors       from "../../../../selectors"
 import TextField            from "@material-ui/core/TextField"
 import WorkoutForm          from "../../components/WorkoutForm"
 
+import { connect, useDispatch, useSelector }  from 'react-redux'
+import { addExcercise } from '../../../../../../redux/reducers/workoutsSlice'
+
 const WorkoutFormWrapper = (props) => {
+  const dispatch = useDispatch()
+
   return (
     <div className="workout-form">
       <TextField
@@ -25,7 +29,7 @@ const WorkoutFormWrapper = (props) => {
       <br/>
       <div
         className="hyperlink-button"
-        // onClick={() => setExcerciseCount(excerciseCount + 1)} TODO fix this
+        onClick={() => dispatch(addExcercise(props.workout.id))}
       >
         + Add Excercise
       </div>

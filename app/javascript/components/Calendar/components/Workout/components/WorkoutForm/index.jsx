@@ -2,7 +2,6 @@
 import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
-import { connect }          from "react-redux"
 import * as Selectors       from "../../../../selectors"
 
 import { setsRepsSchemeList, excerciseList } from "./components/excercises"
@@ -14,14 +13,16 @@ import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-import { useActions }       from "../../../../../../hooks"
-import { workoutsActions } from "../../../../../../state/ducks/workouts"
+import { connect, useDispatch, useSelector }  from 'react-redux'
+import { removeExcercise } from '../../../../../../redux/reducers/workoutsSlice'
 
 const WorkoutForm = (props) => {
   const [isWeightShown, setWeightIsShown] = useState(false)
   const [isForShown, setForIsShown] = useState(false)
   const [excercise, setExcercise] = useState("")
-  const { removeExcercise } = useActions(workoutsActions)
+
+  const dispatch = useDispatch()
+  const { id, name } = props
 
   return (
     <table>
@@ -79,7 +80,7 @@ const WorkoutForm = (props) => {
           <td>
             <IconButton
               aria-label="delete"
-              onClick={() => removeExcercise(props.excercise)}
+              onClick={() => dispatch(removeExcercise(id))}
             >
               <DeleteIcon/>
             </IconButton>
