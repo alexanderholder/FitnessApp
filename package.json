@@ -25,11 +25,13 @@
     "react_ujs": "^2.6.1",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "flow-bin": "^0.132.0",
+    "redux-devtools-extension": "^2.13.8",
     "webpack-dev-server": "^3.11.0"
   }
 }

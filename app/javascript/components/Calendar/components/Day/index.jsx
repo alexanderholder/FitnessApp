@@ -4,12 +4,9 @@ import Redux                from "redux"
 import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
 import WorkoutCardWrapper   from "../Workout/views/WorkoutCardWrapper"
-import { useActions }       from "../../../../hooks"
-import { workoutsActions } from "../../../../state/ducks/workouts"
 
 const Day = (props) => {
   const [isShown, setIsShown] = useState(false)
-  const { addWorkout } = useActions(workoutsActions);
 
   return (
     <td key={props.dayNumber} className="cell">
@@ -26,7 +23,8 @@ const Day = (props) => {
             onMouseLeave={() => setIsShown(false)}
           >
             { isShown && (
-              <div onClick={() => addWorkout} >
+              // <div onClick={() => addWorkout} >
+              <div>
                 + New Workout
               </div>
             )}

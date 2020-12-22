@@ -6,6 +6,7 @@ import { connect } from "react-redux"
 import Week        from "./components/Week"
 
 const Calendar = (props) => {
+  console.log(props.template)
   const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
   const TableRows = () => {
     const rows = []

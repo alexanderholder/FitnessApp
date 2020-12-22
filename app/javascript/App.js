@@ -5,7 +5,7 @@ import { Provider }     from 'react-redux'
 import { createStore }  from 'redux'
 
 import ErrorBoundary    from "./errorBoundry"
-import configureStore from './state/store';
+import configureStore   from "./redux/store"
 
 import { Calendar, Navbar, Sidebar, TemplateSearch } from "./components"
 
@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 
 function App() {
-  const store = configureStore();
+  const store = configureStore
 
   return (
     <ErrorBoundary>
