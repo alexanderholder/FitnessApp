@@ -2,47 +2,65 @@
 import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
-import * as Selectors       from "../../../../selectors"
+import * as Selectors       from "../../../../../../redux/selectors"
 
 import { setsRepsSchemeList, excerciseList } from "./components/excercises"
-
-import SearchCreate from './components/SearchCreate'
-import Menu         from './components/menu/Index'
+import SearchCreate                          from './components/SearchCreate'
+import Menu                                  from './components/menu/Index'
 
 import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 import { connect, useDispatch, useSelector }  from 'react-redux'
-import { removeExcercise } from '../../../../../../redux/reducers/workoutsSlice'
 
 const WorkoutForm = (props) => {
   const [isWeightShown, setWeightIsShown] = useState(false)
   const [isForShown, setForIsShown] = useState(false)
-  const [excercise, setExcercise] = useState("")
-
+  const [excerciseName, setExcerciseName] = useState(props.excercise.name)
   const dispatch = useDispatch()
-  const { id, name } = props
+
+  const handleChange = e => setExcerciseName(e.target.value)
+
+  const handleKeyUp = e => {
+    const trimmedText = e.target.value.trim()
+
+    // if (trimmedText) { TODO: this will break without the trimmed text however it wont feel nice
+    dispatch({
+      type: 'excercises/excerciseNameChanged',
+      payload: {
+        id: props.excercise.id,
+        name: trimmedText
+      }
+    })
+    // }
+  }
+
+  const handleClick = () => {
+    dispatch({
+      type: 'excercises/excerciseRemoved',
+      payload: { id: props.excercise.id }
+    })
+  }
 
   return (
     <table>
       <tbody>
         <tr>
           <td>
-            <SearchCreate
+            <input
               label="Excercise Name"
-              value={excercise}
+              value={excerciseName}
               options={excerciseList}
+              onChange={handleChange}
+              onBlur={handleKeyUp}
             />
+          </td>
+          <td>
+            <input />
           </td>
           <td>
             <input
-              onChange={e => setExcercise(e.target.value)}
-              // onBlur={() => SendExcercise(excercise)}
-            />
-          </td>
-          <td>
-            <SearchCreate
               label="Sets & Reps"
               options={setsRepsSchemeList}
             />
@@ -80,7 +98,7 @@ const WorkoutForm = (props) => {
           <td>
             <IconButton
               aria-label="delete"
-              onClick={() => dispatch(removeExcercise(id))}
+              onClick={handleClick}
             >
               <DeleteIcon/>
             </IconButton>
@@ -92,14 +110,12 @@ const WorkoutForm = (props) => {
 }
 
 WorkoutForm.propTypes = {
-  excercise_id: PropTypes.number.isRequired,
-  workout_id: PropTypes.number.isRequired
+  excercise_id: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  const excercise = Selectors.getExcerciseById(state, ownProps.workout_id, ownProps.excercise_id)
-  return { workout, excercise }
+  const excercise = Selectors.getExcerciseById(state, ownProps.excercise_id)
+  return { excercise }
 }
 
 export default connect(mapStateToProps)(WorkoutForm)

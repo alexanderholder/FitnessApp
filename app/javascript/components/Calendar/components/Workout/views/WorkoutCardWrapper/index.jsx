@@ -4,14 +4,14 @@ import Redux          from "redux"
 import PropTypes      from 'prop-types'
 import { connect }    from "react-redux"
 
-import { getWorkoutsByDayNumberFilter } from "../../../../selectors"
+import { getWorkoutsByDayNumberFilter } from "../../../../../../redux/selectors"
 
 import Draggable      from 'react-draggable'
 import WorkoutCard    from "../../components/WorkoutCard"
 
 const WorkoutCardWrapper = (props) => {
-  if (props.workouts.length === 0) { return [] } else
-  if (props.workouts.length < 5) {
+  if (props.workouts.length === 0) { return [] }
+  else if (props.workouts.length < 5) {
     return (
       props.workouts.map(workout =>
         <Draggable key={workout.id.toString()} >
@@ -34,9 +34,7 @@ const WorkoutCardWrapper = (props) => {
 }
 
 WorkoutCardWrapper.propTypes = {
-  dayNumber: PropTypes.number.isRequired,
-  // workouts: PropTypes.arrayOf(Workout).isRequired TODO fix this later
-  workouts: PropTypes.array.isRequired
+  dayNumber: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {

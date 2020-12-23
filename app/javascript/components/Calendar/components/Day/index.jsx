@@ -5,8 +5,18 @@ import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
 import WorkoutCardWrapper   from "../Workout/views/WorkoutCardWrapper"
 
+import { useDispatch } from 'react-redux'
+
 const Day = (props) => {
   const [isShown, setIsShown] = useState(false)
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch({
+      type: 'workouts/workoutAdded',
+      payload: { name: "new workout", day_number: props.dayNumber }
+    })
+  }
 
   return (
     <td key={props.dayNumber} className="cell">
@@ -23,8 +33,7 @@ const Day = (props) => {
             onMouseLeave={() => setIsShown(false)}
           >
             { isShown && (
-              // <div onClick={() => addWorkout} >
-              <div>
+              <div onClick={handleClick} >
                 + New Workout
               </div>
             )}

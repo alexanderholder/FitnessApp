@@ -2,24 +2,42 @@
 import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
-import * as Selectors       from "../../../../selectors"
+import * as Selectors       from "../../../../../../redux/selectors"
 import TextField            from "@material-ui/core/TextField"
 import WorkoutForm          from "../../components/WorkoutForm"
 
 import { connect, useDispatch, useSelector }  from 'react-redux'
-import { addExcercise } from '../../../../../../redux/reducers/workoutsSlice'
 
 const WorkoutFormWrapper = (props) => {
+  const [workoutName, setWorkoutName] = useState(props.workout.name)
   const dispatch = useDispatch()
+
+  const handleChange = e => setWorkoutName(e.target.value)
+
+  const handleKeyUp = e => {
+    const trimmedText = e.target.value.trim()
+
+    // if (trimmedText) { TODO: this will break without the trimmed text however it wont feel nice
+    dispatch({
+      type: 'workouts/workoutNameChanged',
+      payload: {
+        id: props.workout.id,
+        name: workoutName
+      }
+    })
+    // }
+  }
 
   return (
     <div className="workout-form">
       <TextField
         d="standard-basic"
         label="Block Name"
-        value={props.workout.name}
+        value={workoutName}
+        onKeyUp={handleKeyUp}
+        onChange={handleChange}
       />
-      {props.workout.excercises.map(excercise =>
+      {props.excercises.map(excercise =>
         <WorkoutForm
           key={excercise.id}
           excercise_id={excercise.id}
@@ -29,7 +47,12 @@ const WorkoutFormWrapper = (props) => {
       <br/>
       <div
         className="hyperlink-button"
-        onClick={() => dispatch(addExcercise(props.workout.id))}
+        onClick={() =>
+          dispatch({
+            type: 'excercises/excerciseAdded',
+            payload: { id: props.workout.id }
+          })
+        }
       >
         + Add Excercise
       </div>
@@ -43,7 +66,8 @@ WorkoutFormWrapper.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  return { workout }
+  const excercises = Selectors.getExcerciseByWorkoutId(state, ownProps.workout_id)
+  return { workout, excercises }
 }
 
 export default connect(mapStateToProps)(WorkoutFormWrapper)
