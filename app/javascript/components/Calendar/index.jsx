@@ -4,9 +4,9 @@ import Redux       from "redux"
 import PropTypes   from 'prop-types'
 import { connect } from "react-redux"
 import Week        from "./components/Week"
+import * as Selectors from '../../redux/selectors';
 
 const Calendar = (props) => {
-  console.log(props.template)
   const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
   const TableRows = () => {
     const rows = []
@@ -39,13 +39,12 @@ const Calendar = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  // ... normally is an object full of action creators
-}
+const mapStateToProps = (state, ownProps) => {
+  const template_id = state.selected_template
+  const template_length = Selectors.getTemplateById(state, template_id).length
 
-const mapStateToProps = (state, ownProps) => ({
-  template_length: state.template.length
-})
+  return { template_length }
+}
 
 Calendar.propTypes = {
   template_length: PropTypes.number.isRequired

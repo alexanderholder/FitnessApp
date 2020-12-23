@@ -4,7 +4,7 @@ import Redux                from "redux"
 import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
 
-import * as Selectors       from "../../../../selectors"
+import * as Selectors       from "../../../../../../redux/selectors"
 
 import { makeStyles }       from "@material-ui/core/styles"
 import Popover              from "@material-ui/core/Popover"

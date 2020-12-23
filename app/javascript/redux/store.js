@@ -1,11 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { createStore } from 'redux'
+import rootReducer from './reducer'
 
-import templateReducer from './reducers/templateSlice'
-import workoutsReducer from './reducers/workoutsSlice'
+let preloadedState
+const persistedWorkoutsString = localStorage.getItem('workouts')
 
-export default configureStore({
-  reducer: {
-    template: templateReducer,
-    workouts: workoutsReducer
+if (persistedWorkoutsString) {
+  preloadedState = {
+    workouts: JSON.parse(persistedWorkoutsString)
   }
-})
+}
+
+const store = createStore(rootReducer, preloadedState)
+
+export default store
