@@ -5,7 +5,7 @@ import PropTypes                from "prop-types"
 import { connect, useDispatch } from "react-redux"
 import WorkoutCardWrapper       from "../Workout/views/WorkoutCardWrapper"
 
-const Day = (props) => {
+const Day = props => {
   const [isShown, setIsShown] = useState(false)
   const dispatch = useDispatch()
 
@@ -14,8 +14,7 @@ const Day = (props) => {
       type: 'workouts/workoutAdded',
       payload: {
         name: "unnamed workout",
-        day_number: props.dayNumber,
-        template_id: props.template_id
+        day_number: props.dayNumber
       }
     })
   }
@@ -27,20 +26,19 @@ const Day = (props) => {
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >
-      {props.dayNumber}
-      <div>
-        <WorkoutCardWrapper
-          dayNumber={props.dayNumber}
-          key={props.dayNumber}
-        />
-        <div className="hyperlink-button">
-          { isShown && (
-            <div onClick={handleClick} >
-              + New Workout
-            </div>
-          )}
+      { props.dayNumber }
+      <WorkoutCardWrapper
+        dayNumber={props.dayNumber}
+        key={props.dayNumber}
+      />
+      { isShown && (
+        <div
+          className="hyperlink-button"
+          onClick={handleClick}
+        >
+          + New Workout
         </div>
-      </div>
+      )}
     </td>
   )
 }
@@ -49,8 +47,4 @@ Day.propTypes = {
   dayNumber: PropTypes.number.isRequired
 }
 
-const mapStateToProps = state => ({
-  template_id: state.selected_template
-})
-
-export default connect(mapStateToProps)(Day)
+export default connect()(Day)
