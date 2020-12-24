@@ -36,11 +36,14 @@ const WorkoutForm = props => {
       <tbody>
         <tr>
           <td>
-            <input
+            <TextField
               label="Excercise Name"
-              placeholder="Excercise Name"
+              // placeholder="Excercise Name"
               value={name}
               // options={excerciseList}
+              variant="outlined"
+              size="small"
+              width="50"
               onChange={e => setName(e.target.value)}
               onKeyUp={e => {
                 dispatch({
@@ -54,11 +57,14 @@ const WorkoutForm = props => {
             />
           </td>
           <td>
-            <input
+            <TextField
               label="Sets & Reps"
-              placeholder="Sets & Reps"
+              // placeholder="Sets & Reps"
               value={setsReps}
               // options={setsRepsSchemeList}
+              variant="outlined"
+              size="small"
+              width="50"
               onChange={e => setSetsReps(e.target.value)}
               onKeyUp={e => {
                 dispatch({
@@ -74,9 +80,8 @@ const WorkoutForm = props => {
           { isWeightShown && (
             <td>
               <TextField
-                id="standard-basic"
                 label="Weight"
-                placeholder="Weight"
+                // placeholder="Weight"
                 variant="outlined"
                 size="small"
                 width="50"
@@ -96,7 +101,6 @@ const WorkoutForm = props => {
           { isForShown && (
             <td>
               <TextField
-                id="standard-basic"
                 label="For"
                 variant="outlined"
                 size="small"
