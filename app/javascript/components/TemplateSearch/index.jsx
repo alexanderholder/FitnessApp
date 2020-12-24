@@ -11,15 +11,14 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
 const TemplateSearch = (props) => {
+  const [template, setTemplate] = React.useState(props.current_template)
   const dispatch = useDispatch()
 
-  const [template, setTemplate] = React.useState(
-    { title: props.current_template.name, id: props.current_template.id }
-  )
-
   const handleChange = (e, new_value) => {
-    setTemplate(new_value)
-    dispatch({ type: 'template/temaplteChanged', payload: template.id })
+    if (new_value) {
+      setTemplate(new_value)
+      dispatch({ type: 'template/temaplteChanged', payload: new_value.id })
+    }
   }
 
   return (
@@ -28,14 +27,14 @@ const TemplateSearch = (props) => {
       style={{ width: 300 }}
       onChange={handleChange}
       value={template}
-      options={props.templates.map(template => ({ title: template.name, id: template.id }))}
-      getOptionLabel={(option) => option.title}
+      options={props.templates}
+      getOptionLabel={(option) => option.name}
       renderInput={(params) => (
         <TextField {...params} label="Templates" variant="outlined" margin="normal" />
       )}
       renderOption={(option, { inputValue }) => {
-        const matches = match(option.title, inputValue);
-        const parts = parse(option.title, matches);
+        const matches = match(option.name, inputValue);
+        const parts = parse(option.name, matches);
 
         return (
           <div>
@@ -52,10 +51,12 @@ const TemplateSearch = (props) => {
 }
 
 TemplateSearch.propTypes = {
-  // user_id: PropTypes.number.isRequired
+  user_details: PropTypes.object.isRequired,
+  templates: PropTypes.array.isRequired,
+  current_template: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const user_details = state.user_details
   const templates = Selectors.getTemplatesByUserId(state, user_details.user_id)
   const current_template = Selectors.getTemplateById(state, state.selected_template)

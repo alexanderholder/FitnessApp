@@ -1,6 +1,7 @@
 const initialState = {
   selected_template: 1,
-  user_details: { user_id: 1, theme: "dark" },
+  dark_theme: true,
+  user_details: { user_id: 1 },
   templates: [
     { id: 1, name: "Crossfit", length: 5, user_id: 1 },
     { id: 2, name: "Body Building", length: 7, user_id: 1 },
@@ -23,26 +24,18 @@ function nextId(model) {
   return maxId + 1
 }
 
-// Use the initialState as a default value
 export default function appReducer(state = initialState, action) {
-  // The reducer normally looks at the action type field to decide what happens
   switch (action.type) {
-    // Do something here based on the different types of actions
     case 'workouts/workoutAdded': {
-      // We need to return a new state object
       return {
-        // that has all the existing state data
         ...state,
-        // but has a new array for the `workouts` field
         workouts: [
-          // with all of the old workouts
           ...state.workouts,
-          // and the new workout object
           {
-            // Use an auto-incrementing numeric ID for this example
             id: nextId(state.workouts),
             name: action.payload.name,
-            day_number: action.payload.day_number
+            day_number: action.payload.day_number,
+            template_id: action.payload.template_id
           }
         ]
       }
@@ -104,9 +97,13 @@ export default function appReducer(state = initialState, action) {
         selected_template: action.payload
       }
     }
+    case 'theme/themeChanged': {
+      return {
+        ...state,
+        dark_theme: !state.dark_theme
+      }
+    }
     default:
-      // If this reducer doesn't recognize the action type, or doesn't
-      // care about this specific action, return the existing state unchanged
       return state
   }
 }

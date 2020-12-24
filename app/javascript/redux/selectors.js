@@ -25,6 +25,3 @@ export const getTemplatesByUserId = (store, id) =>
 
 export const getTemplateById = (store, id) =>
   getTemplatesState(store).find(template => template.id == id)
-
-// User
-export const getUserState = store => store.user_details
