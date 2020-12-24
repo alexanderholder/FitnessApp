@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define */
+// @flow
 import React from 'react';
 import Redux from 'redux';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
-const TemplateSearch = (props) => {
+const TemplateSearch = props => {
   const [template, setTemplate] = React.useState(props.current_template)
   const dispatch = useDispatch()
 
@@ -51,16 +51,14 @@ const TemplateSearch = (props) => {
 }
 
 TemplateSearch.propTypes = {
-  user_details: PropTypes.object.isRequired,
   templates: PropTypes.array.isRequired,
   current_template: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
-  const user_details = state.user_details
-  const templates = Selectors.getTemplatesByUserId(state, user_details.user_id)
+  const templates = Selectors.getTemplatesByUserId(state, state.user_details.user_id)
   const current_template = Selectors.getTemplateById(state, state.selected_template)
-  return { templates, user_details, current_template }
+  return { templates, current_template }
 }
 
 export default connect(mapStateToProps)(TemplateSearch)

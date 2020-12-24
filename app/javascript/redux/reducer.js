@@ -12,10 +12,10 @@ const initialState = {
     { id: 2, template_id: 1, name: "AMRAP", day_number: 2 }
   ],
   excercises: [
-    { id: 1, workout_id: 1, name: "Clean & Jerk" },
-    { id: 2, workout_id: 1, name: "Snatch" },
-    { id: 3, workout_id: 2, name: "Box Jumps" },
-    { id: 4, workout_id: 2, name: "Squat" }
+    { id: 1, workout_id: 1, name: "Clean & Jerk", sets_reps: "2x10" },
+    { id: 2, workout_id: 1, name: "Snatch", sets_reps: "2x10" },
+    { id: 3, workout_id: 2, name: "Box Jumps", sets_reps: "2x10" },
+    { id: 4, workout_id: 2, name: "Squat", sets_reps: "2x10" }
   ]
 }
 
@@ -35,7 +35,7 @@ export default function appReducer(state = initialState, action) {
             id: nextId(state.workouts),
             name: action.payload.name,
             day_number: action.payload.day_number,
-            template_id: action.payload.template_id
+            template_id: state.selected_template
           }
         ]
       }
@@ -87,6 +87,51 @@ export default function appReducer(state = initialState, action) {
           return {
             ...excercise,
             name: action.payload.name
+          }
+        })
+      }
+    }
+    case 'excercises/excerciseSetsRepsChanged': {
+      return {
+        ...state,
+        excercises: state.excercises.map(excercise => {
+          if (excercise.id !== action.payload.id) {
+            return excercise
+          }
+
+          return {
+            ...excercise,
+            sets_reps: action.payload.sets_reps
+          }
+        })
+      }
+    }
+    case 'excercises/excerciseWeightChanged': {
+      return {
+        ...state,
+        excercises: state.excercises.map(excercise => {
+          if (excercise.id !== action.payload.id) {
+            return excercise
+          }
+
+          return {
+            ...excercise,
+            weight: action.payload.weight
+          }
+        })
+      }
+    }
+    case 'excercises/excerciseForChanged': {
+      return {
+        ...state,
+        excercises: state.excercises.map(excercise => {
+          if (excercise.id !== action.payload.id) {
+            return excercise
+          }
+
+          return {
+            ...excercise,
+            for: action.payload.for
           }
         })
       }
