@@ -1,32 +1,18 @@
 // @flow
-import React, { useState }  from "react"
-import Redux                from "redux"
-import PropTypes            from "prop-types"
-import * as Selectors       from "../../../../../../redux/selectors"
-import TextField            from "@material-ui/core/TextField"
-import WorkoutForm          from "../../components/WorkoutForm"
+import React, { useState }  from 'react'
+import Redux                from 'redux'
+import PropTypes            from 'prop-types'
 
-import { connect, useDispatch, useSelector }  from 'react-redux'
+import * as Selectors       from '../../../../../../redux/selectors'
+
+import TextField            from '@material-ui/core/TextField'
+import BlockWrapper         from '../BlockWrapper'
+
+import { connect, useDispatch }  from 'react-redux'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
   const dispatch = useDispatch()
-
-  const handleChange = e => setWorkoutName(e.target.value)
-
-  const handleKeyUp = e => {
-    const trimmedText = e.target.value.trim()
-
-    // if (trimmedText) { TODO: this will break without the trimmed text however it wont feel nice
-    dispatch({
-      type: 'workouts/workoutNameChanged',
-      payload: {
-        id: props.workout.id,
-        name: workoutName
-      }
-    })
-    // }
-  }
 
   return (
     <div className="workout-form">
@@ -34,27 +20,34 @@ const WorkoutFormWrapper = (props) => {
         d="standard-basic"
         label="Workout Name"
         value={workoutName}
-        onKeyUp={handleKeyUp}
-        onChange={handleChange}
+        onKeyUp={e =>
+          dispatch({
+            type: 'workouts/workoutNameChanged',
+            payload: {
+              id: props.workout.id,
+              name: e.target.value.trim()
+            }
+          })
+        }
+        onChange={e => setWorkoutName(e.target.value)}
       />
-      {props.excercises.map(excercise =>
-        <WorkoutForm
-          key={excercise.id}
-          excercise_id={excercise.id}
+      {props.blocks.map(block =>
+        <BlockWrapper
+          key={block.id}
           workout_id={props.workout.id}
+          block_id={block.id}
         />
       )}
-      <br/>
       <div
         className="hyperlink-button"
         onClick={() =>
           dispatch({
-            type: 'excercises/excerciseAdded',
-            payload: { id: props.workout.id }
+            type: 'blocks/blockAdded',
+            payload: { id: props.workout_id }
           })
         }
       >
-        + Add Excercise
+        + Add Block
       </div>
     </div>
   )
@@ -63,14 +56,12 @@ const WorkoutFormWrapper = (props) => {
 WorkoutFormWrapper.propTypes = {
   workout_id: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
-  excercises: PropTypes.array.isRequired
+  blocks: PropTypes.array.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  const block_ids = Selectors.getBlocksByWorkoutId(state, ownProps.workout_id).map(block => block.id)
-  const excercises = Selectors.getExcercisesByBlockIds(state, block_ids)
-  return { workout, excercises }
-}
+const mapStateToProps = (state, ownProps) => ({
+  workout: Selectors.getWorkoutById(state, ownProps.workout_id),
+  blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workout_id)
+})
 
 export default connect(mapStateToProps)(WorkoutFormWrapper)

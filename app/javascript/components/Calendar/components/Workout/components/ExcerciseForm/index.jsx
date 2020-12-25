@@ -1,8 +1,9 @@
 // @flow
-import React, { useState }  from 'react'
-import Redux                from 'redux'
-import PropTypes            from 'prop-types'
+import React, { useState }      from 'react'
+import Redux                    from 'redux'
+import PropTypes                from 'prop-types'
 import { connect, useDispatch } from 'react-redux'
+
 import * as Selectors from '../../../../../../redux/selectors'
 
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
@@ -13,14 +14,14 @@ import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-const WorkoutForm = props => {
+const ExcerciseForm = props => {
   const [isWeightShown, setWeightIsShown] = useState(props.excercise.weight_value)
-  const [isForShown, setForIsShown]       = useState(props.excercise.mesurement_value)
+  const [isForShown, setForIsShown]       = useState(props.excercise.measurement_value)
 
   const [movement, setMovement]     = useState(props.excercise.movement)
   const [setsReps, setSetsReps]     = useState(props.excercise.sets_reps)
   const [weight, setWeight]         = useState(props.excercise.weight)
-  const [mesurement, setMesurement] = useState(props.excercise.mesurement_value)
+  const [measurement, setMeasurement] = useState(props.excercise.measurement_value)
 
   const dispatch = useDispatch()
 
@@ -101,14 +102,14 @@ const WorkoutForm = props => {
           { isForShown && (
             <td>
               <TextField
-                label="For Mesurement"
+                label="For Measurement"
                 variant="outlined"
                 size="small"
                 width="50"
-                value={mesurement}
+                value={measurement}
                 onKeyUp={e => {
                   dispatch({
-                    type: 'excercises/excerciseMesurementChanged',
+                    type: 'excercises/excerciseMeasurementChanged',
                     payload: {
                       id: props.excercise.id,
                       for: e.target.value.trim()
@@ -137,7 +138,7 @@ const WorkoutForm = props => {
   )
 }
 
-WorkoutForm.propTypes = {
+ExcerciseForm.propTypes = {
   excercise_id: PropTypes.number.isRequired,
   excercise: PropTypes.object.isRequired
 }
@@ -146,4 +147,4 @@ const mapStateToProps = (state, ownProps) => ({
   excercise: Selectors.getExcerciseById(state, ownProps.excercise_id)
 })
 
-export default connect(mapStateToProps)(WorkoutForm)
+export default connect(mapStateToProps)(ExcerciseForm)
