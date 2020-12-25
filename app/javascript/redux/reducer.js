@@ -9,7 +9,6 @@ function nextId(model) {
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
     case 'state/stateLoaded': {
-      console.log(action.payload)
       return action.payload
     }
     case 'workouts/workoutAdded': {
@@ -41,6 +40,19 @@ export default function appReducer(state = initialState, action) {
         })
       }
     }
+    case 'blocks/blockAdded': {
+      return {
+        ...state,
+        blocks: [
+          ...state.blocks,
+          {
+            id: nextId(state.blocks),
+            name: "",
+            workout_id: action.payload.id
+          }
+        ]
+      }
+    }
     case 'excercises/excerciseAdded': {
       return {
         ...state,
@@ -48,8 +60,8 @@ export default function appReducer(state = initialState, action) {
           ...state.excercises,
           {
             id: nextId(state.excercises),
-            workout_id: action.payload.id,
-            name: ""
+            movement: "",
+            block_id: action.payload.id
           }
         ]
       }
@@ -107,7 +119,7 @@ export default function appReducer(state = initialState, action) {
         })
       }
     }
-    case 'excercises/excerciseMesurementChanged': {
+    case 'excercises/excerciseMeasurementChanged': {
       return {
         ...state,
         excercises: state.excercises.map(excercise => {
