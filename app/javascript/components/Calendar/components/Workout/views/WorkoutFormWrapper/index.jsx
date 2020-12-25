@@ -32,7 +32,7 @@ const WorkoutFormWrapper = (props) => {
     <div className="workout-form">
       <TextField
         d="standard-basic"
-        label="Block Name"
+        label="Workout Name"
         value={workoutName}
         onKeyUp={handleKeyUp}
         onChange={handleChange}
@@ -61,12 +61,15 @@ const WorkoutFormWrapper = (props) => {
 }
 
 WorkoutFormWrapper.propTypes = {
-  workout_id: PropTypes.number.isRequired
+  workout_id: PropTypes.number.isRequired,
+  workout: PropTypes.object.isRequired,
+  excercises: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => {
   const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  const excercises = Selectors.getExcerciseByWorkoutId(state, ownProps.workout_id)
+  const block_ids = Selectors.getBlocksByWorkoutId(state, ownProps.workout_id).map(block => block.id)
+  const excercises = Selectors.getExcercisesByBlockIds(state, block_ids)
   return { workout, excercises }
 }
 

@@ -2,7 +2,7 @@
 import React, { useState }  from 'react'
 import Redux                from 'redux'
 import PropTypes            from 'prop-types'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import * as Selectors from '../../../../../../redux/selectors'
 
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
@@ -14,13 +14,13 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const WorkoutForm = props => {
-  const [isWeightShown, setWeightIsShown] = useState(props.excercise.weight)
-  const [isForShown, setForIsShown]       = useState(props.excercise.for)
+  const [isWeightShown, setWeightIsShown] = useState(props.excercise.weight_value)
+  const [isForShown, setForIsShown]       = useState(props.excercise.mesurement_value)
 
-  const [name, setName]         = useState(props.excercise.name)
-  const [setsReps, setSetsReps] = useState(props.excercise.sets_reps)
-  const [weight, setWeight]     = useState(props.excercise.weight)
-  const [excerciseFor, setFor]  = useState(props.excercise.for)
+  const [movement, setMovement]     = useState(props.excercise.movement)
+  const [setsReps, setSetsReps]     = useState(props.excercise.sets_reps)
+  const [weight, setWeight]         = useState(props.excercise.weight)
+  const [mesurement, setMesurement] = useState(props.excercise.mesurement_value)
 
   const dispatch = useDispatch()
 
@@ -39,18 +39,18 @@ const WorkoutForm = props => {
             <TextField
               label="Excercise Name"
               // placeholder="Excercise Name"
-              value={name}
+              value={movement}
               // options={excerciseList}
               variant="outlined"
               size="small"
               width="50"
-              onChange={e => setName(e.target.value)}
+              onChange={e => setMovement(e.target.value)}
               onKeyUp={e => {
                 dispatch({
-                  type: 'excercises/excerciseNameChanged',
+                  type: 'excercises/excerciseMovementChanged',
                   payload: {
                     id: props.excercise.id,
-                    name: e.target.value.trim()
+                    movement: e.target.value.trim()
                   }
                 })
               }}
@@ -66,15 +66,15 @@ const WorkoutForm = props => {
               size="small"
               width="50"
               onChange={e => setSetsReps(e.target.value)}
-              onKeyUp={e => {
-                dispatch({
-                  type: 'excercises/excerciseSetsRepsChanged',
-                  payload: {
-                    id: props.excercise.id,
-                    sets_reps: e.target.value.trim()
-                  }
-                })
-              }}
+              // onKeyUp={e => {
+              //   dispatch({
+              //     type: 'excercises/excerciseSetsRepsChanged',
+              //     payload: {
+              //       id: props.excercise.id,
+              //       sets_reps: e.target.value.trim()
+              //     }
+              //   })
+              // }}
             />
           </td>
           { isWeightShown && (
@@ -101,14 +101,14 @@ const WorkoutForm = props => {
           { isForShown && (
             <td>
               <TextField
-                label="For"
+                label="For Mesurement"
                 variant="outlined"
                 size="small"
                 width="50"
-                value={excerciseFor}
+                value={mesurement}
                 onKeyUp={e => {
                   dispatch({
-                    type: 'excercises/excerciseForChanged',
+                    type: 'excercises/excerciseMesurementChanged',
                     payload: {
                       id: props.excercise.id,
                       for: e.target.value.trim()

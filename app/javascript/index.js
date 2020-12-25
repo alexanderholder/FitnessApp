@@ -1,14 +1,28 @@
 import React    from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
 
-import App                from './App';
+import App from './App';
+
 import * as serviceWorker from './serviceWorker';
+import ErrorBoundary from "./errorBoundry"
+
+import store from "./redux/store"
+import { fetchState } from './redux/reducer'
+
+store.dispatch(fetchState)
 
 const renderApp = () => {
   document.addEventListener("DOMContentLoaded", () => {
     ReactDOM.render(
-      <App />,
-      document.body.appendChild(document.createElement("div"))
+      // <React.StrictMode>
+        <ErrorBoundary>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </ErrorBoundary>,
+      // </React.StrictMode>,
+      document.getElementById('root')
     )
   });
 };

@@ -1,15 +1,11 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
 import rootReducer from './reducer'
 
-let preloadedState
-const persistedWorkoutsString = localStorage.getItem('workouts')
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
 
-if (persistedWorkoutsString) {
-  preloadedState = {
-    workouts: JSON.parse(persistedWorkoutsString)
-  }
-}
-
-const store = createStore(rootReducer, preloadedState)
-
+// The store now has the ability to accept thunk functions in `dispatch`
+const store = createStore(rootReducer, composedEnhancer)
 export default store

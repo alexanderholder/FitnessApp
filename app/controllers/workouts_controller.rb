@@ -1,4 +1,8 @@
 class WorkoutsController < ApplicationController
+  def json
+    render json: Oj.dump(Workout.all.to_json)
+  end
+
   def index
     # TODO
     @workouts = Workout.all

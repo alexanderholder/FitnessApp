@@ -1,23 +1,5 @@
-const initialState = {
-  selected_template: 1,
-  dark_theme: true,
-  user_details: { user_id: 1 },
-  templates: [
-    { id: 1, name: "Crossfit", length: 5, user_id: 1 },
-    { id: 2, name: "Body Building", length: 7, user_id: 1 },
-    { id: 3, name: "Strength", length: 7, user_id: 2 }
-  ],
-  workouts: [
-    { id: 1, template_id: 1, name: "EMOM", day_number: 1 },
-    { id: 2, template_id: 1, name: "AMRAP", day_number: 2 }
-  ],
-  excercises: [
-    { id: 1, workout_id: 1, name: "Clean & Jerk", sets_reps: "2x10" },
-    { id: 2, workout_id: 1, name: "Snatch", sets_reps: "2x10" },
-    { id: 3, workout_id: 2, name: "Box Jumps", sets_reps: "2x10" },
-    { id: 4, workout_id: 2, name: "Squat", sets_reps: "2x10" }
-  ]
-}
+import { client } from '../api/client'
+import { initialState } from './initialState'
 
 function nextId(model) {
   const maxId = model.reduce((maxId, workout) => Math.max(workout.id, maxId), -1)
@@ -26,6 +8,10 @@ function nextId(model) {
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
+    case 'state/stateLoaded': {
+      console.log(action.payload)
+      return action.payload
+    }
     case 'workouts/workoutAdded': {
       return {
         ...state,
@@ -35,7 +21,7 @@ export default function appReducer(state = initialState, action) {
             id: nextId(state.workouts),
             name: action.payload.name,
             day_number: action.payload.day_number,
-            template_id: state.selected_template
+            training_template_id: state.selected_template
           }
         ]
       }
@@ -76,7 +62,7 @@ export default function appReducer(state = initialState, action) {
         )
       }
     }
-    case 'excercises/excerciseNameChanged': {
+    case 'excercises/excerciseMovementChanged': {
       return {
         ...state,
         excercises: state.excercises.map(excercise => {
@@ -86,7 +72,7 @@ export default function appReducer(state = initialState, action) {
 
           return {
             ...excercise,
-            name: action.payload.name
+            movement: action.payload.movement
           }
         })
       }
@@ -116,12 +102,12 @@ export default function appReducer(state = initialState, action) {
 
           return {
             ...excercise,
-            weight: action.payload.weight
+            weight_value: action.payload.weight_value
           }
         })
       }
     }
-    case 'excercises/excerciseForChanged': {
+    case 'excercises/excerciseMesurementChanged': {
       return {
         ...state,
         excercises: state.excercises.map(excercise => {
@@ -131,7 +117,7 @@ export default function appReducer(state = initialState, action) {
 
           return {
             ...excercise,
-            for: action.payload.for
+            measurement_metric: action.payload.measurement_metric
           }
         })
       }
@@ -151,4 +137,10 @@ export default function appReducer(state = initialState, action) {
     default:
       return state
   }
+}
+
+// Thunk function
+export async function fetchState(dispatch, getState) {
+  const response = await client.get('http://localhost:3000/api/calender')
+  dispatch({ type: 'state/stateLoaded', payload: JSON.parse(response) })
 }

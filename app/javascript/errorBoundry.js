@@ -1,6 +1,3 @@
-
-// Currently not in use
-
 import React, { Component } from 'react';
 import log from 'loglevel';
 import remote from 'loglevel-plugin-remote';

@@ -25,7 +25,8 @@ Rails.application.routes.draw do
 
   resources :excercises
 
-  post 'logger' => 'logger#log'
+  # get 'api/workouts' => 'workouts#json'
+  get 'api/calender' => 'calender#inital_state'
 
   # root 'workouts#index'
   get '/' => redirect('/workouts'), as: 'root'

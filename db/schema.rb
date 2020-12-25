@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_124516) do
 
   create_table "training_templates", force: :cascade do |t|
     t.text "name"
+    t.integer "length"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,7 +49,6 @@ ActiveRecord::Schema.define(version: 2020_08_22_124516) do
 
   create_table "users", force: :cascade do |t|
     t.text "name"
-    t.text "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "email", default: "", null: false
