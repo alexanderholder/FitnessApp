@@ -70,5 +70,6 @@ end
 # # this patches a bug for omniauth
 # gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
-# best login gem
 gem 'devise'
+
+gem "oj", "~> 3" # fast json dumps

@@ -2,13 +2,13 @@ class CreateInitialModels < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
       t.text :name
-      t.text :password
 
       t.timestamps
     end
 
     create_table :training_templates do |t|
       t.text :name
+      t.integer :length
       t.references(:user, null: false, foreign_key: { on_delete: :cascade }, index: true)
 
       t.timestamps

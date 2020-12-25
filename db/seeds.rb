@@ -10,38 +10,38 @@
 training_template = TrainingTemplate.create(name: 'Plyo Basketball', user: User.first)
 workouts = Workout.create(
   [
-    { name: 'AM Jumping', day_number: 1, training_template: training_template },
-    { name: 'PM Jumping', day_number: 1, training_template: training_template },
-    { name: 'Legs', day_number: 2, training_template: training_template },
-    { name: 'Legs', day_number: 3, training_template: training_template },
-    { name: 'Legs', day_number: 4, training_template: training_template },
-    { name: 'Legs', day_number: 5, training_template: training_template },
-    { name: 'Legs', day_number: 8, training_template: training_template },
-    { name: 'Legs', day_number: 9, training_template: training_template },
-    { name: 'Legs', day_number: 10, training_template: training_template }
+    { name: 'AM Jumping', day_number: 1, training_template_id: training_template.id },
+    { name: 'PM Jumping', day_number: 1, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 2, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 3, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 4, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 5, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 8, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 9, training_template_id: training_template.id },
+    { name: 'Legs', day_number: 10, training_template_id: training_template.id }
   ]
 )
 blocks = Block.create(
   [
-    { name: "Box Jumps", workout: workouts.first },
-    { name: "Squats", workout: workouts.first },
-    { name: "EMOM", workout: workouts.first },
-    { name: "Squats", workout: workouts.first },
-    { name: "Squats", workout: workouts[1] },
-    { name: "Squats", workout: workouts[2] },
-    { name: "Squats", workout: workouts[3] },
-    { name: "Squats", workout: workouts[4] },
-    { name: "Squats", workout: workouts[5] },
-    { name: "Squats", workout: workouts[6] },
-    { name: "Squats", workout: workouts[7] }
+    { name: "Box Jumps", workout_id: workouts.first.id },
+    { name: "Squats", workout_id: workouts.first.id },
+    { name: "EMOM", workout_id: workouts.first.id },
+    { name: "Squats", workout_id: workouts.first.id },
+    { name: "Squats", workout_id: workouts[1].id },
+    { name: "Squats", workout_id: workouts[2].id },
+    { name: "Squats", workout_id: workouts[3].id },
+    { name: "Squats", workout_id: workouts[4].id },
+    { name: "Squats", workout_id: workouts[5].id },
+    { name: "Squats", workout_id: workouts[6].id },
+    { name: "Squats", workout_id: workouts[7].id }
   ]
 )
 Excercise.create(
   [
-    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "5", weight_metric: "none", weight_value: 0, block: blocks.first },
-    { movement: "Back Squat", measurement_metric: "reps", measurement_value: "5", weight_metric: "percent", weight_value: 80, block: blocks.second },
-    { movement: "Row", measurement_metric: "distance", measurement_value: "200", weight_metric: "none", weight_value: 0, block: blocks.third },
-    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "10", weight_metric: "none", weight_value: 0, block: blocks.third },
-    { movement: "Power Clean", measurement_metric: "reps", measurement_value: "6", weight_metric: "kg", weight_value: 60, block: blocks.third }
+    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "5", weight_metric: "none", weight_value: 0, block_id: blocks.first.id },
+    { movement: "Back Squat", measurement_metric: "reps", measurement_value: "5", weight_metric: "percent", weight_value: 80, block_id: blocks.second.id },
+    { movement: "Row", measurement_metric: "distance", measurement_value: "200", weight_metric: "none", weight_value: 0, block_id: blocks.third.id },
+    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "10", weight_metric: "none", weight_value: 0, block_id: blocks.third.id },
+    { movement: "Power Clean", measurement_metric: "reps", measurement_value: "6", weight_metric: "kg", weight_value: 60, block_id: blocks.third.id }
   ]
 )

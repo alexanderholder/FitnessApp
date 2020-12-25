@@ -56,7 +56,7 @@ TemplateSearch.propTypes = {
 }
 
 const mapStateToProps = state => {
-  const templates = Selectors.getTemplatesByUserId(state, state.user_details.user_id)
+  const templates = Selectors.getTemplatesByUserId(state, state.user.user_id)
   const current_template = Selectors.getTemplateById(state, state.selected_template)
   return { templates, current_template }
 }
