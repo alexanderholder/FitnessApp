@@ -25,9 +25,6 @@ Rails.application.routes.draw do
 
   resources :excercises
 
-  # get 'api/workouts' => 'workouts#json'
-  get 'api/calender' => 'calender#inital_state'
-
-  # root 'workouts#index'
-  get '/' => redirect('/workouts'), as: 'root'
+  get 'calendar' => 'calendar#index'
+  get '/' => redirect('/calendar'), as: 'root'
 end

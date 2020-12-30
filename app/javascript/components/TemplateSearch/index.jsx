@@ -17,7 +17,7 @@ const TemplateSearch = props => {
   const handleChange = (e, new_value) => {
     if (new_value) {
       setTemplate(new_value)
-      dispatch({ type: 'template/temaplteChanged', payload: new_value.id })
+      dispatch({ type: 'user/temaplteChanged', payload: new_value.id })
     }
   }
 
@@ -56,8 +56,9 @@ TemplateSearch.propTypes = {
 }
 
 const mapStateToProps = state => {
-  const templates = Selectors.getTemplatesByUserId(state, state.user.user_id)
-  const current_template = Selectors.getTemplateById(state, state.selected_template)
+  const user = state.user
+  const templates = Selectors.getTemplatesByUserId(state, user.user_id)
+  const current_template = Selectors.getTemplateById(state, user.selected_template)
   return { templates, current_template }
 }
 

@@ -1,5 +1,6 @@
+rm -rf ./tmp/cache/assets
+
 bundle check || bundle install
 yarn
-yarn build
 yarn serve &
-PUMA_WORKERS=1 RACK_ENV=development bundle exec puma -p 3000 -C config/puma.rb
+PUMA_WORKERS=2 RACK_ENV=development bundle exec puma -C config/puma.rb

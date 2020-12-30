@@ -1,36 +1,20 @@
 // @flow
-import React, { useState }      from 'react'
-import Redux                    from 'redux'
-import PropTypes                from 'prop-types'
-import { connect, useDispatch } from 'react-redux'
-
+import React, { useState } from 'react'
+import Redux from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import * as Selectors from '../../../../../../redux/selectors'
-
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
-import SearchCreate                          from './components/SearchCreate'
-import Menu                                  from './components/menu/Index'
-
+// import SearchCreate from './components/SearchCreate'
+import Menu from './components/menu'
 import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const ExcerciseForm = props => {
-  const [isWeightShown, setWeightIsShown] = useState(props.excercise.weight_value)
-  const [isForShown, setForIsShown]       = useState(props.excercise.measurement_value)
-
-  const [movement, setMovement]     = useState(props.excercise.movement)
-  const [setsReps, setSetsReps]     = useState(props.excercise.sets_reps)
-  const [weight, setWeight]         = useState(props.excercise.weight)
-  const [measurement, setMeasurement] = useState(props.excercise.measurement_value)
-
-  const dispatch = useDispatch()
-
-  const handleClick = () => {
-    dispatch({
-      type: 'excercises/excerciseRemoved',
-      payload: { id: props.excercise.id }
-    })
-  }
+  const { movement, weight_value, measurement_metric } = props.excercise
+  const [isWeightShown, setWeightIsShown] = useState(weight_value)
+  const [isForShown, setForIsShown] = useState(measurement_metric)
 
   return (
     <table>
@@ -39,63 +23,38 @@ const ExcerciseForm = props => {
           <td>
             <TextField
               label="Excercise Name"
-              // placeholder="Excercise Name"
-              value={movement}
-              // options={excerciseList}
-              variant="outlined"
+              onChange={e => props.updateMovement(e.target.value)}
+              options={excerciseList}
               size="small"
+              variant="outlined"
+              value={movement}
               width="50"
-              onChange={e => setMovement(e.target.value)}
-              onKeyUp={e => {
-                dispatch({
-                  type: 'excercises/excerciseMovementChanged',
-                  payload: {
-                    id: props.excercise.id,
-                    movement: e.target.value.trim()
-                  }
-                })
-              }}
             />
           </td>
-          <td>
+          {/* <td>
             <TextField
               label="Sets & Reps"
-              // placeholder="Sets & Reps"
               value={setsReps}
-              // options={setsRepsSchemeList}
+              options={setsRepsSchemeList}
               variant="outlined"
               size="small"
               width="50"
               onChange={e => setSetsReps(e.target.value)}
-              // onKeyUp={e => {
-              //   dispatch({
               //     type: 'excercises/excerciseSetsRepsChanged',
               //     payload: {
               //       id: props.excercise.id,
-              //       sets_reps: e.target.value.trim()
-              //     }
-              //   })
-              // }}
+              //       sets_reps: e.target.value
             />
-          </td>
+          </td> */}
           { isWeightShown && (
             <td>
               <TextField
                 label="Weight"
-                // placeholder="Weight"
-                variant="outlined"
+                onChange={e => props.updateWeight(e.target.value)}
                 size="small"
+                variant="outlined"
+                value={weight_value}
                 width="50"
-                value={weight}
-                onKeyUp={e => {
-                  dispatch({
-                    type: 'excercises/excerciseWeightChanged',
-                    payload: {
-                      id: props.excercise.id,
-                      weight: e.target.value.trim()
-                    }
-                  })
-                }}
               />
             </td>
           )}
@@ -103,19 +62,11 @@ const ExcerciseForm = props => {
             <td>
               <TextField
                 label="For Measurement"
-                variant="outlined"
+                onChange={e => props.updateMeasurement(e.target.value)}
                 size="small"
+                variant="outlined"
+                value={measurement_metric}
                 width="50"
-                value={measurement}
-                onKeyUp={e => {
-                  dispatch({
-                    type: 'excercises/excerciseMeasurementChanged',
-                    payload: {
-                      id: props.excercise.id,
-                      for: e.target.value.trim()
-                    }
-                  })
-                }}
               />
             </td>
           )}
@@ -128,7 +79,7 @@ const ExcerciseForm = props => {
             />
           </td>
           <td>
-            <IconButton onClick={handleClick} >
+            <IconButton onClick={props.removeExcercise} >
               <DeleteIcon/>
             </IconButton>
           </td>
@@ -147,4 +98,11 @@ const mapStateToProps = (state, ownProps) => ({
   excercise: Selectors.getExcerciseById(state, ownProps.excercise_id)
 })
 
-export default connect(mapStateToProps)(ExcerciseForm)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  removeExcercise: () => dispatch({ type: 'excercises/excerciseRemoved', payload: ownProps.excercise_id }),
+  updateMovement: (movement) => dispatch({ type: 'excercises/excerciseMovementChanged', payload: { id: ownProps.excercise_id, movement: movement } }),
+  updateWeight: (weight) => dispatch({ type: 'excercises/excerciseWeightChanged', payload: { id: ownProps.excercise_id, weight_value: weight } }),
+  updateMeasurement: (measurement) => dispatch({ type: 'excercises/excerciseMeasurementChanged', payload: { id: ownProps.excercise_id, measurement_metric: measurement } })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExcerciseForm)

@@ -9,7 +9,7 @@ export const getTemplateById = (store, id) =>
 
 // Workouts
 export const getWorkoutsState = store =>
-  store.workouts.filter(workout => workout.training_template_id == store.selected_template)
+  store.workouts.filter(workout => workout.training_template_id == store.user.selected_template)
 
 export const getWorkoutsByDayNumberFilter = (store, dayNumber) =>
   getWorkoutsState(store).filter(workout => workout.day_number == dayNumber)
@@ -34,3 +34,8 @@ export const getExcercisesByBlockId = (store, id) =>
 
 export const getExcerciseById = (store, id) =>
   getExcercisesState(store).find(excercise => excercise.id == id)
+
+// const getVisibilityFilter = (state, props) =>
+//   state.todoLists[props.listId].visibilityFilter
+
+// const getTodos = (state, props) => state.todoLists[props.listId].todos

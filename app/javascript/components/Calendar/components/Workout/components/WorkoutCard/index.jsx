@@ -3,14 +3,11 @@ import React, { useState }  from "react"
 import Redux                from "redux"
 import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
-
 import * as Selectors       from "../../../../../../redux/selectors"
-
 import { makeStyles }       from "@material-ui/core/styles"
 import Popover              from "@material-ui/core/Popover"
 import Typography           from "@material-ui/core/Typography"
-
-import WorkoutPopover       from "../../views/WorkoutFormWrapper"
+import WorkoutFormWrapper   from "../../views/WorkoutFormWrapper"
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
@@ -22,8 +19,9 @@ const WorkoutCard = (props) => {
   const id = open ? 'simple-popover' : undefined
 
   return (
-    <div className="workout-element">
+    <React.Fragment>
       <div
+        className="workout-element"
         aria-describedby={id}
         variant="contained"
         color="primary"
@@ -51,10 +49,10 @@ const WorkoutCard = (props) => {
           component={'span'}
           variant={'body2'}
         >
-          <WorkoutPopover workout_id={props.workout.id} />
+          <WorkoutFormWrapper workout_id={props.workout.id} />
         </Typography>
       </Popover>
-    </div>
+    </React.Fragment>
   )
 }
 
