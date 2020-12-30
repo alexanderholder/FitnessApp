@@ -1,2 +1,4 @@
--# This is the react page
--# = render 'common/spa_setup', name: :data_streams, root: 'DataStreamsAppMount'
+#root{:'data-initial-options' => @initial_state.to_json}
+  :javascript
+    window['__INITIAL_STATE__'] = document.getElementById("root").dataset.initialOptions;
+  = javascript_pack_tag 'index'
