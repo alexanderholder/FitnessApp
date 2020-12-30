@@ -6,14 +6,14 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-darwin19]
+ruby 3.0.0 / rails 6.1.0
 
 * System dependencies
 haml
+webpacker
 
 * Configuration
 devise
-omniauth
 
 * Database creation
 postgres
