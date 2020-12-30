@@ -73,3 +73,8 @@ end
 gem 'devise'
 
 gem "oj", "~> 3" # fast json dumps
+gem 'sorbet', :group => :development
+gem 'sorbet-runtime'
+gem "sorbet-rails"
+gem "sorbet-progress", group: [:development, :test]
+gem "tapioca", group: [:development, :test], require: false
