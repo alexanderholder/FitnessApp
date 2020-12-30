@@ -1,19 +1,13 @@
 import React    from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-
+import { Provider } from 'react-redux';
+import * as serviceWorker from './serviceWorker';
+import ErrorBoundary from './errorBoundry';
+import store from './redux/store';
 import App from './App';
 
-import * as serviceWorker from './serviceWorker';
-import ErrorBoundary from "./errorBoundry"
-
-import store from "./redux/store"
-import { fetchState } from './redux/reducer'
-
-store.dispatch(fetchState)
-
 const renderApp = () => {
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
       // <React.StrictMode>
         <ErrorBoundary>
