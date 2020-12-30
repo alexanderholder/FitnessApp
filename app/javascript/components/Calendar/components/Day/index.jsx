@@ -14,7 +14,8 @@ const Day = props => {
       type: 'workouts/workoutAdded',
       payload: {
         name: "unnamed workout",
-        day_number: props.dayNumber
+        day_number: props.dayNumber,
+        training_template_id: props.training_template_id
       }
     })
   }
@@ -44,7 +45,12 @@ const Day = props => {
 }
 
 Day.propTypes = {
-  dayNumber: PropTypes.number.isRequired
+  dayNumber: PropTypes.number.isRequired,
+  training_template_id: PropTypes.number.isRequired
 }
 
-export default connect()(Day)
+const mapStateToProps = state => ({
+  training_template_id: state.user.selected_template
+})
+
+export default connect(mapStateToProps)(Day)

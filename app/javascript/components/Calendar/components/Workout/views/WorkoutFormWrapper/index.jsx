@@ -1,14 +1,11 @@
 // @flow
-import React, { useState }  from 'react'
-import Redux                from 'redux'
-import PropTypes            from 'prop-types'
-
-import * as Selectors       from '../../../../../../redux/selectors'
-
-import TextField            from '@material-ui/core/TextField'
-import BlockWrapper         from '../BlockWrapper'
-
+import React, { useState } from 'react'
+import Redux from 'redux'
+import PropTypes from 'prop-types'
 import { connect, useDispatch }  from 'react-redux'
+import * as Selectors from '../../../../../../redux/selectors'
+import TextField from '@material-ui/core/TextField'
+import BlockWrapper from '../BlockWrapper'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
@@ -17,7 +14,8 @@ const WorkoutFormWrapper = (props) => {
   return (
     <div className="workout-form">
       <TextField
-        d="standard-basic"
+        id="workout-name"
+        autoFocus={true}
         label="Workout Name"
         value={workoutName}
         onKeyUp={e =>

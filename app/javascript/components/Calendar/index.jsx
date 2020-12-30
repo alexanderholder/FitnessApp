@@ -39,12 +39,9 @@ const Calendar = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const template_id = state.selected_template
-  const template_length = Selectors.getTemplateById(state, template_id).length
-
-  return { template_length }
-}
+const mapStateToProps = state => ({
+  template_length: Selectors.getTemplateById(state, state.user.selected_template).length
+})
 
 Calendar.propTypes = {
   template_length: PropTypes.number.isRequired
