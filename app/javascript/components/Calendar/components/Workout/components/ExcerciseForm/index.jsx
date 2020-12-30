@@ -22,6 +22,7 @@ const ExcerciseForm = props => {
         <tr>
           <td>
             <TextField
+              autoFocus={true}
               label="Excercise Name"
               onChange={e => props.updateMovement(e.target.value)}
               options={excerciseList}
