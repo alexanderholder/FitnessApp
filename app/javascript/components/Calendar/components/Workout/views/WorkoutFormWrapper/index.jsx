@@ -1,33 +1,21 @@
 // @flow
-import React, { useState } from 'react'
+import React from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
-import { connect, useDispatch }  from 'react-redux'
+import { connect }  from 'react-redux'
 import * as Selectors from '../../../../../../redux/selectors'
 import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
 
 const WorkoutFormWrapper = (props) => {
-  const [workoutName, setWorkoutName] = useState(props.workout.name)
-  const dispatch = useDispatch()
-
   return (
     <div className="workout-form">
       <TextField
-        id="workout-name"
         autoFocus={true}
+        id="workout-name"
         label="Workout Name"
-        value={workoutName}
-        onKeyUp={e =>
-          dispatch({
-            type: 'workouts/workoutNameChanged',
-            payload: {
-              id: props.workout.id,
-              name: e.target.value.trim()
-            }
-          })
-        }
-        onChange={e => setWorkoutName(e.target.value)}
+        onChange={e => props.updateWorkoutName(e.target.value)}
+        value={props.workout.name}
       />
       {props.blocks.map(block =>
         <BlockWrapper
@@ -38,12 +26,7 @@ const WorkoutFormWrapper = (props) => {
       )}
       <div
         className="hyperlink-button"
-        onClick={() =>
-          dispatch({
-            type: 'blocks/blockAdded',
-            payload: { id: props.workout_id }
-          })
-        }
+        onClick={props.addBlock}
       >
         + Add Block
       </div>
@@ -62,4 +45,9 @@ const mapStateToProps = (state, ownProps) => ({
   blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workout_id)
 })
 
-export default connect(mapStateToProps)(WorkoutFormWrapper)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateWorkoutName: (name) => { dispatch({ type: 'workouts/workoutNameChanged', payload: { id: ownProps.workout_id, name: name } }) },
+  addBlock: () => { dispatch({ type: 'blocks/blockAdded', payload: { id: ownProps.workout_id } }) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)
