@@ -6,15 +6,15 @@ import PropTypes from 'prop-types'
 import * as Selectors from '../../../../../../redux/selectors'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
 // import SearchCreate from './components/SearchCreate'
-import Menu from './components/menu'
+// import Menu from './components/menu'
 import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 const ExcerciseForm = props => {
   const { movement, weight_value, measurement_metric } = props.excercise
   const [isWeightShown, setWeightIsShown] = useState(weight_value)
-  const [isForShown, setForIsShown] = useState(measurement_metric)
 
   return (
     <table>
@@ -32,21 +32,17 @@ const ExcerciseForm = props => {
               width="50"
             />
           </td>
-          {/* <td>
+          <td>
             <TextField
               label="Sets & Reps"
-              value={setsReps}
+              onChange={e => props.updateMeasurement(e.target.value)}
               options={setsRepsSchemeList}
-              variant="outlined"
               size="small"
+              variant="outlined"
+              value={measurement_metric}
               width="50"
-              onChange={e => setSetsReps(e.target.value)}
-              //     type: 'excercises/excerciseSetsRepsChanged',
-              //     payload: {
-              //       id: props.excercise.id,
-              //       sets_reps: e.target.value
             />
-          </td> */}
+          </td>
           { isWeightShown && (
             <td>
               <TextField
@@ -59,28 +55,17 @@ const ExcerciseForm = props => {
               />
             </td>
           )}
-          { isForShown && (
-            <td>
-              <TextField
-                label="For Measurement"
-                onChange={e => props.updateMeasurement(e.target.value)}
-                size="small"
-                variant="outlined"
-                value={measurement_metric}
-                width="50"
-              />
-            </td>
-          )}
           <td>
-            <Menu
-              isWeightShown={isWeightShown}
-              setWeightIsShown={setWeightIsShown}
-              isForShown={isForShown}
-              setForIsShown={setForIsShown}
-            />
+            <IconButton
+              onClick={() => { setWeightIsShown(!isWeightShown) }}
+            >
+              <FitnessCenterIcon/>
+            </IconButton>
           </td>
           <td>
-            <IconButton onClick={props.removeExcercise} >
+            <IconButton
+              onClick={props.removeExcercise}
+            >
               <DeleteIcon/>
             </IconButton>
           </td>

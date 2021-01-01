@@ -1,14 +1,35 @@
 // @flow
-import React      from "react"
-import { render } from "react-dom"
-import PropTypes  from 'prop-types'
+import React, { useEffect } from 'react'
+import { render } from 'react-dom'
+import PropTypes from 'prop-types'
 import { connect, useDispatch } from 'react-redux'
-import { Calendar, Navbar, Sidebar, TemplateSearch } from "./components"
+import { Calendar, Navbar, Sidebar, TemplateSearch } from './components'
+import WindowState from './windowState'
+import { removeWorkout } from './redux/reducers/workoutsSlice'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 
+const DELETE_KEYCODE = 46
+const BACKSPACE_KEYCODE = 8
+
 const App = props => {
-  if (props.signed_in) {
+  const handleUserKeyPress = (e) => {
+    if (e.keyCode === DELETE_KEYCODE || e.keyCode === BACKSPACE_KEYCODE) {
+      if (WindowState.hovered_card_id) {
+        props.deleteWorkout(WindowState.hovered_card_id)
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleUserKeyPress)
+
+    return () => {
+      window.removeEventListener('keydown', handleUserKeyPress)
+    }
+  }, [])
+
+  if (props.signedIn) {
     return (
       <div className="app">
         <div className="float-right">
@@ -29,11 +50,15 @@ const App = props => {
 }
 
 App.propTypes = {
-  signed_in: PropTypes.bool.isRequired
+  signedIn: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  signed_in: state.user.signed_in
+  signedIn: state.user.signed_in
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = dispatch => ({
+  deleteWorkout: (id) => dispatch(removeWorkout(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

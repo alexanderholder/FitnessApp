@@ -1,5 +1,5 @@
 // @flow
-import React, { useState }  from "react"
+import React, { useState } from 'react'
 import Redux                from "redux"
 import PropTypes            from "prop-types"
 import { connect }          from "react-redux"
@@ -8,6 +8,7 @@ import { makeStyles }       from "@material-ui/core/styles"
 import Popover              from "@material-ui/core/Popover"
 import Typography           from "@material-ui/core/Typography"
 import WorkoutFormWrapper   from "../../views/WorkoutFormWrapper"
+import WindowState          from '../../../../../../windowState'
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
@@ -18,6 +19,9 @@ const WorkoutCard = (props) => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
+  const setCardIsHovered = () => WindowState.hovered_card_id = props.workout_id
+  const unsetCardIsHovered = () => WindowState.hovered_card_id = null
+
   return (
     <React.Fragment>
       <div
@@ -26,6 +30,8 @@ const WorkoutCard = (props) => {
         variant="contained"
         color="primary"
         onClick={handleClick}
+        onMouseEnter={setCardIsHovered}
+        onMouseLeave={unsetCardIsHovered}
       >
         { props.workout.name }
       </div>

@@ -1,18 +1,18 @@
 // @flow
-import React from "react"
-import Redux from "redux"
+import React from 'react'
+import Redux from 'redux'
 import PropTypes from 'prop-types'
-import { connect } from "react-redux"
-import * as Selectors from "../../../../../../redux/selectors"
+import { connect } from 'react-redux'
+import * as Selectors from '../../../../../../redux/selectors'
 import Draggable from 'react-draggable'
-import WorkoutCard from "../../components/WorkoutCard"
+import WorkoutCard from '../../components/WorkoutCard'
 
 const WorkoutCardWrapper = (props) => {
   if (props.workouts.length === 0) { return [] }
   else if (props.workouts.length < 5) {
     return (
       props.workouts.map(workout =>
-        <Draggable key={workout.id.toString()} >
+        <Draggable key={workout.id.toString()}>
           <WorkoutCard workout_id={workout.id} />
         </Draggable>
       )
@@ -22,7 +22,7 @@ const WorkoutCardWrapper = (props) => {
       <>
         {props.workouts.map(workout =>
           <Draggable key={workout.id.toString()} >
-            <WorkoutCard workout_id={workout.id} />
+            <WorkoutCard workout_id={workout.id}/>
           </Draggable>
         )}
         <div>Show More</div>
