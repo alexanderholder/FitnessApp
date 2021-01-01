@@ -1,9 +1,4 @@
-import { client } from '../../../api/client'
-
-function nextId(model) {
-  const maxId = model.reduce((maxId, workout) => Math.max(workout.id, maxId), -1)
-  return maxId + 1
-}
+import Request from '../../../api/request'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
@@ -11,7 +6,7 @@ export default function appReducer(state = null, action) {
       return [
         ...state,
         {
-          id: nextId(state),
+          id: action.payload.id,
           name: action.payload.name,
           day_number: action.payload.day_number,
           training_template_id: action.payload.training_template_id
@@ -30,13 +25,31 @@ export default function appReducer(state = null, action) {
         }
       })
     }
+    case 'workouts/workoutRemoved': {
+      return state.filter(workout => workout.id !== action.payload)
+    }
     default:
       return state
   }
 }
 
-// Thunk function
-export async function fetchState(dispatch, getState) {
-  const response = await client.get('http://localhost:3000/api/calender')
-  dispatch({ type: 'state/stateLoaded', payload: JSON.parse(response) })
+export function saveNewWorkout(initialWorkout) {
+  return async function saveNewWorkoutThunk(dispatch, getState) {
+    const response = await Request.post('http://localhost:3000/workouts', { workout: initialWorkout })
+    dispatch({ type: 'workouts/workoutAdded', payload: response.data })
+  }
+}
+
+export function saveWorkoutName(id, initialWorkout) {
+  return async function saveWorkoutNameThunk(dispatch, getState) {
+    const response = await Request.put(`http://localhost:3000/workouts/${id}`, { workout: initialWorkout })
+    dispatch({ type: 'workouts/workoutNameChanged', payload: response.data })
+  }
+}
+
+export function removeWorkout(id, initialWorkout) {
+  return async function removeWorkoutThunk(dispatch, getState) {
+    const response = await Request.delete(`http://localhost:3000/workouts/${id}`)
+    dispatch({ type: 'workouts/workoutRemoved', payload: id })
+  }
 }

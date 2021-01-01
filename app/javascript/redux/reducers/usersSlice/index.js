@@ -1,5 +1,3 @@
-import { client } from '../../../api/client'
-
 export default function appReducer(state = null, action) {
   switch (action.type) {
     case 'user/temaplteChanged': {

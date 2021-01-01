@@ -2,23 +2,12 @@
 import React, { useState }      from "react"
 import Redux                    from "redux"
 import PropTypes                from "prop-types"
-import { connect, useDispatch } from "react-redux"
+import { connect }              from "react-redux"
 import WorkoutCardWrapper       from "../Workout/views/WorkoutCardWrapper"
+import { saveNewWorkout }       from '../../../../redux/reducers/workoutsSlice'
 
 const Day = props => {
   const [isShown, setIsShown] = useState(false)
-  const dispatch = useDispatch()
-
-  const handleClick = () => {
-    dispatch({
-      type: 'workouts/workoutAdded',
-      payload: {
-        name: "unnamed workout",
-        day_number: props.dayNumber,
-        training_template_id: props.training_template_id
-      }
-    })
-  }
 
   return (
     <td
@@ -35,7 +24,9 @@ const Day = props => {
       { isShown && (
         <div
           className="hyperlink-button"
-          onClick={handleClick}
+          onClick={() => props.addWorkout(
+            { name: "unnamed workout", day_number: props.dayNumber, training_template_id: props.training_template_id }
+          )}
         >
           + New Workout
         </div>
@@ -53,4 +44,8 @@ const mapStateToProps = state => ({
   training_template_id: state.user.selected_template
 })
 
-export default connect(mapStateToProps)(Day)
+const mapDispatchToProps = dispatch => ({
+  addWorkout: (initialWorkout) => dispatch(saveNewWorkout(initialWorkout))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Day)

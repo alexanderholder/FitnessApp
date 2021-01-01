@@ -1,21 +1,25 @@
 // @flow
-import React from 'react'
+import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
 import * as Selectors from '../../../../../../redux/selectors'
 import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
+import { saveWorkoutName } from '../../../../../../redux/reducers/workoutsSlice'
 
 const WorkoutFormWrapper = (props) => {
+  const [workoutName, setWorkoutName] = useState(props.workout.name)
+
   return (
     <div className="workout-form">
       <TextField
         autoFocus={true}
         id="workout-name"
         label="Workout Name"
-        onChange={e => props.updateWorkoutName(e.target.value)}
-        value={props.workout.name}
+        onChange={e => setWorkoutName(e.target.value)}
+        value={workoutName}
+        onBlur={() => props.updateWorkoutName(workoutName)}
       />
       {props.blocks.map(block =>
         <BlockWrapper
@@ -46,8 +50,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkoutName: (name) => { dispatch({ type: 'workouts/workoutNameChanged', payload: { id: ownProps.workout_id, name: name } }) },
-  addBlock: () => { dispatch({ type: 'blocks/blockAdded', payload: { id: ownProps.workout_id } }) }
+  updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
+  addBlock: () => dispatch({ type: 'blocks/blockAdded', payload: { id: ownProps.workout_id } })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)

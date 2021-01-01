@@ -24,21 +24,3 @@ class CalendarController < ApplicationController
     }
   end
 end
-
-# def inital_state
-#   training_templates = TrainingTemplate.where(user: current_user.id)
-#   workouts = Workout.where(training_template_id: training_templates.ids)
-#   blocks = Block.where(workout_id: workouts.ids)
-#   excercises = Excercise.where(block_id: blocks.ids)
-
-#   data = {
-#     selected_template: training_templates.first.id,
-#     user: { user_id: current_user.id, signed_in: true },
-#     templates: training_templates,
-#     workouts: workouts,
-#     blocks: blocks,
-#     excercises: excercises
-#   }
-
-#   render json: Oj.dump(data.to_json)
-# end
