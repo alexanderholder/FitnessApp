@@ -9,13 +9,11 @@ Rails.application.routes.draw do
 
   post 'training_templates/data' => 'training_templates#data'
 
-  resources :training_templates, only: [:create]
+  resources :training_templates, only: [:create, :destroy]
   resources :workouts, only: [:create, :update, :destroy]
   resources :blocks
   resources :excercises
 
-  # post 'workouts' => 'calendar#create'
-  # put 'workouts' => 'calendar#update'
   get 'calendar' => 'calendar#index'
   get '/' => redirect('/calendar'), as: 'root'
 end

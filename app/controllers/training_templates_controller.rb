@@ -1,11 +1,4 @@
 class TrainingTemplatesController < ApplicationController
-  skip_before_action :verify_authenticity_token, :only => [:data]
-
-  def data
-    tt = TrainingTemplate.create(name: params["data"])
-    Rails.logger("yeet") if tt.valid?
-  end
-
   def index
     @training_templates = TrainingTemplate.where(user_id: current_user.id)
   end
@@ -26,7 +19,6 @@ class TrainingTemplatesController < ApplicationController
   def create
     @training_template = TrainingTemplate.new(training_template_params)
     @training_template.user_id = current_user.id
-    @training_template.length ||= 5 # TODO: add length in UI
 
     if @training_template.save
       render json: @training_template.attributes.as_json
@@ -47,14 +39,17 @@ class TrainingTemplatesController < ApplicationController
 
   def destroy
     @training_template = TrainingTemplate.find(params[:id])
-    @training_template.destroy
 
-    redirect_to training_templates_path
+    if @training_template.destroy
+      head 202
+    else
+      head :bad_request
+    end
   end
 
   private
 
   def training_template_params
-    params.require(:training_template).permit(:name)
+    params.require(:training_template).permit(:name, :length)
   end
 end

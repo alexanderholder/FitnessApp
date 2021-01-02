@@ -29,7 +29,7 @@ const App = props => {
     }
   }, [])
 
-  if (props.signedIn) {
+  if (props.signed_in) {
     return (
       <div className="app">
         <div className="float-right">
@@ -50,11 +50,11 @@ const App = props => {
 }
 
 App.propTypes = {
-  signedIn: PropTypes.bool.isRequired
+  signed_in: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  signedIn: state.user.signed_in
+  signed_in: state.user.signed_in
 })
 
 const mapDispatchToProps = dispatch => ({
