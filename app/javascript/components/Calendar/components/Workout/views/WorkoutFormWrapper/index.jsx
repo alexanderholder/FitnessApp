@@ -17,9 +17,10 @@ const WorkoutFormWrapper = (props) => {
         autoFocus={true}
         id="workout-name"
         label="Workout Name"
-        onChange={e => setWorkoutName(e.target.value)}
-        value={workoutName}
         onBlur={() => props.updateWorkoutName(workoutName)}
+        onChange={e => setWorkoutName(e.target.value)}
+        onFocus={e => e.target.select()}
+        value={workoutName}
       />
       {props.blocks.map(block =>
         <BlockWrapper
