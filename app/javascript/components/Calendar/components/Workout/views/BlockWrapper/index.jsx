@@ -4,7 +4,7 @@ import Redux     from 'redux'
 import PropTypes from 'prop-types'
 
 import { connect, useDispatch } from 'react-redux'
-import * as Selectors           from '../../../../../../redux/selectors'
+import * as Selectors           from 'javascript/redux/selectors'
 
 import TextField   from '@material-ui/core/TextField'
 import ExcerciseForm from '../../components/ExcerciseForm'

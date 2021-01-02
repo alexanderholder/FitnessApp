@@ -1,34 +1,56 @@
 // @flow
-import React from 'react';
-import Redux from 'redux';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import * as Selectors from '../../redux/selectors';
-
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
+import React from 'react'
+import Redux from 'redux'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import * as Selectors from 'javascript/redux/selectors'
+import TextField from '@material-ui/core/TextField'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
+import parse from 'autosuggest-highlight/parse'
+import match from 'autosuggest-highlight/match'
+import { saveNewTrainingTemplate } from 'javascript/redux/reducers/templatesSlice'
 
 const TemplateSearch = props => {
-  const [template, setTemplate] = React.useState(props.current_template)
-  const dispatch = useDispatch()
-
-  const handleChange = (e, new_value) => {
-    if (new_value) {
-      setTemplate(new_value)
-      dispatch({ type: 'user/temaplteChanged', payload: new_value.id })
-    }
-  }
-
   return (
     <Autocomplete
       id="template-list"
       style={{ width: 300 }}
-      onChange={handleChange}
-      value={template}
+      onChange={(event, newValue) => {
+        if (newValue && newValue.inputValue) {
+          props.templateAdded(newValue.inputValue)
+        } else {
+          props.templateChanged(newValue.id);
+        }
+      }}
+      selectOnFocus
+      clearOnBlur
+      handleHomeEndKeys
+      value={props.current_template}
       options={props.templates}
-      getOptionLabel={(option) => option.name}
+      filterOptions={(options, params) => {
+        const filter = createFilterOptions()
+        const filtered = filter(options, params);
+        // Suggest the creation of a new value
+        if (params.inputValue !== '') {
+          filtered.push({
+            inputValue: params.inputValue,
+            name: `Add "${params.inputValue}"`,
+          })
+        }
+        return filtered;
+      }}
+      getOptionLabel={(option) => {
+        // Value selected with enter, right from the input
+        if (typeof option === 'string') {
+          return option;
+        }
+        // Add "xxx" option created dynamically
+        if (option.inputValue) {
+          return option.inputValue;
+        }
+        // Regular option
+        return option.name;
+      }}
       renderInput={(params) => (
         <TextField {...params} label="Templates" variant="outlined" margin="normal" />
       )}
@@ -55,11 +77,14 @@ TemplateSearch.propTypes = {
   current_template: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
-  const user = state.user
-  const templates = Selectors.getTemplatesByUserId(state, user.user_id)
-  const current_template = Selectors.getTemplateById(state, user.selected_template)
-  return { templates, current_template }
-}
+const mapStateToProps = state => ({
+  templates: Selectors.getTemplatesByUserId(state, state.user.user_id),
+  current_template: Selectors.getTemplateById(state, state.user.selected_template)
+})
 
-export default connect(mapStateToProps)(TemplateSearch)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  templateChanged: (id) => dispatch({ type: 'user/temaplteChanged', payload: id }),
+  templateAdded: (name) => dispatch(saveNewTrainingTemplate({ name: name }))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateSearch)

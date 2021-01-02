@@ -58,7 +58,13 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
-    hmr: false
+    historyApiFallback: true # add this if you are not using browser router
+    # proxy: {
+    #   '/api': { // string to look for proxying requests to api
+    #     target: 'http://localhost:3000', // Path of your rails api server
+    #   },
+    # },
+    hmr: true
     # Inline should be set to true if using HMR
     inline: true
     overlay: true

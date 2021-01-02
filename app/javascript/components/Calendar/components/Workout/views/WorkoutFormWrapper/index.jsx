@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
-import * as Selectors from '../../../../../../redux/selectors'
+import * as Selectors from 'javascript/redux/selectors'
 import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
-import { saveWorkoutName } from '../../../../../../redux/reducers/workoutsSlice'
+import { saveWorkoutName } from 'javascript/redux/reducers/workoutsSlice'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)

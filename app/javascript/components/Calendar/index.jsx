@@ -4,7 +4,7 @@ import Redux       from "redux"
 import PropTypes   from 'prop-types'
 import { connect } from "react-redux"
 import Week        from "./components/Week"
-import * as Selectors from '../../redux/selectors';
+import * as Selectors from 'javascript/redux/selectors';
 
 const Calendar = (props) => {
   const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
