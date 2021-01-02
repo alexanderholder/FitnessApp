@@ -11,7 +11,7 @@ if (window.__INITIAL_STATE__) {
   preloadedState = JSON.parse(window.__INITIAL_STATE__)
   const selected_template = LocalStorage.getItem('current_template_id')
   if (selected_template) {
-    preloadedState.user.selected_template = selected_template
+    preloadedState.user.selected_template = parseInt(selected_template)
   }
 }
 
