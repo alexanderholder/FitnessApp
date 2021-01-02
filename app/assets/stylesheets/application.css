@@ -19,6 +19,12 @@ div.app {
   padding: 25px;
 }
 
+.vertical-inline-block {
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 div.side-bar {
   width: 17%;
   display: inline-block;

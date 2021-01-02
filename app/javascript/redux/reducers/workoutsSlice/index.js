@@ -35,21 +35,21 @@ export default function appReducer(state = null, action) {
 
 export function saveNewWorkout(initialWorkout) {
   return async function saveNewWorkoutThunk(dispatch, getState) {
-    const response = await Request.post('http://localhost:3000/workouts', { workout: initialWorkout })
+    const response = await Request.post('/workouts', { workout: initialWorkout })
     dispatch({ type: 'workouts/workoutAdded', payload: response.data })
   }
 }
 
 export function saveWorkoutName(id, initialWorkout) {
   return async function saveWorkoutNameThunk(dispatch, getState) {
-    const response = await Request.put(`http://localhost:3000/workouts/${id}`, { workout: initialWorkout })
+    const response = await Request.put(`/workouts/${id}`, { workout: initialWorkout })
     dispatch({ type: 'workouts/workoutNameChanged', payload: response.data })
   }
 }
 
 export function removeWorkout(id, initialWorkout) {
   return async function removeWorkoutThunk(dispatch, getState) {
-    const response = await Request.delete(`http://localhost:3000/workouts/${id}`)
+    const response = await Request.delete(`/workouts/${id}`)
     dispatch({ type: 'workouts/workoutRemoved', payload: id })
   }
 }
