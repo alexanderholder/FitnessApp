@@ -3,7 +3,7 @@ import React from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as Selectors from '../../../../../../redux/selectors'
+import * as Selectors from 'javascript/redux/selectors'
 import Draggable from 'react-draggable'
 import WorkoutCard from '../../components/WorkoutCard'
 

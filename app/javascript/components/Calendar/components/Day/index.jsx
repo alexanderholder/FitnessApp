@@ -4,7 +4,7 @@ import Redux                    from "redux"
 import PropTypes                from "prop-types"
 import { connect }              from "react-redux"
 import WorkoutCardWrapper       from "../Workout/views/WorkoutCardWrapper"
-import { saveNewWorkout }       from '../../../../redux/reducers/workoutsSlice'
+import { saveNewWorkout }       from 'javascript/redux/reducers/workoutsSlice'
 
 const Day = props => {
   const [isShown, setIsShown] = useState(false)

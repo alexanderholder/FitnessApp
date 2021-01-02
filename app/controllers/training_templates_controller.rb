@@ -26,11 +26,12 @@ class TrainingTemplatesController < ApplicationController
   def create
     @training_template = TrainingTemplate.new(training_template_params)
     @training_template.user_id = current_user.id
+    @training_template.length ||= 5 # TODO: add length in UI
 
     if @training_template.save
-      redirect_to @training_template
+      render json: @training_template.attributes.as_json
     else
-      render 'new'
+      head :bad_request
     end
   end
 

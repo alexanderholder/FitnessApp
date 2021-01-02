@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   post 'training_templates/data' => 'training_templates#data'
 
-  resources :training_templates
+  resources :training_templates, only: [:create]
   resources :workouts, only: [:create, :update, :destroy]
   resources :blocks
   resources :excercises
