@@ -19,6 +19,7 @@ import match from 'autosuggest-highlight/match'
 
 const TemplateSearch = props => {
   const [open, toggleOpen] = useState(false)
+  const [openDelete, toggleOpenDelete] = useState(false)
   const [dialogValue, setDialogValue] = useState({
     name: '',
     length: '',
@@ -116,9 +117,9 @@ const TemplateSearch = props => {
             )
           }}
         />
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} aria-labelledby="add-template">
           <form onSubmit={handleSubmit}>
-            <DialogTitle id="form-dialog-title">Add a new template</DialogTitle>
+            <DialogTitle id="add-template">Add a new template</DialogTitle>
             <DialogContent>
               <TextField
                 autoFocus
@@ -149,9 +150,24 @@ const TemplateSearch = props => {
           </form>
         </Dialog>
       </div>
-      <IconButton onClick={() => props.templateRemoved(props.current_template.id, props.templates[0].id)}>
+      <IconButton onClick={toggleOpenDelete}>
         <DeleteIcon/>
       </IconButton>
+      <Dialog open={openDelete} onClose={() => toggleOpenDelete(false)} aria-labelledby="confirm-delete">
+          <form onSubmit={() => props.templateRemoved(props.current_template.id, props.templates[0].id)}>
+            <DialogTitle id="confirm-delete">
+              Are you sure you want to delete {props.current_template.name} template?
+            </DialogTitle>
+            <DialogActions>
+              <Button onClick={() => toggleOpenDelete(false)} color="primary">
+                Cancel
+              </Button>
+              <Button type="submit" color="primary">
+                Delete
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
     </React.Fragment>
   )
 }
