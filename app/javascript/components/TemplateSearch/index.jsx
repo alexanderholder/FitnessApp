@@ -150,7 +150,7 @@ const TemplateSearch = props => {
           </form>
         </Dialog>
       </div>
-      <IconButton onClick={toggleOpenDelete}>
+      <IconButton onClick={() => toggleOpenDelete(true)}>
         <DeleteIcon/>
       </IconButton>
       <Dialog open={openDelete} onClose={() => toggleOpenDelete(false)} aria-labelledby="confirm-delete">
