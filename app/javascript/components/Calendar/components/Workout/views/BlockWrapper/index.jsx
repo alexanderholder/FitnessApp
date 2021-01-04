@@ -1,12 +1,11 @@
 // @flow
-import React     from 'react'
-import Redux     from 'redux'
+import React from 'react'
+import Redux from 'redux'
 import PropTypes from 'prop-types'
-
 import { connect, useDispatch } from 'react-redux'
-import * as Selectors           from 'javascript/redux/selectors'
-
-import TextField   from '@material-ui/core/TextField'
+import * as Selectors from 'javascript/redux/selectors'
+import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
+import TextField from '@material-ui/core/TextField'
 import ExcerciseForm from '../../components/ExcerciseForm'
 
 const BlockWrapper = props => {
@@ -23,12 +22,7 @@ const BlockWrapper = props => {
       )}
       <div
         className="hyperlink-button"
-        onClick={() =>
-          dispatch({
-            type: 'excercises/excerciseAdded',
-            payload: { id: props.block_id }
-          })
-        }
+        onClick={props.addExcercise}
       >
         + Add Excercise
       </div>
@@ -37,10 +31,10 @@ const BlockWrapper = props => {
 }
 
 BlockWrapper.propTypes = {
-  workout_id: PropTypes.number.isRequired,
-  block_id: PropTypes.number.isRequired,
   block: PropTypes.object.isRequired,
-  excercises: PropTypes.array.isRequired
+  block_id: PropTypes.number.isRequired,
+  excercises: PropTypes.array.isRequired,
+  workout_id: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -48,4 +42,8 @@ const mapStateToProps = (state, ownProps) => ({
   excercises: Selectors.getExcercisesByBlockId(state, ownProps.block_id)
 })
 
-export default connect(mapStateToProps)(BlockWrapper)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addExcercise: () => dispatch(saveNewExcercise({ movement: "", block_id: ownProps.block_id }))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlockWrapper)

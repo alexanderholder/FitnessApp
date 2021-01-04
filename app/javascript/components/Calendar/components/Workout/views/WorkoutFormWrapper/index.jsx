@@ -7,6 +7,7 @@ import * as Selectors from 'javascript/redux/selectors'
 import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
 import { saveWorkoutName } from 'javascript/redux/reducers/workoutsSlice'
+import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
@@ -52,7 +53,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
-  addBlock: () => dispatch({ type: 'blocks/blockAdded', payload: { id: ownProps.workout_id } })
+  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)
