@@ -4,6 +4,7 @@ import Redux from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import * as Selectors from 'javascript/redux/selectors'
+import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
 import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
@@ -13,6 +14,9 @@ import DeleteIcon from '@material-ui/icons/Delete'
 const ExcerciseForm = props => {
   const { movement, weight_value, measurement_metric } = props.excercise
   const [isWeightShown, setWeightIsShown] = useState(weight_value)
+  const [name, setName] = useState(movement)
+  const [setsReps, setSetsReps] = useState(measurement_metric)
+  const [weight, setWeight] = useState(weight_value)
 
   return (
     <table>
@@ -22,22 +26,24 @@ const ExcerciseForm = props => {
             <TextField
               autoFocus={true}
               label="Excercise Name"
-              onChange={e => props.updateMovement(e.target.value)}
+              onBlur={() => props.updateExcercise({ movement: name })}
+              onChange={e => setName(e.target.value)}
               options={excerciseList}
               size="small"
               variant="outlined"
-              value={movement}
+              value={name}
               width="50"
             />
           </td>
           <td>
             <TextField
               label="Sets & Reps"
-              onChange={e => props.updateMeasurement(e.target.value)}
+              onBlur={() => props.updateExcercise({ measurement_metric: setsReps })}
+              onChange={e => setSetsReps(e.target.value)}
               options={setsRepsSchemeList}
               size="small"
               variant="outlined"
-              value={measurement_metric}
+              value={setsReps}
               width="50"
             />
           </td>
@@ -45,10 +51,11 @@ const ExcerciseForm = props => {
             <td>
               <TextField
                 label="Weight"
-                onChange={e => props.updateWeight(e.target.value)}
+                onBlur={() => props.updateExcercise({ weight_value: weight })}
+                onChange={e => setWeight(e.target.value)}
                 size="small"
                 variant="outlined"
-                value={weight_value}
+                value={weight}
                 width="50"
               />
             </td>
@@ -83,10 +90,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  removeExcercise: () => dispatch({ type: 'excercises/excerciseRemoved', payload: ownProps.excercise_id }),
-  updateMovement: (movement) => dispatch({ type: 'excercises/excerciseMovementChanged', payload: { id: ownProps.excercise_id, movement: movement } }),
-  updateWeight: (weight) => dispatch({ type: 'excercises/excerciseWeightChanged', payload: { id: ownProps.excercise_id, weight_value: weight } }),
-  updateMeasurement: (measurement) => dispatch({ type: 'excercises/excerciseMeasurementChanged', payload: { id: ownProps.excercise_id, measurement_metric: measurement } })
+  removeExcercise: () => dispatch(Actions.removeExcercise(ownProps.excercise_id)),
+  updateExcercise: (payload) => dispatch(Actions.updateExcercise(ownProps.excercise_id, payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExcerciseForm)

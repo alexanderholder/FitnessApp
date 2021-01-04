@@ -1,54 +1,36 @@
 class BlocksController < ApplicationController
   def create
-    @workout = Workout.find(params[:workout_id])
-    @block = @workout.blocks.create(name: 'New Block', style: 'Fixed')
-    @block.excercises.create
-
-    if @block.save
-      redirect_to workout_path(@block.workout_id)
+    new_block = Block.create(block_params)
+    if new_block.save
+      render json: new_block.attributes.as_json
     else
-      flash[:error] = 'failed save'
+      head :bad_request
     end
   end
 
   def update
-    @block = Block.find(params[:id])
+    block = Block.find(params[:id])
 
-    if excercise_params
-      @excercise = Excercise.find(excercise_params[:id])
-      @excercise.update(excercise_params)
-    end
-
-    if @block.update(block_params)
-      redirect_to workout_path(@block.workout_id)
+    if block.update(block_params)
+      render json: block.attributes.as_json
     else
-      render 'index', notice: "failed save"
+      head :bad_request
     end
   end
 
   def destroy
-    @block = Block.find(params[:id])
-    @block.destroy
+    block = Block.find(params[:id])
 
-    redirect_to workout_path(@block.workout_id)
+    if block.destroy
+      head 202
+    else
+      head :bad_request
+    end
   end
 
   private
 
   def block_params
-    params.require(:block).permit(:name, :day_number, :sets, :style)
-  end
-
-  def excercise_params
-    return unless params[:excercise]
-
-    params.require(:excercise).permit(
-      :id,
-      :movement,
-      :measurement_metric,
-      :measurement_value,
-      :weight_metric,
-      :weight_value
-    )
+    params.require(:block).permit(:workout_id, :name, :day_number, :sets, :style)
   end
 end

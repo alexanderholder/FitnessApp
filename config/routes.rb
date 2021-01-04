@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   resources :training_templates, only: [:create, :destroy]
   resources :workouts, only: [:create, :update, :destroy]
-  resources :blocks
-  resources :excercises
+  resources :blocks, only: [:create, :destroy]
+  resources :excercises, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'
   get '/' => redirect('/calendar'), as: 'root'

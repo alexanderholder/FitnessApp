@@ -47,7 +47,7 @@ export function saveWorkoutName(id, initialWorkout) {
   }
 }
 
-export function removeWorkout(id, initialWorkout) {
+export function removeWorkout(id) {
   return async function removeWorkoutThunk(dispatch, getState) {
     const response = await Request.delete(`/workouts/${id}`)
     dispatch({ type: 'workouts/workoutRemoved', payload: id })
