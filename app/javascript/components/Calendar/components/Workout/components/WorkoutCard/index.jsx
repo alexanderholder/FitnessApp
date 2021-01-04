@@ -13,9 +13,10 @@ import WindowState          from 'javascript/windowState'
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = useState(null)
+  console.log(props.new_card)
+  const [anchorEl, setAnchorEl] = useState(props.new_card)
   const handleClick = (event) => { setAnchorEl(event.currentTarget) }
-  const handleClose = () => { setAnchorEl(null) }
+  const handleClose = () => { setAnchorEl(null); WindowState.new_card_id = null }
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
@@ -68,7 +69,8 @@ WorkoutCard.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  return { workout }
+  const new_card = ownProps.workout_id == WindowState.new_card_id ? true : false
+  return { workout, new_card }
 }
 
 export default connect(mapStateToProps)(WorkoutCard)

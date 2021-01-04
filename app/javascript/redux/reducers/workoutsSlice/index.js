@@ -1,4 +1,5 @@
 import Request from 'javascript/api/request'
+import WindowState from 'javascript/windowState'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
@@ -36,6 +37,7 @@ export default function appReducer(state = null, action) {
 export function saveNewWorkout(initialWorkout) {
   return async function saveNewWorkoutThunk(dispatch, getState) {
     const response = await Request.post('/workouts', { workout: initialWorkout })
+    WindowState.new_card_id = response.data.id
     dispatch({ type: 'workouts/workoutAdded', payload: response.data })
   }
 }
