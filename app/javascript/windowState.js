@@ -10,6 +10,7 @@ window.CalendarWindowState = window.CalendarWindowState || {
   // copied_card_id: null,
   hotkeys_enabled: true,
   mouse_down: false,
+  new_card_id: null,
 }
 
 const windowState = window.CalendarWindowState
