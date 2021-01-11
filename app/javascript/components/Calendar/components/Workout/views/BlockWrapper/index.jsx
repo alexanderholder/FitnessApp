@@ -12,7 +12,10 @@ const BlockWrapper = props => {
   const dispatch = useDispatch()
 
   return (
-    <div>
+    <div
+      className="block-wrapper"
+      style={{ borderColor: '#' + Math.floor(Math.random()*16777215).toString(16) }}
+    >
       {props.excercises.map(excercise =>
         <ExcerciseForm
           key={excercise.id}

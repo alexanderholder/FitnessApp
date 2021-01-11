@@ -109,3 +109,9 @@ table.calendar {
   font-size: 15px;
   font-weight: 500;
 }
+
+.block-wrapper {
+  margin: 5px 0px;
+  padding: 0px 5px;
+  border-left-style: solid;
+}
