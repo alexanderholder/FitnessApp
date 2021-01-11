@@ -2,15 +2,13 @@
 import React from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import TextField from '@material-ui/core/TextField'
 import ExcerciseForm from '../../components/ExcerciseForm'
 
 const BlockWrapper = props => {
-  const dispatch = useDispatch()
-
   return (
     <div
       className="block-wrapper"
