@@ -13,7 +13,6 @@ import WindowState          from 'javascript/windowState'
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
   const classes = useStyles()
-  console.log(props.new_card)
   const [anchorEl, setAnchorEl] = useState(props.new_card)
   const handleClick = (event) => { setAnchorEl(event.currentTarget) }
   const handleClose = () => { setAnchorEl(null); WindowState.new_card_id = null }
