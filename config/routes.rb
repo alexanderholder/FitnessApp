@@ -16,4 +16,11 @@ Rails.application.routes.draw do
 
   get 'calendar' => 'calendar#index'
   get '/' => redirect('/calendar'), as: 'root'
+
+  # http://rubyjunky.com/cleaning-up-rails-4-production-logging.html
+  # keep this last!
+  # unless Rails.env.development?
+  #   match("*path", via: :all, to: "errors#not_found")
+  #   get("/404" => "errors#not_found")
+  # end
 end
