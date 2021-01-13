@@ -30,7 +30,6 @@ export function saveNewExcercise(initialExcercise) {
 }
 
 export function updateExcercise(id, payload) {
-  console.log(payload)
   return async function updateExcerciseThunk(dispatch, getState) {
     const response = await Request.put(`/excercises/${id}`, { excercise: payload })
     dispatch({ type: 'excercises/excerciseChanged', payload: response.data })

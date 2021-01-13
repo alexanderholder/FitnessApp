@@ -10,13 +10,7 @@ import ExcerciseForm from '../../components/ExcerciseForm'
 
 const BlockWrapper = props => {
   return (
-    <div
-      className="block-wrapper"
-      style={{
-        borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
-        marginBottom: '10px'
-      }}
-    >
+    <div className="block-wrapper">
       {props.excercises.map(excercise =>
         <ExcerciseForm
           key={excercise.id}
