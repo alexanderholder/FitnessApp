@@ -6,7 +6,7 @@ import { connect }  from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
 import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
-import { saveWorkoutName } from 'javascript/redux/reducers/workoutsSlice'
+import { saveWorkoutName, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
@@ -27,7 +27,9 @@ const WorkoutFormWrapper = (props) => {
         onFocus={e => e.target.select()}
         value={workoutName}
       />
-      <IconButton>
+      <IconButton
+        onClick={() => props.removeWorkout }
+      >
         <DeleteIcon />
       </IconButton>
       <IconButton
@@ -71,7 +73,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
-  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' }))
+  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' })),
+  removeWorkout: () => dispatch(removeWorkout(ownProps.workout_id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)

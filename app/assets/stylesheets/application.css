@@ -111,7 +111,10 @@ table.calendar {
 }
 
 .block-wrapper {
-  margin: 5px 0px;
-  padding: 0px 5px;
-  border-left-style: solid;
+  margin: 5px;
+  padding: 10px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
