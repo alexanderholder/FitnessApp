@@ -8,9 +8,13 @@ import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
 import { saveWorkoutName } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
+  const [rounds, setRounds] = useState(props.workout.name)
 
   return (
     <div className="workout-form">
@@ -23,13 +27,27 @@ const WorkoutFormWrapper = (props) => {
         onFocus={e => e.target.select()}
         value={workoutName}
       />
-      {props.blocks.map(block =>
-        <BlockWrapper
-          key={block.id}
-          workout_id={props.workout.id}
-          block_id={block.id}
-        />
-      )}
+      <IconButton>
+        <DeleteIcon />
+      </IconButton>
+      <IconButton
+        style={{ float: 'right', marginRight: '5px' }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <div
+        id='workout-wrapper'
+        style={{ paddingTop: '10px' }}
+      >
+        {/* TODO: text field could be added here for single block workouts */}
+        {props.blocks.map(block =>
+          <BlockWrapper
+            key={block.id}
+            workout_id={props.workout.id}
+            block_id={block.id}
+          />
+        )}
+      </div>
       <div
         className="hyperlink-button"
         onClick={props.addBlock}
