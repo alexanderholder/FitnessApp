@@ -12,7 +12,10 @@ const BlockWrapper = props => {
   return (
     <div
       className="block-wrapper"
-      style={{ borderColor: '#' + Math.floor(Math.random()*16777215).toString(16) }}
+      style={{
+        borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+        marginBottom: '10px'
+      }}
     >
       {props.excercises.map(excercise =>
         <ExcerciseForm
