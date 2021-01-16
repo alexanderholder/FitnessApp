@@ -11,37 +11,37 @@ import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
 import CloseIcon from '@material-ui/icons/Close'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
-  const [rounds, setRounds] = useState(props.workout.name)
+  // const [rounds, setRounds] = useState(props.workout.name)
 
   return (
     <div className="workout-form">
       <TextField
         autoFocus={true}
         id="workout-name"
-        label="Workout Name"
+        label="Session Name"
         onBlur={() => props.updateWorkoutName(workoutName)}
         onChange={e => setWorkoutName(e.target.value)}
         onFocus={e => e.target.select()}
         value={workoutName}
       />
-      <IconButton
-        onClick={() => props.removeWorkout }
-      >
-        <DeleteIcon />
-      </IconButton>
-      <IconButton
-        style={{ float: 'right', marginRight: '5px' }}
-      >
-        <CloseIcon />
-      </IconButton>
+      <Tooltip title="Delete workout">
+        <IconButton onClick={props.deleteWorkout} >
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Close window">
+        <IconButton style={{ float: 'right', marginRight: '5px' }}>
+          <CloseIcon />
+        </IconButton>
+      </Tooltip>
       <div
         id='workout-wrapper'
         style={{ paddingTop: '10px' }}
       >
-        {/* TODO: text field could be added here for single block workouts */}
         {props.blocks.map(block =>
           <BlockWrapper
             key={block.id}
@@ -74,7 +74,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
   addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' })),
-  removeWorkout: () => dispatch(removeWorkout(ownProps.workout_id))
+  deleteWorkout: () => dispatch(removeWorkout(ownProps.workout_id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)

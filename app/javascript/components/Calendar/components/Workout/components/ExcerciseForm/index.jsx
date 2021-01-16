@@ -10,6 +10,7 @@ import TextField  from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const ExcerciseForm = props => {
   const { movement, weight_value, measurement_metric } = props.excercise
@@ -61,18 +62,22 @@ const ExcerciseForm = props => {
             </td>
           )}
           <td>
-            <IconButton
-              onClick={() => { setWeightIsShown(!isWeightShown) }}
-            >
-              <FitnessCenterIcon/>
-            </IconButton>
+            <Tooltip title="Add weight">
+              <IconButton
+                onClick={() => { setWeightIsShown(!isWeightShown) }}
+              >
+                <FitnessCenterIcon/>
+              </IconButton>
+            </Tooltip>
           </td>
           <td>
-            <IconButton
-              onClick={props.removeExcercise}
-            >
-              <DeleteIcon/>
-            </IconButton>
+            <Tooltip title="Delete excercise">
+              <IconButton
+                onClick={props.removeExcercise}
+              >
+                <DeleteIcon/>
+              </IconButton>
+            </Tooltip>
           </td>
         </tr>
       </tbody>

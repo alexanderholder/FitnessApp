@@ -26,13 +26,13 @@ const Day = props => {
           className="hyperlink-button"
           onClick={() =>
             props.addWorkout({
-              name: "unnamed workout",
+              name: "unnamed session",
               day_number: props.dayNumber,
               training_template_id: props.training_template_id
             })
           }
         >
-          + New Workout
+          + New Session
         </div>
       )}
     </td>
