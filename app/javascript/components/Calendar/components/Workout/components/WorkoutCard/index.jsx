@@ -1,23 +1,27 @@
 // @flow
 import React, { useState } from 'react'
-import Redux                from "redux"
-import PropTypes            from "prop-types"
-import { connect }          from "react-redux"
-import * as Selectors       from "javascript/redux/selectors"
-import { makeStyles }       from "@material-ui/core/styles"
-import Popover              from "@material-ui/core/Popover"
-import Typography           from "@material-ui/core/Typography"
-import WorkoutFormWrapper   from "../../views/WorkoutFormWrapper"
-import WindowState          from 'javascript/windowState'
+import Redux from "redux"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import * as Selectors from "javascript/redux/selectors"
+import { makeStyles } from "@material-ui/core/styles"
+import Popover from "@material-ui/core/Popover"
+import Typography from "@material-ui/core/Typography"
+import WorkoutFormWrapper from "../../views/WorkoutFormWrapper"
+import WindowState from 'javascript/windowState'
 
 const WorkoutCard = (props) => {
   const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(props.new_card)
-  const handleClick = (event) => { setAnchorEl(event.currentTarget) }
-  const handleClose = () => { setAnchorEl(null); WindowState.new_card_id = null }
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
+
+  const handleClick = (event) => { setAnchorEl(event.currentTarget) }
+  const handleClose = () => {
+    setAnchorEl(null)
+    WindowState.new_card_id = null
+  }
 
   const setCardIsHovered = () => WindowState.hovered_card_id = props.workout_id
   const unsetCardIsHovered = () => WindowState.hovered_card_id = null
