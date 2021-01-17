@@ -13,42 +13,58 @@ import DeleteIcon from '@material-ui/icons/Delete'
 const BlockWrapper = props => {
   const [name, setName] = useState(props.block.name)
   const [rounds, setRounds] = useState(props.block.sets)
-  const [showBlockDetails, setShowBlockDetails] = useState(props.block.name || props.block.sets)
+  const [showName, setShowName] = useState(props.block.name)
+  const [showRounds, setShowRounds] = useState(props.block.sets)
 
   return (
-    <div className="block-wrapper">
-      { showBlockDetails ?
-        <div style={{ paddingBottom: "10px"}}>
+    <div className='block-wrapper'>
+      <div style={{ paddingBottom: '10px'}}>
+        { showName ?
           <TextField
             autoFocus={true}
-            label="Block Name"
+            label='Block Name'
             onBlur={() => props.updateBlock({ name: name })}
             onChange={e => setName(e.target.value)}
-            size="small"
+            size='small'
             value={name}
-            width="50"
+            width='50'
           />
+          :
+          <div
+            style={{paddingRight: '2px', display: 'inline-block'}}
+            className='hyperlink-button'
+            onClick={() => setShowName(true)}
+          >
+            + Block name
+          </div>
+        }
+        { showRounds ?
           <TextField
-            label="Block Rounds"
+            label='Block Rounds'
             onBlur={() => props.updateBlock({ sets: rounds })}
             onChange={e => setRounds(e.target.value)}
-            size="small"
+            size='small'
             value={rounds}
-            width="50"
+            width='50'
           />
-          <Tooltip title="Delete block">
-            <IconButton onClick={props.deleteBlock} >
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        </div> :
-        <div
-          className="hyperlink-button"
-          onClick={() => setShowBlockDetails(true)}
-        >
-          Click to edit block details
-        </div>
-      }
+          :
+          <div
+            style={{paddingLeft: '2px', display: 'inline-block'}}
+            className='hyperlink-button'
+            onClick={() => setShowRounds(true)}
+          >
+            + Block rounds
+          </div>
+        }
+        <Tooltip title='Delete block'>
+          <IconButton
+            onClick={props.deleteBlock}
+            style={{float: 'right'}}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
       {props.excercises.map(excercise =>
         <ExcerciseForm
           key={excercise.id}
@@ -57,7 +73,7 @@ const BlockWrapper = props => {
         />
       )}
       <div
-        className="hyperlink-button"
+        className='hyperlink-button'
         onClick={props.addExcercise}
       >
         + Add Excercise
@@ -81,7 +97,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addExcercise: () => dispatch(saveNewExcercise({ movement: "", block_id: ownProps.block_id })),
+  addExcercise: () => dispatch(saveNewExcercise({ movement: '', block_id: ownProps.block_id })),
   updateBlock: (payload) => dispatch(updateBlock(ownProps.block_id, payload)),
   deleteBlock: () => dispatch(removeBlock(ownProps.block_id))
 })
