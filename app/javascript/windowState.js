@@ -6,8 +6,8 @@
 
 window.CalendarWindowState = window.CalendarWindowState || {
   // dragged_card: null, // could be better ways than this
-  hovered_card_id: null,
   // copied_card_id: null,
+  hovered_card_id: null,
   hotkeys_enabled: true,
   mouse_down: false,
   new_card_id: null,

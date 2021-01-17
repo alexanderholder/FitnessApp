@@ -59,7 +59,10 @@ const WorkoutCard = (props) => {
           component={'span'}
           variant={'body2'}
         >
-          <WorkoutFormWrapper workout_id={props.workout.id} />
+          <WorkoutFormWrapper
+            workout_id={props.workout.id}
+            setAnchorEl={setAnchorEl}
+          />
         </Typography>
       </Popover>
     </React.Fragment>
