@@ -52,6 +52,10 @@ body {
   color: inherit;
 }
 
+.grabbable {
+  cursor: grab;
+}
+
 .header-cell {
   text-align: center;
   color: #70757a;
