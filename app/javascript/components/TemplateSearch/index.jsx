@@ -123,20 +123,22 @@ const TemplateSearch = props => {
             <DialogContent>
               <TextField
                 autoFocus
-                margin="dense"
                 id="name"
-                value={dialogValue.name}
-                onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
                 label="name"
+                margin="dense"
+                onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
+                required={true}
                 type="text"
+                value={dialogValue.name}
               />
               <TextField
-                margin="dense"
                 id="length"
-                value={dialogValue.length}
-                onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
                 label="weeks"
+                margin="dense"
+                onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
+                required={true}
                 type="number"
+                value={dialogValue.length}
               />
             </DialogContent>
             <DialogActions>
