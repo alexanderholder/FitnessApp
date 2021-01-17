@@ -6,6 +6,15 @@ export default function appReducer(state = null, action) {
     case 'blocks/blockAdded': {
       return [...state, action.payload]
     }
+    case 'blocks/blocksChanged': {
+      return state.map(block => {
+        if (block.id !== action.payload.id) {
+          return block
+        }
+
+        return action.payload
+      })
+    }
     case 'blocks/blockRemoved': {
       return state.filter(block => block.id !== action.payload)
     }
@@ -19,6 +28,13 @@ export function saveNewBlock(initialBlock) {
     const response = await Request.post('/blocks', { block: initialBlock })
     dispatch({ type: 'blocks/blockAdded', payload: response.data })
     dispatch(saveNewExcercise({ movement: "", block_id: response.data.id }))
+  }
+}
+
+export function updateBlock(id, payload) {
+  return async function updateBlockThunk(dispatch, getState) {
+    const response = await Request.put(`/blocks/${id}`, { block: payload })
+    dispatch({ type: 'blocks/blocksChanged', payload: response.data })
   }
 }
 

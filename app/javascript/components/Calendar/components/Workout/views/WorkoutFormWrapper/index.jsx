@@ -15,7 +15,6 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
-  // const [rounds, setRounds] = useState(props.workout.name)
 
   return (
     <div className="workout-form">
@@ -27,6 +26,7 @@ const WorkoutFormWrapper = (props) => {
         onChange={e => setWorkoutName(e.target.value)}
         onFocus={e => e.target.select()}
         value={workoutName}
+        width="300"
       />
       <Tooltip title="Delete workout">
         <IconButton onClick={props.deleteWorkout} >

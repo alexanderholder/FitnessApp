@@ -5,50 +5,52 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
+import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
-// import RepeatIcon from '@material-ui/icons/Repeat'
-// import IconButton from '@material-ui/core/IconButton'
-// import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const BlockWrapper = props => {
-  // const [showBlockDetails, setShowBlockDetails] = useState(false)
-  const [name, setName] = useState("")
-  const [rounds, setRounds] = useState("")
+  const [name, setName] = useState(props.block.name)
+  const [rounds, setRounds] = useState(props.block.sets)
+  const [showBlockDetails, setShowBlockDetails] = useState(props.block.name || props.block.sets)
 
   return (
-    // <React.Fragment>
-    //   {/* <Tooltip title="Add Block Details">
-    //     <IconButton
-    //       onClick={setShowBlockDetails(!showBlockDetails)}
-    //       style={{ float: 'right' }}
-    //     >
-    //       <RepeatIcon />
-    //     </IconButton>
-    //   </Tooltip> */}
     <div className="block-wrapper">
-      <div style={{ paddingBottom: "10px"}}>
-        <TextField
-          autoFocus={true}
-          label="Block Name"
-          // onBlur={() => props.updateExcercise({ movement: name })}
-          onChange={e => setName(e.target.value)}
-          size="small"
-          // variant="outlined"
-          value={name}
-          width="50"
-        />
-        <TextField
-          autoFocus={true}
-          label="Block Rounds"
-          // onBlur={() => props.updateExcercise({ movement: name })}
-          onChange={e => setRounds(e.target.value)}
-          size="small"
-          // variant="outlined"
-          value={rounds}
-          width="50"
-        />
-      </div>
+      { showBlockDetails ?
+        <div style={{ paddingBottom: "10px"}}>
+          <TextField
+            autoFocus={true}
+            label="Block Name"
+            onBlur={() => props.updateBlock({ name: name })}
+            onChange={e => setName(e.target.value)}
+            size="small"
+            value={name}
+            width="50"
+          />
+          <TextField
+            label="Block Rounds"
+            onBlur={() => props.updateBlock({ sets: rounds })}
+            onChange={e => setRounds(e.target.value)}
+            size="small"
+            value={rounds}
+            width="50"
+          />
+          <Tooltip title="Delete block">
+            <IconButton onClick={props.deleteBlock} >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </div> :
+        <div
+          className="hyperlink-button"
+          onClick={() => setShowBlockDetails(true)}
+        >
+          Click to edit block details
+        </div>
+      }
       {props.excercises.map(excercise =>
         <ExcerciseForm
           key={excercise.id}
@@ -63,7 +65,6 @@ const BlockWrapper = props => {
         + Add Excercise
       </div>
     </div>
-    // </React.Fragment>
   )
 }
 
@@ -82,7 +83,9 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addExcercise: () => dispatch(saveNewExcercise({ movement: "", block_id: ownProps.block_id }))
+  addExcercise: () => dispatch(saveNewExcercise({ movement: "", block_id: ownProps.block_id })),
+  updateBlock: (payload) => dispatch(updateBlock(ownProps.block_id, payload)),
+  deleteBlock: () => dispatch(removeBlock(ownProps.block_id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlockWrapper)
