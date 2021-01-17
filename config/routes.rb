@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :training_templates, only: [:create, :destroy]
   resources :workouts, only: [:create, :update, :destroy]
-  resources :blocks, only: [:create, :destroy]
+  resources :blocks, only: [:create, :update, :destroy]
   resources :excercises, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'

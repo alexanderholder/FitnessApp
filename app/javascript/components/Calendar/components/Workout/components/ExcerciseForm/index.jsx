@@ -6,11 +6,8 @@ import PropTypes from 'prop-types'
 import * as Selectors from 'javascript/redux/selectors'
 import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
-import TextField  from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
+import { TextField, Tooltip, IconButton } from '@material-ui/core'
+import { FitnessCenter, Delete } from '@material-ui/icons'
 
 const ExcerciseForm = props => {
   const { movement, weight_value, measurement_metric } = props.excercise
@@ -34,6 +31,7 @@ const ExcerciseForm = props => {
               variant="outlined"
               value={name}
               width="50"
+              // helperText="Some important text" TODO
             />
           </td>
           <td>
@@ -63,19 +61,15 @@ const ExcerciseForm = props => {
           )}
           <td>
             <Tooltip title="Add weight">
-              <IconButton
-                onClick={() => { setWeightIsShown(!isWeightShown) }}
-              >
-                <FitnessCenterIcon/>
+              <IconButton onClick={() => { setWeightIsShown(!isWeightShown) }} >
+                <FitnessCenter/>
               </IconButton>
             </Tooltip>
           </td>
           <td>
             <Tooltip title="Delete excercise">
-              <IconButton
-                onClick={props.removeExcercise}
-              >
-                <DeleteIcon/>
+              <IconButton onClick={props.removeExcercise} >
+                <Delete/>
               </IconButton>
             </Tooltip>
           </td>
