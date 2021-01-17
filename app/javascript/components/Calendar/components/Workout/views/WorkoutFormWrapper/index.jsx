@@ -4,14 +4,11 @@ import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
-import TextField from '@material-ui/core/TextField'
 import BlockWrapper from '../BlockWrapper'
 import { saveWorkoutName, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
-import CloseIcon from '@material-ui/icons/Close'
-import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
+import { Close, Delete } from '@material-ui/icons'
+import { IconButton, Tooltip, TextField } from '@material-ui/core'
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
@@ -30,12 +27,12 @@ const WorkoutFormWrapper = (props) => {
       />
       <Tooltip title="Delete workout">
         <IconButton onClick={props.deleteWorkout} >
-          <DeleteIcon />
+          <Delete />
         </IconButton>
       </Tooltip>
       <Tooltip title="Close window">
         <IconButton style={{ float: 'right', marginRight: '5px' }}>
-          <CloseIcon />
+          <Close />
         </IconButton>
       </Tooltip>
       <div
