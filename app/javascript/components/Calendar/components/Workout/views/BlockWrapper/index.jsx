@@ -7,10 +7,8 @@ import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
+import { TextField, IconButton, Tooltip } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
-import Tooltip from '@material-ui/core/Tooltip'
 
 const BlockWrapper = props => {
   const [name, setName] = useState(props.block.name)
