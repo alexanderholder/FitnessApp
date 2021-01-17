@@ -36,6 +36,6 @@ class ExcercisesController < ApplicationController
   private
 
   def excercise_params
-    params.require(:excercise).permit(:block_id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
+    params.require(:excercise).permit(:sort_order, :block_id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
   end
 end

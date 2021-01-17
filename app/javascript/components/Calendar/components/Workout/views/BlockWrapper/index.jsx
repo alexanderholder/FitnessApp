@@ -1,20 +1,55 @@
 // @flow
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { SortableContainer, SortableElement, arrayMove } from "react-sortable-hoc"
+import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
-import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
+import { saveNewExcercise, updateExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
 import { TextField, IconButton, Tooltip } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+
+const SortableItem = SortableElement(({excercise, block_id}) => (
+  <ExcerciseForm
+    key={excercise.id}
+    excercise_id={excercise.id}
+    block_id={block_id}
+  />
+))
+
+const SortableList = SortableContainer(({excercises, block_id}) => {
+  const collection = useMemo(() => sortBy(excercises, e => e.sort_order))
+
+  return (
+    <div className='grabbable'>
+      {collection.map((excercise, index) => (
+        <SortableItem
+          block_id={block_id}
+          collection={collection}
+          excercise={excercise}
+          index={index}
+          key={excercise.id}
+        />
+      ))}
+    </div>
+  )
+})
 
 const BlockWrapper = props => {
   const [name, setName] = useState(props.block.name)
   const [rounds, setRounds] = useState(props.block.sets)
   const [showName, setShowName] = useState(props.block.name)
   const [showRounds, setShowRounds] = useState(props.block.sets)
+
+  const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
+    const newOrder = arrayMove(collection, oldIndex, newIndex)
+    newOrder.map((excercise, index) => {
+      props.updateExcercise(excercise.id, { sort_order: index })
+    })
+  })
 
   return (
     <div className='block-wrapper'>
@@ -29,7 +64,7 @@ const BlockWrapper = props => {
             value={name}
             width='50'
           />
-          :
+        :
           <div
             style={{paddingRight: '2px', display: 'inline-block'}}
             className='hyperlink-button'
@@ -47,7 +82,7 @@ const BlockWrapper = props => {
             value={rounds}
             width='50'
           />
-          :
+        :
           <div
             style={{paddingLeft: '2px', display: 'inline-block'}}
             className='hyperlink-button'
@@ -65,13 +100,11 @@ const BlockWrapper = props => {
           </IconButton>
         </Tooltip>
       </div>
-      {props.excercises.map(excercise =>
-        <ExcerciseForm
-          key={excercise.id}
-          excercise_id={excercise.id}
-          block_id={props.block_id}
-        />
-      )}
+      <SortableList
+        excercises={props.excercises}
+        block_id={props.block_id}
+        onSortEnd={onSortEnd}
+      />
       <div
         className='hyperlink-button'
         onClick={props.addExcercise}
@@ -99,7 +132,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   addExcercise: () => dispatch(saveNewExcercise({ movement: '', block_id: ownProps.block_id })),
   updateBlock: (payload) => dispatch(updateBlock(ownProps.block_id, payload)),
-  deleteBlock: () => dispatch(removeBlock(ownProps.block_id))
+  deleteBlock: () => dispatch(removeBlock(ownProps.block_id)),
+  updateExcercise: (id, payload) => dispatch(updateExcercise(id, payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlockWrapper)
