@@ -32,8 +32,8 @@ const WorkoutFormWrapper = (props) => {
       </Tooltip>
       <Tooltip title="Close window">
         <IconButton
-          style={{ float: 'right', marginRight: '5px' }}
           onClick={() => props.setAnchorEl(null)}
+          style={{ float: 'right', marginRight: '5px' }}
         >
           <Close />
         </IconButton>
