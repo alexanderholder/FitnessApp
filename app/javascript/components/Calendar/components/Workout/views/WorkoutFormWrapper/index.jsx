@@ -31,7 +31,10 @@ const WorkoutFormWrapper = (props) => {
         </IconButton>
       </Tooltip>
       <Tooltip title="Close window">
-        <IconButton style={{ float: 'right', marginRight: '5px' }}>
+        <IconButton
+          style={{ float: 'right', marginRight: '5px' }}
+          onClick={() => props.setAnchorEl(null)}
+        >
           <Close />
         </IconButton>
       </Tooltip>
@@ -60,7 +63,8 @@ const WorkoutFormWrapper = (props) => {
 WorkoutFormWrapper.propTypes = {
   workout_id: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
-  blocks: PropTypes.array.isRequired
+  blocks: PropTypes.array.isRequired,
+  open: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({

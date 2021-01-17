@@ -1,10 +1,10 @@
 // @flow
-import React, { useState }      from "react"
-import Redux                    from "redux"
-import PropTypes                from "prop-types"
-import { connect }              from "react-redux"
-import WorkoutCardWrapper       from "../Workout/views/WorkoutCardWrapper"
-import { saveNewWorkout }       from 'javascript/redux/reducers/workoutsSlice'
+import React, { useState } from "react"
+import Redux from "redux"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import WorkoutCardWrapper from "../Workout/views/WorkoutCardWrapper"
+import { saveNewWorkout } from 'javascript/redux/reducers/workoutsSlice'
 
 const Day = props => {
   const [isShown, setIsShown] = useState(false)
