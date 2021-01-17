@@ -64,7 +64,8 @@ WorkoutFormWrapper.propTypes = {
   workout_id: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
-  open: PropTypes.string.isRequired
+  open: PropTypes.string.isRequired,
+  setAnchorEl: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
