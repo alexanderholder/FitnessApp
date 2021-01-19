@@ -1,17 +1,53 @@
 // @flow
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
+import { SortableContainer, SortableElement } from "react-sortable-hoc"
+import arrayMove from 'array-move'
+import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
 import BlockWrapper from '../BlockWrapper'
 import { saveWorkoutName, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
-import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
+import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice'
 import { Close, Delete } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
 
+const SortableItem = SortableElement(({block, workout_id}) => (
+  <BlockWrapper
+    block_id={block.id}
+    key={block.id}
+    workout_id={workout_id}
+  />
+))
+
+const SortableList = SortableContainer(({blocks, workout_id}) => {
+  const collection = useMemo(() => sortBy(blocks, b => b.order))
+
+  return (
+    <div className='grabbable'>
+      {collection.map((block, index) => (
+        <SortableItem
+          block={block}
+          collection={collection}
+          index={index}
+          key={block.id}
+          workout_id={workout_id}
+        />
+      ))}
+    </div>
+  )
+})
+
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
+
+  const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
+    const newOrder = arrayMove(collection, oldIndex, newIndex)
+    newOrder.map((block, index) => {
+      props.updateBlock(block.id, { order: index })
+    })
+  })
 
   return (
     <div className="workout-form">
@@ -42,13 +78,12 @@ const WorkoutFormWrapper = (props) => {
         id='workout-wrapper'
         style={{ paddingTop: '10px' }}
       >
-        {props.blocks.map(block =>
-          <BlockWrapper
-            key={block.id}
-            workout_id={props.workout.id}
-            block_id={block.id}
-          />
-        )}
+        <SortableList
+          blocks={props.blocks}
+          distance={1}
+          onSortEnd={onSortEnd}
+          workout_id={props.workout_id}
+        />
       </div>
       <div
         className="hyperlink-button"
@@ -64,7 +99,7 @@ WorkoutFormWrapper.propTypes = {
   workout_id: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
-  open: PropTypes.string.isRequired,
+  open: PropTypes.string, // TODO: confirm we dont actually need this as required
   setAnchorEl: PropTypes.func.isRequired
 }
 
@@ -76,7 +111,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
   addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' })),
-  deleteWorkout: () => dispatch(removeWorkout(ownProps.workout_id))
+  deleteWorkout: () => dispatch(removeWorkout(ownProps.workout_id)),
+  updateBlock: (id, payload) => dispatch(updateBlock(id, payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)
