@@ -17,7 +17,10 @@ const WorkoutCard = (props) => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
-  const handleClick = (event) => { setAnchorEl(event.currentTarget) }
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+    props.setIsShown(false)
+  }
   const handleClose = () => {
     setAnchorEl(null)
     WindowState.new_card_id = null
@@ -70,13 +73,14 @@ const WorkoutCard = (props) => {
 }
 
 WorkoutCard.propTypes = {
-  workout_id: PropTypes.number.isRequired
+  workout_id: PropTypes.number.isRequired,
+  setIsShown: PropTypes.func.isRequired,
+  new_card: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const workout = Selectors.getWorkoutById(state, ownProps.workout_id)
-  const new_card = ownProps.workout_id == WindowState.new_card_id ? true : false
-  return { workout, new_card }
-}
+const mapStateToProps = (state, ownProps) => ({
+  workout: Selectors.getWorkoutById(state, ownProps.workout_id),
+  new_card: ownProps.workout_id == WindowState.new_card_id ? true : false
+})
 
 export default connect(mapStateToProps)(WorkoutCard)

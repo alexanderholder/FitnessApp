@@ -13,7 +13,10 @@ const WorkoutCardWrapper = (props) => {
     return (
       props.workouts.map(workout =>
         <Draggable key={workout.id.toString()}>
-          <WorkoutCard workout_id={workout.id} />
+          <WorkoutCard
+            setIsShown={props.setIsShown}
+            workout_id={workout.id}
+          />
         </Draggable>
       )
     )
@@ -22,7 +25,10 @@ const WorkoutCardWrapper = (props) => {
       <>
         {props.workouts.map(workout =>
           <Draggable key={workout.id.toString()} >
-            <WorkoutCard workout_id={workout.id}/>
+            <WorkoutCard
+              setIsShown={props.setIsShown}
+              workout_id={workout.id}
+            />
           </Draggable>
         )}
         <div>Show More</div>
@@ -32,7 +38,8 @@ const WorkoutCardWrapper = (props) => {
 }
 
 WorkoutCardWrapper.propTypes = {
-  dayNumber: PropTypes.number.isRequired
+  dayNumber: PropTypes.number.isRequired,
+  setIsShown: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
