@@ -3,20 +3,21 @@ import React, { useState, useMemo, useCallback } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { SortableContainer, SortableElement, arrayMove } from "react-sortable-hoc"
+import { SortableContainer, SortableElement } from "react-sortable-hoc"
+import arrayMove from 'array-move'
 import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise, updateExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
 import { TextField, IconButton, Tooltip } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import { Delete, MoreVert } from '@material-ui/icons'
 
 const SortableItem = SortableElement(({excercise, block_id}) => (
   <ExcerciseForm
-    key={excercise.id}
-    excercise_id={excercise.id}
     block_id={block_id}
+    excercise_id={excercise.id}
+    key={excercise.id}
   />
 ))
 
@@ -39,10 +40,10 @@ const SortableList = SortableContainer(({excercises, block_id}) => {
 })
 
 const BlockWrapper = props => {
-  const [name, setName] = useState(props.block.name)
+  const [name, setName] = useState(props.block.name || '')
   const [rounds, setRounds] = useState(props.block.sets)
-  const [showName, setShowName] = useState(props.block.name)
-  const [showRounds, setShowRounds] = useState(props.block.sets)
+  const [showName, setShowName] = useState(props.block.name || props.block.sets)
+  const [showRounds, setShowRounds] = useState(props.block.name || props.block.sets)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex)
@@ -94,15 +95,17 @@ const BlockWrapper = props => {
         <Tooltip title='Delete block'>
           <IconButton
             onClick={props.deleteBlock}
+            size='small'
             style={{float: 'right'}}
           >
-            <DeleteIcon />
+            <Delete />
           </IconButton>
         </Tooltip>
       </div>
       <SortableList
-        excercises={props.excercises}
         block_id={props.block_id}
+        distance={1}
+        excercises={props.excercises}
         onSortEnd={onSortEnd}
       />
       <div

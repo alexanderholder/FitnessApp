@@ -7,7 +7,7 @@ import * as Selectors from 'javascript/redux/selectors'
 import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
 import { TextField, Tooltip, IconButton } from '@material-ui/core'
-import { FitnessCenter, Delete } from '@material-ui/icons'
+import { FitnessCenter, Delete, MoreVert } from '@material-ui/icons'
 
 const ExcerciseForm = props => {
   const { movement, weight_value, measurement_metric } = props.excercise
@@ -20,6 +20,9 @@ const ExcerciseForm = props => {
     <table>
       <tbody>
         <tr>
+          <td className='grabbable'>
+            <MoreVert />
+          </td>
           <td>
             <TextField
               autoFocus={true}
