@@ -8,6 +8,14 @@ import { saveNewWorkout } from 'javascript/redux/reducers/workoutsSlice'
 
 const Day = props => {
   const [isShown, setIsShown] = useState(false)
+  const handleClick = () => {
+    props.addWorkout({
+      name: "unnamed session",
+      day_number: props.dayNumber,
+      training_template_id: props.training_template_id
+    })
+    setIsShown(false)
+  }
 
   return (
     <td
@@ -20,17 +28,12 @@ const Day = props => {
       <WorkoutCardWrapper
         dayNumber={props.dayNumber}
         key={props.dayNumber}
+        setIsShown={setIsShown}
       />
       { isShown && (
         <div
           className="hyperlink-button"
-          onClick={() =>
-            props.addWorkout({
-              name: "unnamed session",
-              day_number: props.dayNumber,
-              training_template_id: props.training_template_id
-            })
-          }
+          onClick={handleClick}
         >
           + New Session
         </div>
