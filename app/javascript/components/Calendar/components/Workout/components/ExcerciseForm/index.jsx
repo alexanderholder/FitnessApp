@@ -188,8 +188,10 @@ const ExcerciseForm = props => {
           <td>
             <TextField
               label='Sets & Reps'
-              onBlur={() => props.updateExcercise({ measurement_metric: setsReps })}
-              onChange={e => setSetsReps(e.target.value)}
+              onChange={e => {
+                setSetsReps(e.target.value)
+                props.updateExcercise({ measurement_metric: e.target.value })
+              }}
               options={setsRepsSchemeList}
               size='small'
               variant='outlined'
@@ -202,8 +204,10 @@ const ExcerciseForm = props => {
             <td>
               <TextField
                 label='Weight'
-                onBlur={() => props.updateExcercise({ weight_value: weight })}
-                onChange={e => setWeight(e.target.value)}
+                onChange={e => {
+                  setWeight(e.target.value)
+                  props.updateExcercise({ weight_value: e.target.value })
+                }}
                 size='small'
                 variant='outlined'
                 value={weight}
