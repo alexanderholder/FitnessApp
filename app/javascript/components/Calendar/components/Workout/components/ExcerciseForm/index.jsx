@@ -12,6 +12,11 @@ import { FitnessCenter, Delete, MoreVert } from '@material-ui/icons'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {},
+});
 
 import {
   Dialog,
@@ -22,7 +27,6 @@ import {
 } from '@material-ui/core'
 
 const ExcerciseForm = props => {
-  console.log(excerciseList)
   const { movement, weight_value, measurement_metric } = props.excercise
   const [isWeightShown, setWeightIsShown] = useState(weight_value)
   const [name, setName] = useState(movement)
@@ -54,6 +58,8 @@ const ExcerciseForm = props => {
 
     handleClose()
   }
+
+  const classes = useStyles();
   // endddd
 
   return (
@@ -83,7 +89,8 @@ const ExcerciseForm = props => {
                     category: '',
                   })
                 } else {
-                  props.updateExcercise({ movement: newValue.id })
+                  props.updateExcercise({ movement: newValue.title })
+                  setName(newValue.title)
                 }
               }}
               selectOnFocus
@@ -115,14 +122,16 @@ const ExcerciseForm = props => {
                 // Regular option
                 return option.title
               }}
+              disableClearable
+              forcePopupIcon={false}
               renderInput={(params) => (
                 <TextField {...params}
-                  InputProps={{ ...params.InputProps, endAdornment : null }}
+                  // InputProps={{ ...params.InputProps, endAdornment : null }}
                   autoFocus={true}
                   label='Excercise Name'
                   margin="dense"
                   size='small'
-                  style={{ width: 200 }}
+                  style={{ width: 200, textOverlow:'none' }}
                   variant="outlined"
                 />
               )}
