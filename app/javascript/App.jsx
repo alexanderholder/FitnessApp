@@ -23,7 +23,6 @@ const App = props => {
         WindowState.copied_card_id = WindowState.hovered_card_id
       }
     } else if ((e.metaKey || e.ctrlKey) && e.key === "v") {
-      console.log(WindowState.copied_card_id, WindowState.hovered_day)
       if (WindowState.copied_card_id && WindowState.hovered_day) {
         props.copyWorkout(WindowState.copied_card_id, WindowState.hovered_day)
       }
