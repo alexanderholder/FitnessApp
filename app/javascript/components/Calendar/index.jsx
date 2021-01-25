@@ -10,7 +10,7 @@ const Calendar = (props) => {
   const daysOfTheWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
   const TableRows = () => {
     const rows = []
-    for(var i = 0; i < props.template_length; i++) {
+    for(var i = 0; i < props.templateLength; i++) {
       rows.push(
         <Week
           key={i + 1}
@@ -40,11 +40,11 @@ const Calendar = (props) => {
 }
 
 const mapStateToProps = state => ({
-  template_length: Selectors.getTemplateById(state, state.user.selected_template).length
+  templateLength: Selectors.getTemplateById(state, state.user.selected_template).length
 })
 
 Calendar.propTypes = {
-  template_length: PropTypes.number.isRequired
+  templateLength: PropTypes.number.isRequired
 }
 
 export default connect(mapStateToProps)(Calendar)

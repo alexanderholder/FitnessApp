@@ -73,7 +73,7 @@ const TemplateSearch = props => {
           selectOnFocus
           clearOnBlur
           handleHomeEndKeys
-          value={props.current_template}
+          value={props.currentTemplate}
           options={props.templates}
           filterOptions={(options, params) => {
             const filter = createFilterOptions()
@@ -156,9 +156,9 @@ const TemplateSearch = props => {
         <DeleteIcon/>
       </IconButton>
       <Dialog open={openDelete} onClose={() => toggleOpenDelete(false)} aria-labelledby="confirm-delete">
-          <form onSubmit={() => props.templateRemoved(props.current_template.id, props.templates[0].id)}>
+          <form onSubmit={() => props.templateRemoved(props.currentTemplate.id, props.templates[0].id)}>
             <DialogTitle id="confirm-delete">
-              Are you sure you want to delete {props.current_template.name} template?
+              Are you sure you want to delete {props.currentTemplate.name} template?
             </DialogTitle>
             <DialogActions>
               <Button onClick={() => toggleOpenDelete(false)} color="primary">
@@ -176,12 +176,12 @@ const TemplateSearch = props => {
 
 TemplateSearch.propTypes = {
   templates: PropTypes.array.isRequired,
-  current_template: PropTypes.object.isRequired
+  currentTemplate: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   templates: Selectors.getTemplatesByUserId(state, state.user.user_id),
-  current_template: Selectors.getTemplateById(state, state.user.selected_template)
+  currentTemplate: Selectors.getTemplateById(state, state.user.selected_template)
 })
 
 const mapDispatchToProps = (dispatch) => ({

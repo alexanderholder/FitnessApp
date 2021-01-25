@@ -15,7 +15,7 @@ const WorkoutCardWrapper = (props) => {
           className="handle"
           key={workout.id}
           setIsShown={props.setIsShown}
-          workout_id={workout.id}
+          workoutId={workout.id}
         />
       )
     )
@@ -26,7 +26,7 @@ const WorkoutCardWrapper = (props) => {
           <WorkoutCard
             key={workout.id}
             setIsShown={props.setIsShown}
-            workout_id={workout.id}
+            workoutId={workout.id}
           />
         )}
         <div>Show More</div>

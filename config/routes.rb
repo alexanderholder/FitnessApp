@@ -7,10 +7,9 @@ Rails.application.routes.draw do
   end
   # get '/auth/:provider/callback', to: 'sessions#create' TODO: Omniauth
 
-  post 'training_templates/data' => 'training_templates#data'
-
   resources :training_templates, only: [:create, :destroy]
   resources :workouts, only: [:create, :update, :destroy]
+  post '/workouts/copy/:id' => 'workouts#copy'
   resources :blocks, only: [:create, :update, :destroy]
   resources :excercises, only: [:create, :update, :destroy]
 

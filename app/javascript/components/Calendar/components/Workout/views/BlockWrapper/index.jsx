@@ -13,23 +13,22 @@ import ExcerciseForm from '../../components/ExcerciseForm'
 import { TextField, IconButton, Tooltip } from '@material-ui/core'
 import { Delete, MoreVert } from '@material-ui/icons'
 
-const SortableItem = SortableElement(({excercise, block_id}) => (
+const SortableItem = SortableElement(({excercise, blockId}) => (
   <ExcerciseForm
-    block_id={block_id}
-    excercise_id={excercise.id}
+    blockId={blockId}
+    excerciseId={excercise.id}
     key={excercise.id}
   />
 ))
 
-const SortableList = SortableContainer(({excercises, block_id}) => {
+const SortableList = SortableContainer(({excercises, blockId}) => {
   const collection = useMemo(() => sortBy(excercises, e => e.sort_order))
 
   return (
     <div className='grabbable'>
       {collection.map((excercise, index) => (
         <SortableItem
-          block_id={block_id}
-          collection={collection}
+          blockId={blockId}
           excercise={excercise}
           index={index}
           key={excercise.id}
@@ -41,7 +40,7 @@ const SortableList = SortableContainer(({excercises, block_id}) => {
 
 const BlockWrapper = props => {
   const [name, setName] = useState(props.block.name || '')
-  const [rounds, setRounds] = useState(props.block.sets)
+  const [rounds, setRounds] = useState(props.block.sets || '')
   const [showName, setShowName] = useState(props.block.name || props.block.sets)
   const [showRounds, setShowRounds] = useState(props.block.name || props.block.sets)
 
@@ -103,7 +102,7 @@ const BlockWrapper = props => {
         </Tooltip>
       </div>
       <SortableList
-        block_id={props.block_id}
+        blockId={props.blockId}
         distance={1}
         excercises={props.excercises}
         onSortEnd={onSortEnd}
@@ -120,22 +119,20 @@ const BlockWrapper = props => {
 
 BlockWrapper.propTypes = {
   block: PropTypes.object.isRequired,
-  block_id: PropTypes.number.isRequired,
+  blockId: PropTypes.number.isRequired,
   excercises: PropTypes.array.isRequired,
-  workout_id: PropTypes.number.isRequired,
-  block_count: PropTypes.number.isRequired
+  workoutId: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  block_count: Selectors.getBlocksByWorkoutId(state, ownProps.workout_id).count,
-  block: Selectors.getBlockById(state, ownProps.block_id),
-  excercises: Selectors.getExcercisesByBlockId(state, ownProps.block_id)
+  block: Selectors.getBlockById(state, ownProps.blockId),
+  excercises: Selectors.getExcercisesByBlockId(state, ownProps.blockId)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addExcercise: () => dispatch(saveNewExcercise({ movement: '', block_id: ownProps.block_id })),
-  updateBlock: (payload) => dispatch(updateBlock(ownProps.block_id, payload)),
-  deleteBlock: () => dispatch(removeBlock(ownProps.block_id)),
+  addExcercise: () => dispatch(saveNewExcercise({ movement: '', block_id: ownProps.blockId })),
+  updateBlock: (payload) => dispatch(updateBlock(ownProps.blockId, payload)),
+  deleteBlock: () => dispatch(removeBlock(ownProps.blockId)),
   updateExcercise: (id, payload) => dispatch(updateExcercise(id, payload))
 })
 

@@ -73,6 +73,9 @@ end
 gem 'devise'
 
 gem "oj", "~> 3" # fast json dumps
+
+gem 'deep_cloneable', '~> 3.0.0'
+
 gem 'sorbet', :group => :development
 gem 'sorbet-runtime'
 gem "sorbet-rails"

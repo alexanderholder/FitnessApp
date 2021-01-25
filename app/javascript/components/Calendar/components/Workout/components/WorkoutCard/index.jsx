@@ -30,7 +30,7 @@ const WorkoutCard = (props) => {
         className='workout-element'
         draggable
         onClick={handleClick}
-        onMouseEnter={() => handleCardIsHovered(props.workout_id)}
+        onMouseEnter={() => handleCardIsHovered(props.workoutId)}
         onMouseLeave={() => handleCardIsHovered(null)}
         onDragEnd={() => props.updateWorkout({ day_number: WindowState.hovered_day })}
       >
@@ -52,7 +52,7 @@ const WorkoutCard = (props) => {
         }}
       >
         <WorkoutFormWrapper
-          workout_id={props.workout.id}
+          workoutId={props.workout.id}
           setAnchorEl={setAnchorEl}
         />
       </Popover>
@@ -61,18 +61,18 @@ const WorkoutCard = (props) => {
 }
 
 WorkoutCard.propTypes = {
-  workout_id: PropTypes.number.isRequired,
+  workoutId: PropTypes.number.isRequired,
   setIsShown: PropTypes.func.isRequired,
   newCard: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  workout: Selectors.getWorkoutById(state, ownProps.workout_id),
-  newCard: ownProps.workout_id == WindowState.new_card_id ? true : false
+  workout: Selectors.getWorkoutById(state, ownProps.workoutId),
+  newCard: ownProps.workoutId == WindowState.new_card_id ? true : false
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workout_id, payload))
+  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCard)

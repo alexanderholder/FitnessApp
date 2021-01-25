@@ -13,15 +13,15 @@ import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice
 import { Close, Delete } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
 
-const SortableItem = SortableElement(({block, workout_id}) => (
+const SortableItem = SortableElement(({block, workoutId}) => (
   <BlockWrapper
-    block_id={block.id}
+    blockId={block.id}
     key={block.id}
-    workout_id={workout_id}
+    workoutId={workoutId}
   />
 ))
 
-const SortableList = SortableContainer(({blocks, workout_id}) => {
+const SortableList = SortableContainer(({blocks, workoutId}) => {
   const collection = useMemo(() => sortBy(blocks, b => b.order))
 
   return (
@@ -29,10 +29,9 @@ const SortableList = SortableContainer(({blocks, workout_id}) => {
       {collection.map((block, index) => (
         <SortableItem
           block={block}
-          collection={collection}
           index={index}
           key={block.id}
-          workout_id={workout_id}
+          workoutId={workoutId}
         />
       ))}
     </div>
@@ -82,7 +81,7 @@ const WorkoutFormWrapper = (props) => {
           blocks={props.blocks}
           distance={1}
           onSortEnd={onSortEnd}
-          workout_id={props.workout_id}
+          workoutId={props.workoutId}
         />
       </div>
       <div
@@ -96,7 +95,7 @@ const WorkoutFormWrapper = (props) => {
 }
 
 WorkoutFormWrapper.propTypes = {
-  workout_id: PropTypes.number.isRequired,
+  workoutId: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
   open: PropTypes.string, // TODO: confirm we dont actually need this as required
@@ -104,14 +103,14 @@ WorkoutFormWrapper.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  workout: Selectors.getWorkoutById(state, ownProps.workout_id),
-  blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workout_id)
+  workout: Selectors.getWorkoutById(state, ownProps.workoutId),
+  blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workoutId)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkoutName: (name) => dispatch(updateWorkout(ownProps.workout_id, { name: name })),
-  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' })),
-  deleteWorkout: () => dispatch(removeWorkout(ownProps.workout_id)),
+  updateWorkoutName: (name) => dispatch(updateWorkout(ownProps.workoutId, { name: name })),
+  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workoutId, style: 'Fixed' })),
+  deleteWorkout: () => dispatch(removeWorkout(ownProps.workoutId)),
   updateBlock: (id, payload) => dispatch(updateBlock(id, payload))
 })
 
