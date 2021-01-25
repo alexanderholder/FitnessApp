@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect, useDispatch } from 'react-redux'
 import { Calendar, Navbar, Sidebar, TemplateSearch } from './components'
 import WindowState from './windowState'
-import { removeWorkout } from './redux/reducers/workoutsSlice'
+import { copyWorkout, removeWorkout } from './redux/reducers/workoutsSlice'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 
@@ -18,6 +18,15 @@ const App = props => {
       if (WindowState.hovered_card_id) {
         props.deleteWorkout(WindowState.hovered_card_id)
       }
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "c") {
+      if (WindowState.hovered_card_id) {
+        WindowState.copied_card_id = WindowState.hovered_card_id
+      }
+    } else if ((e.metaKey || e.ctrlKey) && e.key === "v") {
+      console.log(WindowState.copied_card_id, WindowState.hovered_day)
+      if (WindowState.copied_card_id && WindowState.hovered_day) {
+        props.copyWorkout(WindowState.copied_card_id, WindowState.hovered_day)
+      }
     }
   }
 
@@ -29,7 +38,7 @@ const App = props => {
     }
   }, [])
 
-  if (props.signed_in) {
+  if (props.signedIn) {
     return (
       <div className="app">
         <div className="float-right">
@@ -50,14 +59,15 @@ const App = props => {
 }
 
 App.propTypes = {
-  signed_in: PropTypes.bool.isRequired
+  signedIn: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => ({
-  signed_in: state.user.signed_in
+  signedIn: state.user.signed_in
 })
 
 const mapDispatchToProps = dispatch => ({
+  copyWorkout: (id, day) => dispatch(copyWorkout(id, day)),
   deleteWorkout: (id) => dispatch(removeWorkout(id))
 })
 

@@ -19,7 +19,7 @@ const Navbar= props => {
 }
 
 const mapStateToProps = (state) => ({
-  dark_theme: state.dark_theme
+  darkTheme: state.dark_theme
 })
 
 export default connect(mapStateToProps)(Navbar)

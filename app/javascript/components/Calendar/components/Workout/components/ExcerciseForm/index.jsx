@@ -27,11 +27,11 @@ import {
 } from '@material-ui/core'
 
 const ExcerciseForm = props => {
-  const { movement, weight_value, measurement_metric } = props.excercise
-  const [isWeightShown, setWeightIsShown] = useState(weight_value)
-  const [name, setName] = useState(movement)
-  const [setsReps, setSetsReps] = useState(measurement_metric)
-  const [weight, setWeight] = useState(weight_value)
+  const { movement, weightValue, measurementMetric } = props.excercise
+  const [isWeightShown, setWeightIsShown] = useState(weightValue)
+  const [name, setName] = useState(movement || '')
+  const [setsReps, setSetsReps] = useState(measurementMetric || '')
+  const [weight, setWeight] = useState(weightValue || '')
 
 // this is for excercise drop down
   const [open, toggleOpen] = useState(false)
@@ -236,17 +236,17 @@ const ExcerciseForm = props => {
 }
 
 ExcerciseForm.propTypes = {
-  excercise_id: PropTypes.number.isRequired,
+  excerciseId: PropTypes.number.isRequired,
   excercise: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  excercise: Selectors.getExcerciseById(state, ownProps.excercise_id)
+  excercise: Selectors.getExcerciseById(state, ownProps.excerciseId)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  removeExcercise: () => dispatch(Actions.removeExcercise(ownProps.excercise_id)),
-  updateExcercise: (payload) => dispatch(Actions.updateExcercise(ownProps.excercise_id, payload))
+  removeExcercise: () => dispatch(Actions.removeExcercise(ownProps.excerciseId)),
+  updateExcercise: (payload) => dispatch(Actions.updateExcercise(ownProps.excerciseId, payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExcerciseForm)

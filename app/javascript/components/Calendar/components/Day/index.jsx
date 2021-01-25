@@ -14,7 +14,7 @@ const Day = props => {
     props.addWorkout({
       name: "unnamed session",
       day_number: props.dayNumber,
-      training_template_id: props.training_template_id
+      training_template_id: props.trainingTemplateId
     })
     setIsShown(false)
   }
@@ -23,6 +23,14 @@ const Day = props => {
     setDragOverIsShown(true)
     e.stopPropagation()
     e.preventDefault()
+  }
+  const handleMouseEnter = () => {
+    WindowState.hovered_day = props.dayNumber
+    setIsShown(true)
+  }
+  const handleMouseLeave = () => {
+    WindowState.hovered_day = null
+    setIsShown(false)
   }
 
   return (
@@ -33,8 +41,8 @@ const Day = props => {
       onDragLeave={() => setDragOverIsShown(false)}
       onDragOver={() => setIsShown(false)}
       onDrop={() => setDragOverIsShown(false)}
-      onMouseEnter={() => setIsShown(true)}
-      onMouseLeave={() => setIsShown(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       { props.dayNumber }
       <WorkoutCardWrapper
@@ -64,11 +72,11 @@ const Day = props => {
 
 Day.propTypes = {
   dayNumber: PropTypes.number.isRequired,
-  training_template_id: PropTypes.number.isRequired
+  trainingTemplateId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = state => ({
-  training_template_id: state.user.selected_template
+  trainingTemplateId: state.user.selected_template
 })
 
 const mapDispatchToProps = dispatch => ({
