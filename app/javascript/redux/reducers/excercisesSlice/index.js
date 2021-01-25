@@ -5,9 +5,6 @@ export default function appReducer(state = null, action) {
     case 'excercises/excerciseAdded': {
       return [...state, action.payload]
     }
-    case 'excercises/excerciseRemoved': {
-      return state.filter(excercise => excercise.id !== action.payload)
-    }
     case 'excercises/excerciseChanged': {
       return state.map(excercise => {
         if (excercise.id !== action.payload.id) {
@@ -16,6 +13,9 @@ export default function appReducer(state = null, action) {
 
         return action.payload
       })
+    }
+    case 'excercises/excerciseRemoved': {
+      return state.filter(excercise => excercise.id !== action.payload)
     }
     default:
       return state

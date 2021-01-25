@@ -4,7 +4,6 @@ import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
-import Draggable from 'react-draggable'
 import WorkoutCard from '../../components/WorkoutCard'
 
 const WorkoutCardWrapper = (props) => {
@@ -12,24 +11,23 @@ const WorkoutCardWrapper = (props) => {
   else if (props.workouts.length < 5) {
     return (
       props.workouts.map(workout =>
-        <Draggable key={workout.id.toString()}>
-          <WorkoutCard
-            setIsShown={props.setIsShown}
-            workout_id={workout.id}
-          />
-        </Draggable>
+        <WorkoutCard
+          className="handle"
+          key={workout.id}
+          setIsShown={props.setIsShown}
+          workout_id={workout.id}
+        />
       )
     )
   } else {
     return (
       <>
         {props.workouts.map(workout =>
-          <Draggable key={workout.id.toString()} >
-            <WorkoutCard
-              setIsShown={props.setIsShown}
-              workout_id={workout.id}
-            />
-          </Draggable>
+          <WorkoutCard
+            key={workout.id}
+            setIsShown={props.setIsShown}
+            workout_id={workout.id}
+          />
         )}
         <div>Show More</div>
       </>

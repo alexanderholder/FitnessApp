@@ -4,26 +4,15 @@ import WindowState from 'javascript/windowState'
 export default function appReducer(state = null, action) {
   switch (action.type) {
     case 'workouts/workoutAdded': {
-      return [
-        ...state,
-        {
-          id: action.payload.id,
-          name: action.payload.name,
-          day_number: action.payload.day_number,
-          training_template_id: action.payload.training_template_id
-        }
-      ]
+      return [...state, action.payload]
     }
-    case 'workouts/workoutNameChanged': {
+    case 'workouts/workoutChanged': {
       return state.map(workout => {
         if (workout.id !== action.payload.id) {
           return workout
         }
 
-        return {
-          ...workout,
-          name: action.payload.name
-        }
+        return action.payload
       })
     }
     case 'workouts/workoutRemoved': {
@@ -42,10 +31,10 @@ export function saveNewWorkout(initialWorkout) {
   }
 }
 
-export function saveWorkoutName(id, initialWorkout) {
-  return async function saveWorkoutNameThunk(dispatch, getState) {
-    const response = await Request.put(`/workouts/${id}`, { workout: initialWorkout })
-    dispatch({ type: 'workouts/workoutNameChanged', payload: response.data })
+export function updateWorkout(id, payload) {
+  return async function updateWorkoutThunk(dispatch, getState) {
+    const response = await Request.put(`/workouts/${id}`, { workout: payload })
+    dispatch({ type: 'workouts/workoutChanged', payload: response.data })
   }
 }
 

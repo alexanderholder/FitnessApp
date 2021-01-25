@@ -55,7 +55,7 @@ const BlockWrapper = props => {
   return (
     <div className='block-wrapper'>
       <div style={{ paddingBottom: '10px'}}>
-        { showName ?
+        { showName ? (
           <TextField
             autoFocus={true}
             label='Block Name'
@@ -65,7 +65,7 @@ const BlockWrapper = props => {
             value={name}
             width='50'
           />
-        :
+        ) : (
           <div
             style={{paddingRight: '2px', display: 'inline-block'}}
             className='hyperlink-button'
@@ -73,8 +73,8 @@ const BlockWrapper = props => {
           >
             + Block name
           </div>
-        }
-        { showRounds ?
+        )}
+        { showRounds ? (
           <TextField
             label='Block Rounds'
             onBlur={() => props.updateBlock({ sets: rounds })}
@@ -83,7 +83,7 @@ const BlockWrapper = props => {
             value={rounds}
             width='50'
           />
-        :
+        ) : (
           <div
             style={{paddingLeft: '2px', display: 'inline-block'}}
             className='hyperlink-button'
@@ -91,7 +91,7 @@ const BlockWrapper = props => {
           >
             + Block rounds
           </div>
-        }
+        )}
         <Tooltip title='Delete block'>
           <IconButton
             onClick={props.deleteBlock}

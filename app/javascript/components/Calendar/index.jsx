@@ -1,13 +1,13 @@
 // @flow
-import React       from "react"
-import Redux       from "redux"
-import PropTypes   from 'prop-types'
-import { connect } from "react-redux"
-import Week        from "./components/Week"
-import * as Selectors from 'javascript/redux/selectors';
+import React          from 'react'
+import Redux          from 'redux'
+import PropTypes      from 'prop-types'
+import { connect }    from 'react-redux'
+import Week           from './components/Week'
+import * as Selectors from 'javascript/redux/selectors'
 
 const Calendar = (props) => {
-  const daysOfTheWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+  const daysOfTheWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
   const TableRows = () => {
     const rows = []
     for(var i = 0; i < props.template_length; i++) {
@@ -22,11 +22,11 @@ const Calendar = (props) => {
   }
 
   return (
-    <table className="calendar">
+    <table className='calendar'>
       <thead>
         <tr>
           {daysOfTheWeek.map(day =>
-            <th key={day} className="header-cell">
+            <th key={day} className='header-cell'>
               {day}
             </th>
           )}
