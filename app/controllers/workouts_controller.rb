@@ -18,15 +18,11 @@ class WorkoutsController < ApplicationController
       blocks = new_workout.blocks
       excercises = blocks.flat_map(&:excercises)
 
-      output = {
+      render json: {
         workout: new_workout.attributes.as_json,
         blocks: new_workout.blocks.flat_map { |b| b.attributes.as_json },
         excercises: excercises.flat_map { |e| e.attributes.as_json }
       }
-
-      puts output
-
-      render json: output
     else
       head :bad_request
     end
