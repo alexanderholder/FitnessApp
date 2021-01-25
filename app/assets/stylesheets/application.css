@@ -95,6 +95,7 @@ table.calendar {
 }
 
 .workout-element {
+  text-align: center;
   height: 22px;
   width: 100%;
   background-color: rgb(216,216,216);

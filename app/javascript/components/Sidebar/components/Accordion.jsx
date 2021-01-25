@@ -1,10 +1,16 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import React, { useState } from 'react'
+import Redux from 'redux'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getWorkoutsState } from 'javascript/redux/selectors'
+import { makeStyles } from '@material-ui/core/styles'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+import WorkoutCard from 'javascript/components/Calendar/components/Workout/components/WorkoutCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,34 +20,36 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
-}));
+}))
 
-export default function SimpleAccordion() {
-  const classes = useStyles();
+function SimpleAccordion(props) {
+  const classes = useStyles()
+  const [isShown, setIsShown] = useState(false)
 
   return (
     <div className={classes.root}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+          aria-controls='panel1a-content'
+          id='panel1a-header'
         >
-          <Typography className={classes.heading}>Templates</Typography>
+          <Typography className={classes.heading}>Templated Workouts</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Template 1
-            <br/>
-            Template 2
-          </Typography>
-        </AccordionDetails>
+        {props.workouts.map(workout => (
+          <WorkoutCard
+            key={workout.id}
+            setIsShown={setIsShown}
+            templateWorkout={true}
+            workoutId={workout.id}
+          />
+        ))}
       </Accordion>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
+          aria-controls='panel2a-content'
+          id='panel2a-header'
         >
           <Typography className={classes.heading}>Sets and reps</Typography>
         </AccordionSummary>
@@ -56,12 +64,26 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
+          aria-controls='panel3a-content'
+          id='panel3a-header'
         >
           <Typography className={classes.heading}>Excercise Library</Typography>
         </AccordionSummary>
       </Accordion>
     </div>
-  );
+  )
 }
+
+SimpleAccordion.propTypes = {
+  workouts: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+  workouts: getWorkoutsState(state)
+})
+
+// const mapDispatchToProps = dispatch => ({
+//   addWorkout: (initialWorkout) => dispatch(saveNewWorkout(initialWorkout))
+// })
+
+export default connect(mapStateToProps)(SimpleAccordion)

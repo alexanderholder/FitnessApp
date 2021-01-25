@@ -1,8 +1,8 @@
 // @flow
-import React                    from "react"
-import Redux                    from "redux"
-import { connect, useSelector } from "react-redux"
-import Day                      from '../Day'
+import React from 'react'
+import Redux from 'redux'
+import { connect } from 'react-redux'
+import Day from '../Day'
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
 

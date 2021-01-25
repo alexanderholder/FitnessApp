@@ -3,10 +3,9 @@ import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Draggable from 'react-draggable'
 import * as Selectors from 'javascript/redux/selectors'
 import WindowState from 'javascript/windowState'
-import { updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
+import { copyWorkout, updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
@@ -16,12 +15,21 @@ const WorkoutCard = (props) => {
   const handleCardIsHovered = (payload) => WindowState.hovered_card_id = payload
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-    props.setIsShown(false)
+    if (!props.templateWorkout) {
+      setAnchorEl(event.currentTarget)
+      props.setIsShown(false)
+    }
   }
   const handleClose = () => {
     setAnchorEl(null)
     WindowState.new_card_id = null
+  }
+  const handleDragEnd = () => {
+    if (props.templateWorkout) {
+      props.copyWorkout()
+    } else {
+      props.updateWorkout({ day_number: WindowState.hovered_day })
+    }
   }
 
   return (
@@ -32,7 +40,7 @@ const WorkoutCard = (props) => {
         onClick={handleClick}
         onMouseEnter={() => handleCardIsHovered(props.workoutId)}
         onMouseLeave={() => handleCardIsHovered(null)}
-        onDragEnd={() => props.updateWorkout({ day_number: WindowState.hovered_day })}
+        onDragEnd={handleDragEnd}
       >
         { props.workout.name }
       </div>
@@ -61,9 +69,14 @@ const WorkoutCard = (props) => {
 }
 
 WorkoutCard.propTypes = {
-  workoutId: PropTypes.number.isRequired,
+  templateWorkout: PropTypes.bool,
+  newCard: PropTypes.bool.isRequired,
   setIsShown: PropTypes.func.isRequired,
-  newCard: PropTypes.bool.isRequired
+  workoutId: PropTypes.number.isRequired,
+}
+
+WorkoutCard.defaultProps = {
+  templateWorkout: false
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -72,6 +85,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  copyWorkout: () => dispatch(copyWorkout(ownProps.workoutId, WindowState.hovered_day)),
   updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload))
 })
 
