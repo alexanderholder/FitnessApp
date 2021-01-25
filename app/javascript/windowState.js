@@ -5,12 +5,13 @@
 // signifigant perf reasons, and that the state is never needed inside render logic.
 
 window.CalendarWindowState = window.CalendarWindowState || {
-  // dragged_card: null, // could be better ways than this
+  // dragged_card: null,
   // copied_card_id: null,
   hovered_card_id: null,
-  hotkeys_enabled: true,
-  mouse_down: false,
+  // hotkeys_enabled: true,
+  // mouse_down: false,
   new_card_id: null,
+  hovered_day: null,
 }
 
 const windowState = window.CalendarWindowState

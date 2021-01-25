@@ -8,7 +8,7 @@ import arrayMove from 'array-move'
 import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
 import BlockWrapper from '../BlockWrapper'
-import { saveWorkoutName, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
+import { updateWorkout, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice'
 import { Close, Delete } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
@@ -109,7 +109,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkoutName: (name) => dispatch(saveWorkoutName(ownProps.workout_id, { name: name })),
+  updateWorkoutName: (name) => dispatch(updateWorkout(ownProps.workout_id, { name: name })),
   addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workout_id, style: 'Fixed' })),
   deleteWorkout: () => dispatch(removeWorkout(ownProps.workout_id)),
   updateBlock: (id, payload) => dispatch(updateBlock(id, payload))

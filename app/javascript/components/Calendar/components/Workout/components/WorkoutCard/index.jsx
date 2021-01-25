@@ -1,21 +1,19 @@
 // @flow
 import React, { useState } from 'react'
-import Redux from "redux"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import * as Selectors from "javascript/redux/selectors"
-import { makeStyles } from "@material-ui/core/styles"
-import Popover from "@material-ui/core/Popover"
-import Typography from "@material-ui/core/Typography"
-import WorkoutFormWrapper from "../../views/WorkoutFormWrapper"
+import Redux from 'redux'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import Draggable from 'react-draggable'
+import * as Selectors from 'javascript/redux/selectors'
 import WindowState from 'javascript/windowState'
+import { updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
+import { makeStyles } from '@material-ui/core/styles'
+import Popover from '@material-ui/core/Popover'
+import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
 
 const WorkoutCard = (props) => {
-  const useStyles = makeStyles((theme) => ({ typography: { padding: theme.spacing(2), }, }))
-  const classes = useStyles()
-  const [anchorEl, setAnchorEl] = useState(props.new_card)
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  const [anchorEl, setAnchorEl] = useState(props.newCard)
+  const handleCardIsHovered = (payload) => WindowState.hovered_card_id = payload
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -26,26 +24,22 @@ const WorkoutCard = (props) => {
     WindowState.new_card_id = null
   }
 
-  const setCardIsHovered = () => WindowState.hovered_card_id = props.workout_id
-  const unsetCardIsHovered = () => WindowState.hovered_card_id = null
-
   return (
     <React.Fragment>
       <div
-        className="workout-element"
-        aria-describedby={id}
-        variant="contained"
-        color="primary"
+        className='workout-element'
+        draggable
         onClick={handleClick}
-        onMouseEnter={setCardIsHovered}
-        onMouseLeave={unsetCardIsHovered}
+        onMouseEnter={() => handleCardIsHovered(props.workout_id)}
+        onMouseLeave={() => handleCardIsHovered(null)}
+        onDragEnd={() => props.updateWorkout({ day_number: WindowState.hovered_day })}
       >
         { props.workout.name }
       </div>
       <Popover
-        className="workout-form"
-        id={id}
-        open={open}
+        className='workout-form'
+        id={Boolean(anchorEl) ? 'simple-popover' : undefined}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
@@ -57,16 +51,10 @@ const WorkoutCard = (props) => {
           horizontal: 'center',
         }}
       >
-        <Typography
-          className={classes.typography}
-          component={'span'}
-          variant={'body2'}
-        >
-          <WorkoutFormWrapper
-            workout_id={props.workout.id}
-            setAnchorEl={setAnchorEl}
-          />
-        </Typography>
+        <WorkoutFormWrapper
+          workout_id={props.workout.id}
+          setAnchorEl={setAnchorEl}
+        />
       </Popover>
     </React.Fragment>
   )
@@ -75,12 +63,16 @@ const WorkoutCard = (props) => {
 WorkoutCard.propTypes = {
   workout_id: PropTypes.number.isRequired,
   setIsShown: PropTypes.func.isRequired,
-  new_card: PropTypes.bool.isRequired
+  newCard: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state, ownProps) => ({
   workout: Selectors.getWorkoutById(state, ownProps.workout_id),
-  new_card: ownProps.workout_id == WindowState.new_card_id ? true : false
+  newCard: ownProps.workout_id == WindowState.new_card_id ? true : false
 })
 
-export default connect(mapStateToProps)(WorkoutCard)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workout_id, payload))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCard)

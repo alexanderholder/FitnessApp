@@ -5,9 +5,11 @@ import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import WorkoutCardWrapper from "../Workout/views/WorkoutCardWrapper"
 import { saveNewWorkout } from 'javascript/redux/reducers/workoutsSlice'
+import WindowState from 'javascript/windowState'
 
 const Day = props => {
   const [isShown, setIsShown] = useState(false)
+  const [dragOverIsShown, setDragOverIsShown] = useState(false)
   const handleClick = () => {
     props.addWorkout({
       name: "unnamed session",
@@ -16,11 +18,21 @@ const Day = props => {
     })
     setIsShown(false)
   }
+  const handleDragEnter = (e) => {
+    WindowState.hovered_day = props.dayNumber
+    setDragOverIsShown(true)
+    e.stopPropagation()
+    e.preventDefault()
+  }
 
   return (
     <td
-      key={props.dayNumber}
       className="cell"
+      key={props.dayNumber}
+      onDragEnter={handleDragEnter}
+      onDragLeave={() => setDragOverIsShown(false)}
+      onDragOver={() => setIsShown(false)}
+      onDrop={() => setDragOverIsShown(false)}
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >
@@ -30,6 +42,14 @@ const Day = props => {
         key={props.dayNumber}
         setIsShown={setIsShown}
       />
+      { dragOverIsShown && (
+        <div
+          className='workout-element-outline'
+          onDrop={() => setDragOverIsShown(false)}
+          onDragLeave={() => setDragOverIsShown(false)}
+          onDragEnter={handleDragEnter}
+        />
+      )}
       { isShown && (
         <div
           className="hyperlink-button"
