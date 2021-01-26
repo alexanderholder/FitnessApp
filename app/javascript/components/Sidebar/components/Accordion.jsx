@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getWorkoutsState } from 'javascript/redux/selectors'
+import { getFavouriteWorkouts } from 'javascript/redux/selectors'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
 import WorkoutCard from 'javascript/components/Calendar/components/Workout/components/WorkoutCard'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,16 +33,20 @@ function SimpleAccordion(props) {
           aria-controls='panel1a-content'
           id='panel1a-header'
         >
-          <Typography className={classes.heading}>Templated Workouts</Typography>
+          <Typography className={classes.heading}>Favourite Sessions</Typography>
         </AccordionSummary>
-        {props.workouts.map(workout => (
-          <WorkoutCard
-            key={workout.id}
-            setIsShown={setIsShown}
-            templateWorkout={true}
-            workoutId={workout.id}
-          />
-        ))}
+        {props.workouts.length > 0 ? (
+          props.workouts.map(workout => (
+            <WorkoutCard
+              key={workout.id}
+              setIsShown={setIsShown}
+              templateWorkout={true}
+              workoutId={workout.id}
+            />
+          ))
+        ) : (
+          <Typography>No Sessions Favourited</Typography>
+        )}
       </Accordion>
       <Accordion>
         <AccordionSummary
@@ -79,7 +82,7 @@ SimpleAccordion.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  workouts: getWorkoutsState(state)
+  workouts: getFavouriteWorkouts(state)
 })
 
 // const mapDispatchToProps = dispatch => ({

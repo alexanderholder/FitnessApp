@@ -17,6 +17,9 @@ export const getWorkoutsByDayNumberFilter = (store, dayNumber) =>
 export const getWorkoutById = (store, id) =>
   getWorkoutsState(store).find(workout => workout.id == id)
 
+export const getFavouriteWorkouts = (store) =>
+  getWorkoutsState(store).filter(workout => workout.favourite == true) // TODO: filter across all their workouts
+
 // Blocks
 export const getBlocksState = store => store.blocks
 

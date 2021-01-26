@@ -126,7 +126,6 @@ const ExcerciseForm = props => {
               forcePopupIcon={false}
               renderInput={(params) => (
                 <TextField {...params}
-                  // InputProps={{ ...params.InputProps, endAdornment : null }}
                   autoFocus={true}
                   label='Excercise Name'
                   margin="dense"
