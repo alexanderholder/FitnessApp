@@ -12,7 +12,11 @@ import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
 
 const WorkoutCard = (props) => {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
-  const handleCardIsHovered = (payload) => WindowState.hovered_card_id = payload
+  const handleCardIsHovered = (payload) => {
+    if (!props.templateWorkout) { // TODO: this will stop copy paste from tempaltes :(
+      WindowState.hovered_card_id = payload
+    }
+  }
 
   const handleClick = (event) => {
     if (!props.templateWorkout) {
