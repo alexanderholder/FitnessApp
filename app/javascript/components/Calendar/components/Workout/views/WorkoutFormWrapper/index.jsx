@@ -10,7 +10,7 @@ import * as Selectors from 'javascript/redux/selectors'
 import BlockWrapper from '../BlockWrapper'
 import { updateWorkout, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice'
-import { Close, Delete } from '@material-ui/icons'
+import { Close, Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
 
 const SortableItem = SortableElement(({block, workoutId}) => (
@@ -40,6 +40,7 @@ const SortableList = SortableContainer(({blocks, workoutId}) => {
 
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
+  const [favourite, setFavourite] = useState(props.workout.favourite)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex)
@@ -47,6 +48,10 @@ const WorkoutFormWrapper = (props) => {
       props.updateBlock(block.id, { order: index })
     })
   })
+  const handleFavourite = () => {
+    setFavourite(!favourite)
+    props.updateWorkout({ favourite: !favourite })
+  }
 
   return (
     <div className="workout-form">
@@ -54,17 +59,30 @@ const WorkoutFormWrapper = (props) => {
         autoFocus={true}
         id="workout-name"
         label="Session Name"
-        onBlur={() => props.updateWorkoutName(workoutName)}
+        onBlur={() => props.updateWorkout({ name: workoutName })}
         onChange={e => setWorkoutName(e.target.value)}
         onFocus={e => e.target.select()}
         value={workoutName}
         width="300"
       />
       <Tooltip title="Delete workout">
-        <IconButton onClick={props.deleteWorkout} >
+        <IconButton onClick={props.deleteWorkout}>
           <Delete />
         </IconButton>
       </Tooltip>
+      {favourite ? (
+        <Tooltip title="Remove session from side bar">
+          <IconButton onClick={handleFavourite}>
+            <Favorite />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Add session to side bar">
+          <IconButton onClick={handleFavourite}>
+            <FavoriteBorder />
+          </IconButton>
+        </Tooltip>
+      )}
       <Tooltip title="Close window">
         <IconButton
           onClick={() => props.setAnchorEl(null)}
@@ -98,20 +116,20 @@ WorkoutFormWrapper.propTypes = {
   workoutId: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
-  open: PropTypes.string, // TODO: confirm we dont actually need this as required
-  setAnchorEl: PropTypes.func.isRequired
+  open: PropTypes.string, // TODO: confirm we dont actually need this as required (undefined vs false)
+  setAnchorEl: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
   workout: Selectors.getWorkoutById(state, ownProps.workoutId),
-  blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workoutId)
+  blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workoutId),
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkoutName: (name) => dispatch(updateWorkout(ownProps.workoutId, { name: name })),
+  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload)),
   addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workoutId, style: 'Fixed' })),
   deleteWorkout: () => dispatch(removeWorkout(ownProps.workoutId)),
-  updateBlock: (id, payload) => dispatch(updateBlock(id, payload))
+  updateBlock: (id, payload) => dispatch(updateBlock(id, payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)
