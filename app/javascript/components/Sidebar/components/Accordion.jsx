@@ -29,8 +29,8 @@ function SimpleAccordion(props) {
     <div className={classes.root}>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
           aria-controls='panel1a-content'
+          expandIcon={<ExpandMoreIcon />}
           id='panel1a-header'
         >
           <Typography className={classes.heading}>Favourite Sessions</Typography>
@@ -38,6 +38,7 @@ function SimpleAccordion(props) {
         {props.workouts.length > 0 ? (
           props.workouts.map(workout => (
             <WorkoutCard
+              style={{display: 'inline'}}
               key={workout.id}
               setIsShown={setIsShown}
               templateWorkout={true}
