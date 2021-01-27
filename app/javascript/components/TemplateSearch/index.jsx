@@ -100,7 +100,7 @@ const TemplateSearch = props => {
             return option.name
           }}
           renderInput={(params) => (
-            <TextField {...params} label="Templates" variant="outlined" margin="normal" />
+            <TextField {...params} label="Programs" variant="outlined" margin="normal" />
           )}
           renderOption={(option, { inputValue }) => {
             const matches = match(option.name, inputValue)

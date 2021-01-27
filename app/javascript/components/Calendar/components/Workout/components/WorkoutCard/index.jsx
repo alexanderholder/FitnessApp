@@ -7,17 +7,18 @@ import * as Selectors from 'javascript/redux/selectors'
 import WindowState from 'javascript/windowState'
 import { copyWorkout, updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { makeStyles } from '@material-ui/core/styles'
-import Popover from '@material-ui/core/Popover'
+import { Popover, Menu } from '@material-ui/core' // TODO
 import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
 
-const WorkoutCard = (props) => {
+function WorkoutCard (props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
+  // const [sessionInfoOpen, setSessionInfoOpen] = useState(false)
+
   const handleCardIsHovered = (payload) => {
     if (!props.templateWorkout) { // TODO: this will stop copy paste from tempaltes :(
       WindowState.hovered_card_id = payload
     }
   }
-
   const handleClick = (event) => {
     if (!props.templateWorkout) {
       setAnchorEl(event.currentTarget)
@@ -42,12 +43,27 @@ const WorkoutCard = (props) => {
         className='workout-element'
         draggable
         onClick={handleClick}
-        onMouseEnter={() => handleCardIsHovered(props.workoutId)}
-        onMouseLeave={() => handleCardIsHovered(null)}
+        onMouseEnter={() => {
+          handleCardIsHovered(props.workoutId)
+          // setSessionInfoOpen(true)
+        }}
+        onMouseLeave={() => {
+          handleCardIsHovered(null)
+          // setSessionInfoOpen(false)
+        }}
         onDragEnd={handleDragEnd}
       >
         { props.workout.name }
       </div>
+      {/* <Menu
+        id="session-info"
+        anchorEl={anchorEl}
+        keepMounted
+        open={sessionInfoOpen}
+        onClose={() => setSessionInfoOpen(false)}
+      >
+        Yeet
+      </Menu> */}
       <Popover
         className='workout-form'
         id={Boolean(anchorEl) ? 'simple-popover' : undefined}
