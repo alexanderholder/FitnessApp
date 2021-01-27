@@ -11,7 +11,7 @@ import { saveNewExcercise, updateExcercise } from 'javascript/redux/reducers/exc
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
 import { TextField, IconButton, Tooltip } from '@material-ui/core'
-import { Delete, MoreVert } from '@material-ui/icons'
+import { Delete, MoreVert, Favorite, FavoriteBorder } from '@material-ui/icons'
 
 const SortableItem = SortableElement(({excercise, blockId}) => (
   <ExcerciseForm
@@ -44,6 +44,7 @@ const BlockWrapper = props => {
   const [rounds, setRounds] = useState(props.block.sets || '')
   const [showName, setShowName] = useState(props.block.name || props.block.sets)
   const [showRounds, setShowRounds] = useState(props.block.name || props.block.sets)
+  const [showMenuIcons, setShowMenuIcons] = useState(false)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex)
@@ -53,55 +54,76 @@ const BlockWrapper = props => {
   })
 
   return (
-    <div className='block-wrapper'>
-      <div style={{ paddingBottom: '10px'}}>
-        { showName ? (
-          <TextField
-            autoFocus={true}
-            label='Block Name'
-            onBlur={() => props.updateBlock({ name: name })}
-            onChange={e => setName(e.target.value)}
-            size='small'
-            value={name}
-            width='50'
-          />
-        ) : (
-          <div
-            style={{paddingRight: '2px', display: 'inline-block'}}
-            className='hyperlink-button'
-            onClick={() => setShowName(true)}
-          >
-            + Block name
-          </div>
-        )}
-        { showRounds ? (
-          <TextField
-            label='Block Rounds'
-            onBlur={() => props.updateBlock({ sets: rounds })}
-            onChange={e => setRounds(e.target.value)}
-            size='small'
-            value={rounds}
-            width='50'
-          />
-        ) : (
-          <div
-            style={{paddingLeft: '2px', display: 'inline-block'}}
-            className='hyperlink-button'
-            onClick={() => setShowRounds(true)}
-          >
-            + Block rounds
-          </div>
-        )}
-        <Tooltip title='Delete block'>
-          <IconButton
-            onClick={props.deleteBlock}
-            size='small'
-            style={{float: 'right'}}
-          >
-            <Delete />
-          </IconButton>
-        </Tooltip>
-      </div>
+    <div
+      className='block-wrapper'
+      onMouseEnter={() => setShowMenuIcons(true)}
+      onMouseLeave={() => setShowMenuIcons(false)}
+    >
+      { showMenuIcons && (
+        <div style={{ paddingBottom: '10px'}}>
+          { showName ? (
+            <TextField
+              autoFocus={true}
+              label='Block Name'
+              onBlur={() => props.updateBlock({ name: name })}
+              onChange={e => setName(e.target.value)}
+              size='small'
+              value={name}
+              width='50'
+            />
+          ) : (
+            <div
+              style={{paddingRight: '2px', display: 'inline-block'}}
+              className='hyperlink-button'
+              onClick={() => setShowName(true)}
+            >
+              + Block name
+            </div>
+          )}
+          { showRounds ? (
+            <TextField
+              label='Block Rounds'
+              onBlur={() => props.updateBlock({ sets: rounds })}
+              onChange={e => setRounds(e.target.value)}
+              size='small'
+              value={rounds}
+              width='50'
+            />
+          ) : (
+            <div
+              style={{paddingLeft: '2px', display: 'inline-block'}}
+              className='hyperlink-button'
+              onClick={() => setShowRounds(true)}
+            >
+              + Block rounds
+            </div>
+          )}
+          <Tooltip title='Delete block'>
+            <IconButton
+              onClick={props.deleteBlock}
+              size='small'
+              // style={{float: 'right'}}
+            >
+              <Delete />
+            </IconButton>
+          </Tooltip>
+          { false ? ( // TODO
+            <Tooltip title="Remove block from side bar">
+              <IconButton>
+              {/* onClick={handleFavourite}> */}
+                <Favorite />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Add block to side bar">
+              <IconButton>
+              {/* onClick={handleFavourite}> */}
+                <FavoriteBorder />
+              </IconButton>
+            </Tooltip>
+          )}
+        </div>
+      )}
       <SortableList
         blockId={props.blockId}
         distance={1}
