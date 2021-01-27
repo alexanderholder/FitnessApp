@@ -59,45 +59,45 @@ const BlockWrapper = props => {
       onMouseEnter={() => setShowMenuIcons(true)}
       onMouseLeave={() => setShowMenuIcons(false)}
     >
-      { showMenuIcons && (
-        <div style={{ paddingBottom: '10px'}}>
-          { showName ? (
-            <TextField
-              autoFocus={true}
-              label='Block Name'
-              onBlur={() => props.updateBlock({ name: name })}
-              onChange={e => setName(e.target.value)}
-              size='small'
-              value={name}
-              width='50'
-            />
-          ) : (
-            <div
-              style={{paddingRight: '2px', display: 'inline-block'}}
-              className='hyperlink-button'
-              onClick={() => setShowName(true)}
-            >
-              + Block name
-            </div>
-          )}
-          { showRounds ? (
-            <TextField
-              label='Block Rounds'
-              onBlur={() => props.updateBlock({ sets: rounds })}
-              onChange={e => setRounds(e.target.value)}
-              size='small'
-              value={rounds}
-              width='50'
-            />
-          ) : (
-            <div
-              style={{paddingLeft: '2px', display: 'inline-block'}}
-              className='hyperlink-button'
-              onClick={() => setShowRounds(true)}
-            >
-              + Block rounds
-            </div>
-          )}
+      <div style={{ paddingBottom: '10px'}}>
+        { showName ? (
+          <TextField
+            autoFocus={true}
+            label='Block Name'
+            onBlur={() => props.updateBlock({ name: name })}
+            onChange={e => setName(e.target.value)}
+            size='small'
+            value={name}
+            width='50'
+          />
+        ) : (
+          <div
+            style={{paddingRight: '2px', display: 'inline-block'}}
+            className='hyperlink-button'
+            onClick={() => setShowName(true)}
+          >
+            + Block name
+          </div>
+        )}
+        { showRounds ? (
+          <TextField
+            label='Block Rounds'
+            onBlur={() => props.updateBlock({ sets: rounds })}
+            onChange={e => setRounds(e.target.value)}
+            size='small'
+            value={rounds}
+            width='50'
+          />
+        ) : (
+          <div
+            style={{paddingLeft: '2px', display: 'inline-block'}}
+            className='hyperlink-button'
+            onClick={() => setShowRounds(true)}
+          >
+            + Block rounds
+          </div>
+        )}
+        { showMenuIcons && (
           <Tooltip title='Delete block'>
             <IconButton
               onClick={props.deleteBlock}
@@ -107,23 +107,23 @@ const BlockWrapper = props => {
               <Delete />
             </IconButton>
           </Tooltip>
-          { false ? ( // TODO
-            <Tooltip title="Remove block from side bar">
-              <IconButton>
-              {/* onClick={handleFavourite}> */}
-                <Favorite />
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Add block to side bar">
-              <IconButton>
-              {/* onClick={handleFavourite}> */}
-                <FavoriteBorder />
-              </IconButton>
-            </Tooltip>
-          )}
-        </div>
-      )}
+        )}
+        { showMenuIcons && ( false ? ( // TODO
+          <Tooltip title="Remove block from side bar">
+            <IconButton>
+            {/* onClick={handleFavourite}> */}
+              <Favorite />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Add block to side bar">
+            <IconButton>
+            {/* onClick={handleFavourite}> */}
+              <FavoriteBorder />
+            </IconButton>
+          </Tooltip>
+        ))}
+      </div>
       <SortableList
         blockId={props.blockId}
         distance={1}
