@@ -7,16 +7,11 @@ import * as Selectors from 'javascript/redux/selectors'
 import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
 import { TextField, Tooltip, IconButton } from '@material-ui/core'
-import { FitnessCenter, Delete, MoreVert } from '@material-ui/icons'
+import { Menu, Delete, MoreVert } from '@material-ui/icons' // TODO FitnessCenter
 
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  root: {},
-});
 
 import {
   Dialog,
@@ -26,14 +21,16 @@ import {
   Button,
 } from '@material-ui/core'
 
-const ExcerciseForm = props => {
-  const { movement, weightValue, measurementMetric } = props.excercise
-  const [isWeightShown, setWeightIsShown] = useState(weightValue)
-  const [name, setName] = useState(movement || '')
-  const [setsReps, setSetsReps] = useState(measurementMetric || '')
-  const [weight, setWeight] = useState(weightValue || '')
+import Drawer from './components/Drawer'
 
-// this is for excercise drop down
+const ExcerciseForm = props => {
+  const { movement, weight_value, measurement_metric, measurement_value } = props.excercise
+  const [isWeightShown, setWeightIsShown] = useState(weight_value)
+  const [name, setName] = useState(movement || '')
+  const [setsReps, setSetsReps] = useState(measurement_value || '')
+  const [weight, setWeight] = useState(weight_value || '')
+
+  // this is for excercise drop down TODO
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState({
     title: '',
@@ -58,8 +55,6 @@ const ExcerciseForm = props => {
 
     handleClose()
   }
-
-  const classes = useStyles();
   // endddd
 
   return (
@@ -130,7 +125,7 @@ const ExcerciseForm = props => {
                   label='Excercise Name'
                   margin="dense"
                   size='small'
-                  style={{ width: 200, textOverlow:'none' }}
+                  style={{ width: 300, textOverlow:'none' }}
                   variant="outlined"
                 />
               )}
@@ -189,17 +184,17 @@ const ExcerciseForm = props => {
               label='Sets & Reps'
               onChange={e => {
                 setSetsReps(e.target.value)
-                props.updateExcercise({ measurement_metric: e.target.value })
+                props.updateExcercise({ measurement_value: e.target.value })
               }}
               options={setsRepsSchemeList}
               size='small'
               variant='outlined'
               value={setsReps}
-              width='50'
+              width='25'
               // helperText='Some important text' TODO
             />
           </td>
-          { isWeightShown && (
+          {/* { isWeightShown && (
             <td>
               <TextField
                 label='Weight'
@@ -213,21 +208,27 @@ const ExcerciseForm = props => {
                 width='50'
               />
             </td>
-          )}
+          )} */}
           <td>
+            {/* <IconButton onClick={() => {  }} >
+              <Menu/>
+            </IconButton> */}
+            <Drawer/>
+          </td>
+          {/* <td>
             <Tooltip title='Add weight'>
               <IconButton onClick={() => { setWeightIsShown(!isWeightShown) }} >
                 <FitnessCenter/>
               </IconButton>
             </Tooltip>
-          </td>
-          <td>
+          </td> */}
+          {/* <td>
             <Tooltip title='Delete excercise'>
               <IconButton onClick={props.removeExcercise} >
                 <Delete/>
               </IconButton>
             </Tooltip>
-          </td>
+          </td> */}
         </tr>
       </tbody>
     </table>

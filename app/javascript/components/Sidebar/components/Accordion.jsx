@@ -49,6 +49,28 @@ function SimpleAccordion(props) {
           <Typography>No Sessions Favourited</Typography>
         )}
       </Accordion>
+      {/* <Accordion>
+        <AccordionSummary
+          aria-controls='panel1a-content'
+          expandIcon={<ExpandMoreIcon />}
+          id='panel1a-header'
+        >
+          <Typography className={classes.heading}>Favourite Blocks</Typography>
+        </AccordionSummary>
+        {props.blocks.length > 0 ? (
+          props.workouts.map(workout => (
+            <WorkoutCard
+              style={{display: 'inline'}}
+              key={workout.id}
+              setIsShown={setIsShown}
+              templateWorkout={true}
+              workoutId={workout.id}
+            />
+          ))
+        ) : (
+          <Typography>No Blocks Favourited</Typography>
+        )}
+      </Accordion> */}
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

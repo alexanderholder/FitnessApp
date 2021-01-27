@@ -41,6 +41,7 @@ const SortableList = SortableContainer(({blocks, workoutId}) => {
 const WorkoutFormWrapper = (props) => {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
   const [favourite, setFavourite] = useState(props.workout.favourite)
+  const [menuShown, setMenuShown] = useState(false)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex)
@@ -48,6 +49,7 @@ const WorkoutFormWrapper = (props) => {
       props.updateBlock(block.id, { order: index })
     })
   })
+
   const handleFavourite = () => {
     setFavourite(!favourite)
     props.updateWorkout({ favourite: !favourite })
@@ -55,42 +57,51 @@ const WorkoutFormWrapper = (props) => {
 
   return (
     <div className="workout-form">
-      <TextField
-        autoFocus={true}
-        id="workout-name"
-        label="Session Name"
-        onBlur={() => props.updateWorkout({ name: workoutName })}
-        onChange={e => setWorkoutName(e.target.value)}
-        onFocus={e => e.target.select()}
-        value={workoutName}
-        width="300"
-      />
-      <Tooltip title="Delete workout">
-        <IconButton onClick={props.deleteWorkout}>
-          <Delete />
-        </IconButton>
-      </Tooltip>
-      {favourite ? (
-        <Tooltip title="Remove session from side bar">
-          <IconButton onClick={handleFavourite}>
-            <Favorite />
+      <div
+        onMouseEnter={() => setMenuShown(true)}
+        onMouseLeave={() => setMenuShown(false)}
+      >
+        <TextField
+          autoFocus={true}
+          id="workout-name"
+          label="Session Name"
+          onBlur={() => props.updateWorkout({ name: workoutName })}
+          onChange={e => setWorkoutName(e.target.value)}
+          onFocus={e => e.target.select()}
+          value={workoutName}
+          width="300"
+        />
+        {menuShown && (
+          <Tooltip title="Delete workout">
+            <IconButton onClick={props.deleteWorkout}>
+              <Delete />
+            </IconButton>
+          </Tooltip>
+        )}
+        {menuShown && (
+          favourite ? (
+            <Tooltip title="Remove session from side bar">
+              <IconButton onClick={handleFavourite}>
+                <Favorite />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Add session to side bar">
+              <IconButton onClick={handleFavourite}>
+                <FavoriteBorder />
+              </IconButton>
+            </Tooltip>
+          )
+        )}
+        <Tooltip title="Close window">
+          <IconButton
+            onClick={() => props.setAnchorEl(null)}
+            style={{ float: 'right', marginRight: '5px' }}
+          >
+            <Close />
           </IconButton>
         </Tooltip>
-      ) : (
-        <Tooltip title="Add session to side bar">
-          <IconButton onClick={handleFavourite}>
-            <FavoriteBorder />
-          </IconButton>
-        </Tooltip>
-      )}
-      <Tooltip title="Close window">
-        <IconButton
-          onClick={() => props.setAnchorEl(null)}
-          style={{ float: 'right', marginRight: '5px' }}
-        >
-          <Close />
-        </IconButton>
-      </Tooltip>
+      </div>
       <div
         id='workout-wrapper'
         style={{ paddingTop: '10px' }}
