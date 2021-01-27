@@ -100,7 +100,7 @@ function BlockWrapper (props) {
           <Tooltip title='Delete block'>
             <IconButton
               onClick={props.deleteBlock}
-              size={showBlockDetails ? 'default' : 'small'}
+              size={showBlockDetails ? 'medium' : 'small'}
             >
               <Delete fontSize='inherit' />
             </IconButton>
@@ -109,7 +109,7 @@ function BlockWrapper (props) {
         { showMenuIcons && ( false ? ( // TODO
           <Tooltip title="Remove block from side bar">
             <IconButton
-              size={showBlockDetails ? 'default' : 'small'}
+              size={showBlockDetails ? 'medium' : 'small'}
             >
             {/* onClick={handleFavourite}> */}
               <Favorite fontSize='inherit' />
@@ -118,7 +118,7 @@ function BlockWrapper (props) {
         ) : (
           <Tooltip title="Add block to side bar">
             <IconButton
-              size={showBlockDetails ? 'default' : 'small'}
+              size={showBlockDetails ? 'medium' : 'small'}
               // onClick={handleFavourite}
             >
               <FavoriteBorder fontSize='inherit' />
