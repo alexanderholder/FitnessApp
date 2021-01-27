@@ -29,6 +29,7 @@ const SortableList = SortableContainer(({excercises, blockId}) => {
       {collection.map((excercise, index) => (
         <SortableItem
           blockId={blockId}
+          collection={collection}
           excercise={excercise}
           index={index}
           key={excercise.id}
