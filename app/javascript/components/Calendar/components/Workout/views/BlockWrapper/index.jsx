@@ -39,11 +39,10 @@ const SortableList = SortableContainer(({excercises, blockId}) => {
   )
 })
 
-const BlockWrapper = props => {
+function BlockWrapper (props) {
   const [name, setName] = useState(props.block.name || '')
   const [rounds, setRounds] = useState(props.block.sets || '')
-  const [showName, setShowName] = useState(props.block.name || props.block.sets)
-  const [showRounds, setShowRounds] = useState(props.block.name || props.block.sets)
+  const [showBlockDetails, setShowBlockDetails] = useState(props.block.name || props.block.sets)
   const [showMenuIcons, setShowMenuIcons] = useState(false)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
@@ -60,7 +59,7 @@ const BlockWrapper = props => {
       onMouseLeave={() => setShowMenuIcons(false)}
     >
       <div style={{ paddingBottom: '10px'}}>
-        { showName ? (
+        { showBlockDetails ? (
           <TextField
             autoFocus={true}
             label='Block Name'
@@ -74,12 +73,12 @@ const BlockWrapper = props => {
           <div
             style={{paddingRight: '2px', display: 'inline-block'}}
             className='hyperlink-button'
-            onClick={() => setShowName(true)}
+            onClick={() => setShowBlockDetails(true)}
           >
             + Block name
           </div>
         )}
-        { showRounds ? (
+        { showBlockDetails ? (
           <TextField
             label='Block Rounds'
             onBlur={() => props.updateBlock({ sets: rounds })}
@@ -92,7 +91,7 @@ const BlockWrapper = props => {
           <div
             style={{paddingLeft: '2px', display: 'inline-block'}}
             className='hyperlink-button'
-            onClick={() => setShowRounds(true)}
+            onClick={() => setShowBlockDetails(true)}
           >
             + Block rounds
           </div>
@@ -101,25 +100,28 @@ const BlockWrapper = props => {
           <Tooltip title='Delete block'>
             <IconButton
               onClick={props.deleteBlock}
-              size='small'
-              // style={{float: 'right'}}
+              size={showBlockDetails ? 'default' : 'small'}
             >
-              <Delete />
+              <Delete fontSize='inherit' />
             </IconButton>
           </Tooltip>
         )}
         { showMenuIcons && ( false ? ( // TODO
           <Tooltip title="Remove block from side bar">
-            <IconButton>
+            <IconButton
+              size={showBlockDetails ? 'default' : 'small'}
+            >
             {/* onClick={handleFavourite}> */}
-              <Favorite />
+              <Favorite fontSize='inherit' />
             </IconButton>
           </Tooltip>
         ) : (
           <Tooltip title="Add block to side bar">
-            <IconButton>
-            {/* onClick={handleFavourite}> */}
-              <FavoriteBorder />
+            <IconButton
+              size={showBlockDetails ? 'default' : 'small'}
+              // onClick={handleFavourite}
+            >
+              <FavoriteBorder fontSize='inherit' />
             </IconButton>
           </Tooltip>
         ))}

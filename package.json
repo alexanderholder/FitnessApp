@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-import": "^1.13.3",
     "flow-bin": "^0.132.0",
     "redux-devtools-extension": "^2.13.8",
     "webpack-dev-server": "^3.11.0"
