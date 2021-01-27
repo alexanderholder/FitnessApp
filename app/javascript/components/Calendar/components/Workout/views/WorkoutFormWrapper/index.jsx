@@ -28,6 +28,7 @@ const SortableList = SortableContainer(({blocks, workoutId}) => {
     <div className='grabbable'>
       {collection.map((block, index) => (
         <SortableItem
+          collection={collection}
           block={block}
           index={index}
           key={block.id}
