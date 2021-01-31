@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getFavouriteWorkouts } from 'javascript/redux/selectors'
+import { getFavouriteWorkouts, getFavouriteBlocks } from 'javascript/redux/selectors'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -46,10 +46,10 @@ function SimpleAccordion(props) {
             />
           ))
         ) : (
-          <Typography>No Sessions Favourited</Typography>
+          <Typography style={{textAlign: 'center'}}>No Sessions Favourited</Typography>
         )}
       </Accordion>
-      {/* <Accordion>
+      <Accordion>
         <AccordionSummary
           aria-controls='panel1a-content'
           expandIcon={<ExpandMoreIcon />}
@@ -57,20 +57,20 @@ function SimpleAccordion(props) {
         >
           <Typography className={classes.heading}>Favourite Blocks</Typography>
         </AccordionSummary>
-        {props.blocks.length > 0 ? (
-          props.workouts.map(workout => (
-            <WorkoutCard
-              style={{display: 'inline'}}
-              key={workout.id}
-              setIsShown={setIsShown}
-              templateWorkout={true}
-              workoutId={workout.id}
-            />
-          ))
-        ) : (
-          <Typography>No Blocks Favourited</Typography>
-        )}
-      </Accordion> */}
+        <div style={{textAlign: 'center'}}>
+          {props.blocks.length > 0 ? (
+            props.blocks.map(block => (
+              <Typography
+                draggable
+              >
+                {block.name || 'unnamed block'}
+              </Typography>
+            ))
+          ) : (
+            <Typography>No Blocks Favourited</Typography>
+          )}
+        </div>
+      </Accordion>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -105,7 +105,8 @@ SimpleAccordion.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  workouts: getFavouriteWorkouts(state)
+  workouts: getFavouriteWorkouts(state),
+  blocks: getFavouriteBlocks(state)
 })
 
 // const mapDispatchToProps = dispatch => ({

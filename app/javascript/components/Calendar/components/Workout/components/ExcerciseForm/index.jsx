@@ -23,7 +23,7 @@ import {
 
 import Drawer from './components/Drawer'
 
-const ExcerciseForm = props => {
+function ExcerciseForm(props) {
   const { movement, weight_value, measurement_metric, measurement_value } = props.excercise
   const [isWeightShown, setWeightIsShown] = useState(weight_value)
   const [name, setName] = useState(movement || '')
@@ -210,10 +210,10 @@ const ExcerciseForm = props => {
             </td>
           )} */}
           <td>
-            {/* <IconButton onClick={() => {  }} >
+            <IconButton onClick={() => props.setShowExcerciseDetails(props.excerciseId) }>
               <Menu/>
-            </IconButton> */}
-            <Drawer/>
+            </IconButton>
+            {/* <Drawer/> */}
           </td>
           {/* <td>
             <Tooltip title='Add weight'>
@@ -237,7 +237,8 @@ const ExcerciseForm = props => {
 
 ExcerciseForm.propTypes = {
   excerciseId: PropTypes.number.isRequired,
-  excercise: PropTypes.object.isRequired
+  excercise: PropTypes.object.isRequired,
+  setShowExcerciseDetails: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({

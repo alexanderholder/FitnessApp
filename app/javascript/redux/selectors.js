@@ -29,6 +29,9 @@ export const getBlocksByWorkoutId = (store, id) =>
 export const getBlockById = (store, id) =>
   getBlocksState(store).find(block => block.id == id)
 
+export const getFavouriteBlocks = (store) =>
+  getBlocksState(store).filter(block => block.favourite == true) // TODO: filter across all their workouts
+
 // Excercises
 export const getExcercisesState = store => store.excercises
 

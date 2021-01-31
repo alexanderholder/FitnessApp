@@ -31,6 +31,6 @@ class BlocksController < ApplicationController
   private
 
   def block_params
-    params.require(:block).permit(:workout_id, :name, :day_number, :sets, :style, :order)
+    params.require(:block).permit(:workout_id, :name, :day_number, :sets, :style, :order, :favourite)
   end
 end
