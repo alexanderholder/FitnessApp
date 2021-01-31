@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_010135) do
+ActiveRecord::Schema.define(version: 2021_01_28_051201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_010135) do
     t.bigint "workout_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "favourite", default: false
     t.index ["workout_id"], name: "index_blocks_on_workout_id"
   end
 
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_010135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "favourite", default: false
+    t.integer "sort_order"
     t.index ["training_template_id"], name: "index_workouts_on_training_template_id"
   end
 

@@ -9,6 +9,7 @@ import WorkoutCard from '../../components/WorkoutCard'
 const WorkoutCardWrapper = (props) => {
   if (props.workouts.length === 0) { return [] }
   else if (props.workouts.length < 5) {
+    // TODO sort_by
     return (
       props.workouts.map(workout =>
         <WorkoutCard

@@ -39,7 +39,7 @@ const SortableList = SortableContainer(({blocks, workoutId}) => {
   )
 })
 
-const WorkoutFormWrapper = (props) => {
+function WorkoutFormWrapper(props) {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
   const [favourite, setFavourite] = useState(props.workout.favourite)
   const [menuShown, setMenuShown] = useState(false)
@@ -56,6 +56,11 @@ const WorkoutFormWrapper = (props) => {
     props.updateWorkout({ favourite: !favourite })
   }
 
+  const handleChange = (e) => {
+    setWorkoutName(e.target.value)
+    props.updateWorkout({ name: e.target.value })
+  }
+
   return (
     <div className="workout-form">
       <div
@@ -66,8 +71,7 @@ const WorkoutFormWrapper = (props) => {
           autoFocus={true}
           id="workout-name"
           label="Session Name"
-          onBlur={() => props.updateWorkout({ name: workoutName })}
-          onChange={e => setWorkoutName(e.target.value)}
+          onChange={handleChange}
           onFocus={e => e.target.select()}
           value={workoutName}
           width="300"
