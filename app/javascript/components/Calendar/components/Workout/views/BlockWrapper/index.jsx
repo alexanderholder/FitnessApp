@@ -41,13 +41,12 @@ const SortableList = SortableContainer(({excercises, blockId, setShowExcerciseDe
   )
 })
 
-function BlockWrapper (props) {
+function BlockWrapper(props) {
   const [name, setName] = useState(props.block.name || '')
   const [rounds, setRounds] = useState(props.block.sets || '')
   const [favourite, setFavourite] = useState(props.block.favourite)
   const [showBlockDetails, setShowBlockDetails] = useState(props.block.name || props.block.sets)
   const [showMenuIcons, setShowMenuIcons] = useState(false)
-  const [showExcerciseDetails, setShowExcerciseDetails] = useState(false)
 
   const handleFavourite = (bool) => {
     setFavourite(bool)
@@ -62,102 +61,100 @@ function BlockWrapper (props) {
   })
 
   return (
-    // TODO
-    <div sytle={{display: 'flex', height: '1px'}}>
-      <div
-        className='block-wrapper'
-        onMouseEnter={() => setShowMenuIcons(true)}
-        onMouseLeave={() => setShowMenuIcons(false)}
-      >
-        <div>
-          { showBlockDetails ? (
-            <TextField
-              autoFocus={true}
-              label='Block Name'
-              onChange={(e) => {
-                setName(e.target.value)
-                props.updateBlock({ name: e.target.value })
-              }}
-              size='small'
-              value={name}
-              width='50'
-            />
-          ) : (
-            <div
-              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-              className='hyperlink-button'
-              onClick={() => setShowBlockDetails(true)}
+    <div
+      className='block-wrapper'
+      onMouseEnter={() => setShowMenuIcons(true)}
+      onMouseLeave={() => setShowMenuIcons(false)}
+    >
+      <div>
+        { showBlockDetails ? (
+          <TextField
+            autoFocus={true}
+            label='Block Name'
+            onChange={(e) => {
+              setName(e.target.value)
+              props.updateBlock({ name: e.target.value })
+            }}
+            size='small'
+            value={name}
+            width='50'
+            style={{ paddingBottom: '5px'}}
+          />
+        ) : (
+          <div
+            style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
+            className='hyperlink-button'
+            onClick={() => setShowBlockDetails(true)}
+          >
+            + Block name
+          </div>
+        )}
+        { showBlockDetails ? (
+          <TextField
+            label='Block Rounds'
+            onChange={e => {
+              setRounds(e.target.value)
+              props.updateBlock({ sets: e.target.value })
+            }}
+            size='small'
+            value={rounds}
+            width='50'
+            style={{ paddingBottom: '5px'}}
+          />
+        ) : (
+          <div
+            style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
+            className='hyperlink-button'
+            onClick={() => setShowBlockDetails(true)}
+          >
+            + Block rounds
+          </div>
+        )}
+        { showMenuIcons && (
+          <Tooltip title='Delete block'>
+            <IconButton
+              onClick={props.deleteBlock}
+              size={showBlockDetails ? 'medium' : 'small'}
             >
-              + Block name
-            </div>
-          )}
-          { showBlockDetails ? (
-            <TextField
-              label='Block Rounds'
-              onChange={e => {
-                setRounds(e.target.value)
-                props.updateBlock({ sets: e.target.value })
-              }}
-              size='small'
-              value={rounds}
-              width='50'
-            />
-          ) : (
-            <div
-              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-              className='hyperlink-button'
-              onClick={() => setShowBlockDetails(true)}
-            >
-              + Block rounds
-            </div>
-          )}
-          { showMenuIcons && (
-            <Tooltip title='Delete block'>
+              <Delete fontSize='inherit' />
+            </IconButton>
+          </Tooltip>
+        )}
+        { showMenuIcons &&
+          ( favourite ? (
+            <Tooltip title="Remove block from side bar">
               <IconButton
-                onClick={props.deleteBlock}
+                onClick={() => handleFavourite(false)}
                 size={showBlockDetails ? 'medium' : 'small'}
               >
-                <Delete fontSize='inherit' />
+                <Favorite fontSize='inherit' />
               </IconButton>
             </Tooltip>
-          )}
-          { showMenuIcons &&
-            ( favourite ? (
-              <Tooltip title="Remove block from side bar">
-                <IconButton
-                  onClick={() => handleFavourite(false)}
-                  size={showBlockDetails ? 'medium' : 'small'}
-                >
-                  <Favorite fontSize='inherit' />
-                </IconButton>
-              </Tooltip>
-            ) : (
-              <Tooltip title="Add block to side bar">
-                <IconButton
-                  size={showBlockDetails ? 'medium' : 'small'}
-                  onClick={() => handleFavourite(true)}
-                >
-                  <FavoriteBorder fontSize='inherit' />
-                </IconButton>
-              </Tooltip>
-            ))
-          }
-        </div>
-        <SortableList
-          blockId={props.blockId}
-          distance={1}
-          excercises={props.excercises}
-          onSortEnd={onSortEnd}
-          setShowExcerciseDetails={setShowExcerciseDetails}
-        />
-        <div
-          className='hyperlink-button'
-          onClick={props.addExcercise}
-        >
-          + Add Excercise
-        </div>
+          ) : (
+            <Tooltip title="Add block to side bar">
+              <IconButton
+                size={showBlockDetails ? 'medium' : 'small'}
+                onClick={() => handleFavourite(true)}
+              >
+                <FavoriteBorder fontSize='inherit' />
+              </IconButton>
+            </Tooltip>
+          ))
+        }
       </div>
-      <div style={{overflowY: 'hidden'}}>{showExcerciseDetails && (<div>Sidebar for {showExcerciseDetails}</div>)}</div>
+      <SortableList
+        blockId={props.blockId}
+        distance={1}
+        excercises={props.excercises}
+        onSortEnd={onSortEnd}
+        setShowExcerciseDetails={props.setShowExcerciseDetails}
+      />
+      <div
+        className='hyperlink-button'
+        onClick={props.addExcercise}
+      >
+        + Add Excercise
+      </div>
     </div>
   )
 }
