@@ -13,15 +13,19 @@ import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice
 import { Close, Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
 
-const SortableItem = SortableElement(({block, workoutId}) => (
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+
+const SortableItem = SortableElement(({block, workoutId, setShowExcerciseDetails}) => (
   <BlockWrapper
     blockId={block.id}
     key={block.id}
     workoutId={workoutId}
+    setShowExcerciseDetails={setShowExcerciseDetails}
   />
 ))
 
-const SortableList = SortableContainer(({blocks, workoutId}) => {
+const SortableList = SortableContainer(({blocks, workoutId, setShowExcerciseDetails}) => {
   const collection = useMemo(() => sortBy(blocks, b => b.order))
 
   return (
@@ -33,6 +37,7 @@ const SortableList = SortableContainer(({blocks, workoutId}) => {
           index={index}
           key={block.id}
           workoutId={workoutId}
+          setShowExcerciseDetails={setShowExcerciseDetails}
         />
       ))}
     </div>
@@ -43,6 +48,7 @@ function WorkoutFormWrapper(props) {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
   const [favourite, setFavourite] = useState(props.workout.favourite)
   const [menuShown, setMenuShown] = useState(false)
+  const [showExcerciseDetails, setShowExcerciseDetails] = useState(false)
 
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex)
@@ -107,16 +113,45 @@ function WorkoutFormWrapper(props) {
           </IconButton>
         </Tooltip>
       </div>
-      <div
-        id='workout-wrapper'
-        style={{ paddingTop: '10px' }}
-      >
-        <SortableList
-          blocks={props.blocks}
-          distance={1}
-          onSortEnd={onSortEnd}
-          workoutId={props.workoutId}
-        />
+      <div>
+        <div
+          id='workout-wrapper'
+          style={{ paddingTop: '10px', display: 'inline-block' }}
+        >
+          <SortableList
+            blocks={props.blocks}
+            distance={1}
+            onSortEnd={onSortEnd}
+            workoutId={props.workoutId}
+            setShowExcerciseDetails={setShowExcerciseDetails}
+          />
+        </div>
+        {showExcerciseDetails && (
+          <div
+            // className='block-wrapper'
+            style={{
+              marginLeft: '20px',
+              boxShadow: '0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
+              display: 'inline-block',
+              cursor: 'default',
+              position: 'fixed',
+              backgroundColor: 'white'
+            }}
+          >
+            <List style={{padding: '15px'}}>
+              {['weight', 'sets & reps', 'intensity', 'soemthing else'].map(metric =>
+                <ListItemText primary={
+                  <TextField
+                    // id="weight-text-box"
+                    label={metric}
+                    margin="dense"
+                    type="text"
+                  />
+                }/>
+              )}
+            </List>
+          </div>
+        )}
       </div>
       <div
         className="hyperlink-button"
