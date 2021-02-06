@@ -131,3 +131,13 @@ table.calendar {
   margin-bottom: 10px;
   cursor: grab;
 }
+
+.login {
+  text-align: center;
+  /* font-size: 15px; */
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+}

@@ -12,9 +12,7 @@ import { updateWorkout, removeWorkout } from 'javascript/redux/reducers/workouts
 import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice'
 import { Close, Delete, Favorite, FavoriteBorder } from '@material-ui/icons'
 import { IconButton, Tooltip, TextField } from '@material-ui/core'
-
-import List from '@material-ui/core/List';
-import ListItemText from '@material-ui/core/ListItemText';
+import ExcerciseDetails from '../ExcerciseDetails'
 
 const SortableItem = SortableElement(({block, workoutId, setShowExcerciseDetails}) => (
   <BlockWrapper
@@ -127,30 +125,10 @@ function WorkoutFormWrapper(props) {
           />
         </div>
         {showExcerciseDetails && (
-          <div
-            // className='block-wrapper'
-            style={{
-              marginLeft: '20px',
-              boxShadow: '0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
-              display: 'inline-block',
-              cursor: 'default',
-              position: 'fixed',
-              backgroundColor: 'white'
-            }}
-          >
-            <List style={{padding: '15px'}}>
-              {['weight', 'sets & reps', 'intensity', 'soemthing else'].map(metric =>
-                <ListItemText primary={
-                  <TextField
-                    // id="weight-text-box"
-                    label={metric}
-                    margin="dense"
-                    type="text"
-                  />
-                }/>
-              )}
-            </List>
-          </div>
+          <ExcerciseDetails
+            excerciseId={showExcerciseDetails}
+            setShowExcerciseDetails={setShowExcerciseDetails}
+          />
         )}
       </div>
       <div
