@@ -6,21 +6,11 @@ import PropTypes from 'prop-types'
 import * as Selectors from 'javascript/redux/selectors'
 import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
-import { TextField, Tooltip, IconButton } from '@material-ui/core'
 import { Menu, Delete, MoreVert } from '@material-ui/icons' // TODO FitnessCenter
-
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Tooltip, IconButton } from '@material-ui/core'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
-
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@material-ui/core'
-
 import Drawer from './components/Drawer'
 
 function ExcerciseForm(props) {
