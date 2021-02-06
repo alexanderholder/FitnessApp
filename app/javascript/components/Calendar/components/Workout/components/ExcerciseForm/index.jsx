@@ -14,11 +14,9 @@ import match from 'autosuggest-highlight/match'
 import Drawer from './components/Drawer'
 
 function ExcerciseForm(props) {
-  const { movement, weight_value, measurement_metric, measurement_value } = props.excercise
-  const [isWeightShown, setWeightIsShown] = useState(weight_value)
+  const { movement, measurement_value } = props.excercise
   const [name, setName] = useState(movement || '')
   const [setsReps, setSetsReps] = useState(measurement_value || '')
-  const [weight, setWeight] = useState(weight_value || '')
 
   // this is for excercise drop down TODO
   const [open, toggleOpen] = useState(false)
@@ -184,41 +182,11 @@ function ExcerciseForm(props) {
               // helperText='Some important text' TODO
             />
           </td>
-          {/* { isWeightShown && (
-            <td>
-              <TextField
-                label='Weight'
-                onChange={e => {
-                  setWeight(e.target.value)
-                  props.updateExcercise({ weight_value: e.target.value })
-                }}
-                size='small'
-                variant='outlined'
-                value={weight}
-                width='50'
-              />
-            </td>
-          )} */}
           <td>
             <IconButton onClick={() => props.setShowExcerciseDetails(props.excerciseId) }>
               <Menu/>
             </IconButton>
-            {/* <Drawer/> */}
           </td>
-          {/* <td>
-            <Tooltip title='Add weight'>
-              <IconButton onClick={() => { setWeightIsShown(!isWeightShown) }} >
-                <FitnessCenter/>
-              </IconButton>
-            </Tooltip>
-          </td> */}
-          {/* <td>
-            <Tooltip title='Delete excercise'>
-              <IconButton onClick={props.removeExcercise} >
-                <Delete/>
-              </IconButton>
-            </Tooltip>
-          </td> */}
         </tr>
       </tbody>
     </table>
