@@ -8,6 +8,24 @@ class BlocksController < ApplicationController
     end
   end
 
+  def copy
+    existing_block = Block.find(params[:id])
+    new_block = existing_block.deep_clone include: :excercises
+    new_block.workout_id = block_params[:workout_id]
+    new_block.favourite = false
+
+    if new_block.save
+      excercises = new_block.excercises
+
+      render json: {
+        block: new_block.attributes.as_json,
+        excercises: new_block.excercises.flat_map { |e| e.attributes.as_json }
+      }
+    else
+      head :bad_request
+    end
+  end
+
   def update
     block = Block.find(params[:id])
 

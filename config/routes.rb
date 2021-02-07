@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :workouts, only: [:create, :update, :destroy]
   post '/workouts/copy/:id' => 'workouts#copy'
   resources :blocks, only: [:create, :update, :destroy]
+  post '/blocks/copy/:id' => 'blocks#copy'
   resources :excercises, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'
