@@ -7,15 +7,16 @@ import * as Selectors from 'javascript/redux/selectors'
 import WindowState from 'javascript/windowState'
 import { copyWorkout, updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { makeStyles } from '@material-ui/core/styles'
-import { Popover, Menu } from '@material-ui/core' // TODO
+import Popover from '@material-ui/core/Popover'
 import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
 
 function WorkoutCard (props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
-  // const [sessionInfoOpen, setSessionInfoOpen] = useState(false)
+  const [dragOverIsShown, setDragOverIsShown] = useState(false)
 
   const handleCardIsHovered = (payload) => {
-    if (!props.templateWorkout) { // TODO: this will stop copy paste from tempaltes :(
+    // TODO: this will stop copy paste from tempaltes :(
+    if (!props.templateWorkout) {
       WindowState.hovered_card_id = payload
     }
   }
@@ -36,6 +37,12 @@ function WorkoutCard (props) {
       props.updateWorkout({ day_number: WindowState.hovered_day })
     }
   }
+  const handleDragEnter = (e) => {
+    WindowState.hovered_card_id = props.workoutId
+    console.log(props.workoutId)
+    e.stopPropagation()
+    e.preventDefault()
+  }
 
   return (
     <React.Fragment>
@@ -43,27 +50,13 @@ function WorkoutCard (props) {
         className='workout-element'
         draggable
         onClick={handleClick}
-        onMouseEnter={() => {
-          handleCardIsHovered(props.workoutId)
-          // setSessionInfoOpen(true)
-        }}
-        onMouseLeave={() => {
-          handleCardIsHovered(null)
-          // setSessionInfoOpen(false)
-        }}
+        onMouseEnter={() => handleCardIsHovered(props.workoutId)}
+        onMouseLeave={() => handleCardIsHovered(null)}
         onDragEnd={handleDragEnd}
+        onDragEnter={handleDragEnter}
       >
         { props.workout.name }
       </div>
-      {/* <Menu
-        id="session-info"
-        anchorEl={anchorEl}
-        keepMounted
-        open={sessionInfoOpen}
-        onClose={() => setSessionInfoOpen(false)}
-      >
-        Yeet
-      </Menu> */}
       <Popover
         className='workout-form'
         id={Boolean(anchorEl) ? 'simple-popover' : undefined}

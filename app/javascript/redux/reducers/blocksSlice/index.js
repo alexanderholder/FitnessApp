@@ -31,6 +31,16 @@ export function saveNewBlock(initialBlock) {
   }
 }
 
+export function copyBlock(id, workout_id) {
+  return async function copyBlockThunk(dispatch, getState) {
+    const response = await Request.post(`/blocks/copy/${id}`, { block: { workout_id: workout_id }})
+    dispatch({ type: 'blocks/blockAdded', payload: response.data.block })
+    response.data.excercises.map(excercise => {
+      dispatch({ type: 'excercises/excerciseAdded', payload: excercise })
+    })
+  }
+}
+
 export function updateBlock(id, payload) {
   return async function updateBlockThunk(dispatch, getState) {
     const response = await Request.put(`/blocks/${id}`, { block: payload })

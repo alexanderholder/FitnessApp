@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import WindowState from 'javascript/windowState'
 import { getFavouriteWorkouts, getFavouriteBlocks } from 'javascript/redux/selectors'
+import { copyBlock } from 'javascript/redux/reducers/blocksSlice'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -62,6 +64,12 @@ function SimpleAccordion(props) {
             props.blocks.map(block => (
               <Typography
                 draggable
+                // onDragEnter={(e) => {
+                //   WindowState.hovered_card_id = props.workoutId
+                //   e.stopPropagation()
+                //   e.preventDefault()
+                // }}
+                onDragEnd={() => props.copyBlock(block.id)}
               >
                 {block.name || 'unnamed block'}
               </Typography>
@@ -109,8 +117,8 @@ const mapStateToProps = state => ({
   blocks: getFavouriteBlocks(state)
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   addWorkout: (initialWorkout) => dispatch(saveNewWorkout(initialWorkout))
-// })
+const mapDispatchToProps = dispatch => ({
+  copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id))
+})
 
-export default connect(mapStateToProps)(SimpleAccordion)
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleAccordion)
