@@ -64,11 +64,6 @@ function SimpleAccordion(props) {
             props.blocks.map(block => (
               <Typography
                 draggable
-                // onDragEnter={(e) => {
-                //   WindowState.hovered_card_id = props.workoutId
-                //   e.stopPropagation()
-                //   e.preventDefault()
-                // }}
                 onDragEnd={() => props.copyBlock(block.id)}
               >
                 {block.name || 'unnamed block'}
