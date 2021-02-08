@@ -1,5 +1,4 @@
 # typed: strict
-
 class Workout < ApplicationRecord
   extend T::Sig
 
