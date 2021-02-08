@@ -39,7 +39,6 @@ function WorkoutCard (props) {
   }
   const handleDragEnter = (e) => {
     WindowState.hovered_card_id = props.workoutId
-    console.log(props.workoutId)
     e.stopPropagation()
     e.preventDefault()
   }
@@ -54,6 +53,7 @@ function WorkoutCard (props) {
         onMouseLeave={() => handleCardIsHovered(null)}
         onDragEnd={handleDragEnd}
         onDragEnter={handleDragEnter}
+        onDragOver={(e) => e.preventDefault()}
       >
         { props.workout.name }
       </div>
