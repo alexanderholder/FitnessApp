@@ -75,3 +75,4 @@ yarn-debug.log*
 .yarn-integrity
 Dockerfile
 entrypoint.sh
+/config/master.key
