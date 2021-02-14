@@ -44,7 +44,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "build": "NODE_ENV=development webpack --config config/webpack/development.js",
+    "build": "NODE_ENV=production webpack --config config/webpack/production.js",
     "serve": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack/development.js --compress"
   }
 }
