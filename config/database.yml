@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: fitness-app_production
-  username: fitness-app
-  password: <%= ENV['FITNESS-APP_DATABASE_PASSWORD'] %>
+  database: <%= ENV['RDS_DATABASE'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOST'] %>
