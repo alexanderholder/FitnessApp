@@ -10,8 +10,12 @@ import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise, updateExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
 import ExcerciseForm from '../../components/ExcerciseForm'
-import { TextField, IconButton, Tooltip } from '@material-ui/core'
-import { Delete, MoreVert, Favorite, FavoriteBorder } from '@material-ui/icons'
+import Tooltip from '@material-ui/core/Tooltip'
+import TextField from '@material-ui/core/TextField'
+import IconButton from '@material-ui/core/IconButton'
+import Delete from '@material-ui/icons/Delete'
+import Favorite from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 const SortableItem = SortableElement(({excercise, blockId, setShowExcerciseDetails}) => (
   <ExcerciseForm
