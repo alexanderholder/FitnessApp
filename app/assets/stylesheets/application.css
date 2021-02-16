@@ -28,6 +28,7 @@ div.app {
 div.side-bar {
   width: 17%;
   display: inline-block;
+  max-width: 200px;
 }
 
 div.calendar {
