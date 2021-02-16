@@ -120,6 +120,7 @@ table.calendar {
   width: 100%;
   font-size: 15px;
   font-weight: 500;
+  overflow-y: scroll;
 }
 
 .block-wrapper {
