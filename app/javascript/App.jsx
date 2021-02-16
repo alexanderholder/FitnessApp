@@ -18,11 +18,11 @@ const App = props => {
       if (WindowState.hovered_card_id) {
         props.deleteWorkout(WindowState.hovered_card_id)
       }
-    } else if ((e.metaKey || e.ctrlKey) && e.key === "c") {
+    } else if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
       if (WindowState.hovered_card_id) {
         WindowState.copied_card_id = WindowState.hovered_card_id
       }
-    } else if ((e.metaKey || e.ctrlKey) && e.key === "v") {
+    } else if ((e.metaKey || e.ctrlKey) && e.key === 'v') {
       if (WindowState.copied_card_id && WindowState.hovered_day) {
         props.copyWorkout(WindowState.copied_card_id, WindowState.hovered_day)
       }
@@ -39,14 +39,14 @@ const App = props => {
 
   if (props.signedIn) {
     return (
-      <div className="app">
-        <div className="float-right">
+      <div className='app'>
+        <div style={{ float: 'right' }}>
           <Navbar />
         </div>
-        <div className="side-bar">
+        <div className='side-bar'>
           <Sidebar />
         </div>
-        <div className="calendar">
+        <div className='calendar'>
           <TemplateSearch />
           <Calendar />
         </div>

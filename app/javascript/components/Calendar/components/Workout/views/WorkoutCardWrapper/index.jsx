@@ -13,7 +13,7 @@ const WorkoutCardWrapper = (props) => {
     return (
       props.workouts.map(workout =>
         <WorkoutCard
-          className="handle"
+          className="handle" // TODO: is this needed?
           key={workout.id}
           setIsShown={props.setIsShown}
           workoutId={workout.id}
