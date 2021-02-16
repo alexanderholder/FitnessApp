@@ -111,12 +111,13 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: 'ec2-13-238-154-243.ap-southeast-2.compute.amazonaws.com', protocol: 'http' }
   config.action_mailer.smtp_settings = {
-    :user_name => 'REDACTED_MAILTRAP_USER',
-    :password => 'REDACTED_MAILTRAP_PASSWORD',
-    :address => 'smtp.mailtrap.io',
-    :domain => 'smtp.mailtrap.io',
-    :port => '2525',
-    :authentication => :cram_md5
-}
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "fitappdeveloper@gmail.com",
+    :password             => "REDACTED_GMAIL_APP_PASSWORD",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 end
