@@ -85,14 +85,14 @@ function WorkoutFormWrapper(props) {
           value={workoutName}
           width="300"
         />
-        {menuShown && (
+        {(menuShown || (workoutName && props.blocks.length === 0)) && (
           <Tooltip title="Delete workout">
             <IconButton onClick={props.deleteWorkout}>
               <Delete />
             </IconButton>
           </Tooltip>
         )}
-        {menuShown && (
+        {(menuShown || (workoutName && props.blocks.length === 0)) && (
           favourite ? (
             <Tooltip title="Remove session from side bar">
               <IconButton onClick={handleFavourite}>
