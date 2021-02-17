@@ -9,10 +9,40 @@ import List from '@material-ui/core/List'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import CloseIcon from '@material-ui/icons/Close'
-import DeleteIcon from '@material-ui/icons/Delete'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
+import CloseIcon from '@material-ui/icons/Close'
+import DeleteIcon from '@material-ui/icons/Delete'
+
+// import React from 'react';
+// import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
+// import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter';
+// import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
+// import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
+// import Grid from '@material-ui/core/Grid';
+// import ToggleButton from '@material-ui/lab/ToggleButton';
+// import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
+// export default function ToggleButtonSizes() {
+//   const [alignment, setAlignment] = React.useState('left');
+
+//   const handleChange = (event, newAlignment) => {
+//     setAlignment(newAlignment);
+//   };
+{/* <ToggleButtonGroup size="small" value={alignment} exclusive onChange={handleChange}>
+  <ToggleButton value="left">
+    <FormatAlignLeftIcon fontSize="small" />
+  </ToggleButton>
+  <ToggleButton value="center">
+    <FormatAlignCenterIcon fontSize="small" />
+  </ToggleButton>
+  <ToggleButton value="right">
+    <FormatAlignRightIcon fontSize="small" />
+  </ToggleButton>
+  <ToggleButton value="justify">
+    <FormatAlignJustifyIcon fontSize="small" />
+  </ToggleButton>
+</ToggleButtonGroup> */}
 
 function ExcerciseDetails(props) {
   const [measurement, setMeasurement] = useState(props.excercise.measurement_value)
