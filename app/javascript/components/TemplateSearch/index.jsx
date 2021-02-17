@@ -176,18 +176,18 @@ const TemplateSearch = props => {
 
 TemplateSearch.propTypes = {
   templates: PropTypes.array.isRequired,
-  currentTemplate: PropTypes.object.isRequired
+  currentTemplate: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
   templates: Selectors.getTemplatesByUserId(state, state.user.user_id),
-  currentTemplate: Selectors.getTemplateById(state, state.user.selected_template)
+  currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   templateAdded: (template) => dispatch(Actions.saveNewTrainingTemplate(template)),
   templateChanged: (id) => dispatch({ type: 'user/temaplteChanged', payload: id }),
-  templateRemoved: (current, next) => dispatch(Actions.deleteTrainingTemplate(current, next))
+  templateRemoved: (current, next) => dispatch(Actions.deleteTrainingTemplate(current, next)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateSearch)

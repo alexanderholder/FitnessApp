@@ -16,7 +16,7 @@ class CalendarController < ApplicationController
       user: {
         user_id: current_user.id,
         signed_in: true,
-        selected_template: training_templates.first.id },
+        selected_template: training_templates.first&.id },
       templates: training_templates,
       workouts: workouts,
       blocks: blocks,

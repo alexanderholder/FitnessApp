@@ -11,7 +11,7 @@ class WorkoutsController < ApplicationController
 
   def copy
     existing_workout = Workout.find(params[:id])
-    new_workout = existing_workout.deep_clone include: { blocks: :excercises }
+    new_workout = existing_workout.deep_clone include: { blocks: :excercises }, except: [ :favourite, { blocks: [:favourite] } ]
     new_workout.day_number = workout_params[:day_number]
     new_workout.favourite = false
 
