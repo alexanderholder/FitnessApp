@@ -38,6 +38,7 @@ function Navbar(props) {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Dark Mode</MenuItem>
         <MenuItem onClick={props.handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
