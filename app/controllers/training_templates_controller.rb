@@ -1,6 +1,6 @@
 class TrainingTemplatesController < ApplicationController
   def create
-    @training_template = TrainingTemplate.new(training_template_params)
+    @training_template = current_user.training_templates.new(training_template_params)
     @training_template.user_id = current_user.id
 
     if @training_template.save
@@ -11,7 +11,7 @@ class TrainingTemplatesController < ApplicationController
   end
 
   def destroy
-    @training_template = TrainingTemplate.find(params[:id])
+    @training_template = current_user.training_templates.find(params[:id])
 
     if @training_template.destroy
       head 202

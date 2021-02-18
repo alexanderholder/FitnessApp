@@ -81,3 +81,5 @@ gem 'sorbet-runtime'
 gem "sorbet-rails"
 gem "sorbet-progress", group: [:development, :test]
 gem "tapioca", group: [:development, :test], require: false
+
+gem "health_check" # makes AWS health check cheaper
