@@ -304,7 +304,10 @@ function ExcerciseForm(props) {
             </Dialog> */}
           </td>
           <td>
-            <IconButton onClick={() => props.setShowExcerciseDetails(props.excerciseId) }>
+            <IconButton onClick={() => {
+              props.setShowExcerciseDetails(null)
+              props.setShowExcerciseDetails(props.excerciseId)
+            }}>
               <Menu/>
             </IconButton>
           </td>

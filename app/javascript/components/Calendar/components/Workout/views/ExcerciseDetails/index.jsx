@@ -13,40 +13,17 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import CloseIcon from '@material-ui/icons/Close'
 import DeleteIcon from '@material-ui/icons/Delete'
-
-// import React from 'react';
-// import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
-// import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter';
-// import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
-// import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
-// import Grid from '@material-ui/core/Grid';
-// import ToggleButton from '@material-ui/lab/ToggleButton';
-// import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-
-// export default function ToggleButtonSizes() {
-//   const [alignment, setAlignment] = React.useState('left');
-
-//   const handleChange = (event, newAlignment) => {
-//     setAlignment(newAlignment);
-//   };
-{/* <ToggleButtonGroup size="small" value={alignment} exclusive onChange={handleChange}>
-  <ToggleButton value="left">
-    <FormatAlignLeftIcon fontSize="small" />
-  </ToggleButton>
-  <ToggleButton value="center">
-    <FormatAlignCenterIcon fontSize="small" />
-  </ToggleButton>
-  <ToggleButton value="right">
-    <FormatAlignRightIcon fontSize="small" />
-  </ToggleButton>
-  <ToggleButton value="justify">
-    <FormatAlignJustifyIcon fontSize="small" />
-  </ToggleButton>
-</ToggleButtonGroup> */}
+import ToggleButton from '@material-ui/lab/ToggleButton'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 
 function ExcerciseDetails(props) {
   const [measurement, setMeasurement] = useState(props.excercise.measurement_value)
   const [weight, setWeight] = useState(props.excercise.weight_value)
+  const [alignment, setAlignment] = React.useState('left')
+
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment)
+  }
 
   return (
     <div
@@ -89,17 +66,27 @@ function ExcerciseDetails(props) {
           </Tooltip>
         </div>
         <ListItemText key={`excercise-details-list-${props.excerciseId}-weight`} primary={
-          <TextField
-            key='weight-text-box'
-            label='Weight'
-            margin="dense"
-            type="text"
-            onChange={e => {
-              setWeight(e.target.value)
-              props.updateExcercise(props.excerciseId, { weight_value: e.target.value})
-            }}
-            value={weight}
-          />
+          <>
+            <TextField
+              key='weight-text-box'
+              label='Weight'
+              margin="dense"
+              type="text"
+              onChange={e => {
+                setWeight(e.target.value)
+                props.updateExcercise(props.excerciseId, { weight_value: e.target.value})
+              }}
+              value={weight}
+            />
+            <ToggleButtonGroup size="small" value={alignment} exclusive onChange={handleChange}>
+              <ToggleButton value="left">
+                KG
+              </ToggleButton>
+              <ToggleButton value="right">
+                LB
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </>
         }/>
         <ListItemText key={`excercise-details-list-${props.excerciseId}-measurement`} primary={
           <TextField
