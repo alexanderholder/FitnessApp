@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { render } from 'react-dom'
 import PropTypes from 'prop-types'
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { Calendar, Navbar, Sidebar, TemplateSearch } from './components'
 import WindowState from './windowState'
 import * as Selectors from './redux/selectors'
@@ -62,14 +62,14 @@ function App(props) {
     if (props.currentTemplate) {
       return (
         <div className='app'>
-          <div style={{ float: 'right' }}>
-            <Navbar />
-          </div>
           <div className='side-bar'>
             <Sidebar />
           </div>
           <div className='calendar'>
             <TemplateSearch />
+            <div style={{ float: 'right' }}>
+              <Navbar />
+            </div>
             <Calendar />
           </div>
         </div>
@@ -114,6 +114,7 @@ function App(props) {
       )
     }
   } else {
+    window.location.href = props.response_url
     return null
   }
 }
@@ -121,11 +122,13 @@ function App(props) {
 App.propTypes = {
   signedIn: PropTypes.bool.isRequired,
   currentTemplate: PropTypes.object,
+  response_url: PropTypes.string,
 }
 
 const mapStateToProps = state => ({
   signedIn: state.user.signed_in,
   currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
+  response_url: state.user.response_url,
 })
 
 const mapDispatchToProps = dispatch => ({

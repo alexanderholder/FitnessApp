@@ -168,6 +168,7 @@ BlockWrapper.propTypes = {
   blockId: PropTypes.number.isRequired,
   excercises: PropTypes.array.isRequired,
   workoutId: PropTypes.number.isRequired,
+  setShowExcerciseDetails: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
