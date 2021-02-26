@@ -1,6 +1,8 @@
 class BlocksController < ApplicationController
   def create
-    new_block = Block.create(block_params)
+    new_block = current_training_template.blocks.new(block_params)
+    authorize new_block
+
     if new_block.save
       render json: new_block.attributes.as_json
     else
@@ -9,10 +11,12 @@ class BlocksController < ApplicationController
   end
 
   def copy
-    existing_block = Block.find(params[:id])
+    existing_block = policy_scope(Block).find(params[:id])
     new_block = existing_block.deep_clone include: :excercises
     new_block.workout_id = block_params[:workout_id]
     new_block.favourite = false
+
+    authorize new_block
 
     if new_block.save
       excercises = new_block.excercises
@@ -27,7 +31,9 @@ class BlocksController < ApplicationController
   end
 
   def update
-    block = Block.find(params[:id])
+    block = policy_scope(Block).find(params[:id])
+
+    authorize block
 
     if block.update(block_params)
       render json: block.attributes.as_json
@@ -37,7 +43,9 @@ class BlocksController < ApplicationController
   end
 
   def destroy
-    block = Block.find(params[:id])
+    block = policy_scope(Block).find(params[:id])
+
+    authorize block
 
     if block.destroy
       head 202

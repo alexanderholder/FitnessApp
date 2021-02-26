@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
 import * as Actions from 'javascript/redux/reducers/templatesSlice'
+import { currentTemplateChanged } from 'javascript/redux/reducers/usersSlice'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import DeleteIcon from '@material-ui/icons/Delete'
 import parse from 'autosuggest-highlight/parse'
@@ -186,7 +187,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   templateAdded: (template) => dispatch(Actions.saveNewTrainingTemplate(template)),
-  templateChanged: (id) => dispatch({ type: 'user/temaplteChanged', payload: id }),
+  templateChanged: (id) => dispatch(currentTemplateChanged(id)),
   templateRemoved: (current, next) => dispatch(Actions.deleteTrainingTemplate(current, next)),
 })
 

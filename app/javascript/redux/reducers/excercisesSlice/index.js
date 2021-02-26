@@ -2,6 +2,9 @@ import Request from 'javascript/api/request'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
+    case 'excercises/hydrateExcercises': {
+      return action.payload
+    }
     case 'excercises/excerciseAdded': {
       return [...state, action.payload]
     }

@@ -1,6 +1,7 @@
 class WorkoutsController < ApplicationController
   def create
-    new_workout = Workout.create(workout_params)
+    new_workout = current_training_template.workouts.new(workout_params)
+    authorize new_workout
 
     if new_workout.save
       render json: new_workout.attributes.as_json
@@ -10,10 +11,13 @@ class WorkoutsController < ApplicationController
   end
 
   def copy
-    existing_workout = Workout.find(params[:id])
+    existing_workout = policy_scope(Workout).find(params[:id])
+
     new_workout = existing_workout.deep_clone include: { blocks: :excercises }, except: [ :favourite, { blocks: [:favourite] } ]
     new_workout.day_number = workout_params[:day_number]
     new_workout.favourite = false
+
+    authorize new_workout
 
     if new_workout.save
       blocks = new_workout.blocks
@@ -30,7 +34,9 @@ class WorkoutsController < ApplicationController
   end
 
   def update
-    workout = Workout.find(params[:id])
+    workout = policy_scope(Workout).find(params[:id])
+
+    authorize workout
 
     if workout.update(workout_params)
       render json: workout.attributes.as_json
@@ -40,7 +46,9 @@ class WorkoutsController < ApplicationController
   end
 
   def destroy
-    workout = Workout.find(params[:id])
+    workout = policy_scope(Workout).find(params[:id])
+
+    authorize workout
 
     if workout.destroy
       head 202

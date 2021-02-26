@@ -28,3 +28,13 @@ export function logoutUser() {
     dispatch({ type: 'user/logout', payload: response.request.responseURL })
   }
 }
+
+export function currentTemplateChanged(id) {
+  return async function currentTemplateChanged(dispatch, getState) {
+    dispatch({ type: 'user/temaplteChanged', payload: id })
+    const response = await Request.get(`/calendar/${id}`)
+    dispatch({ type: 'workouts/hydrateWorkouts', payload: response.data.workouts })
+    dispatch({ type: 'blocks/hydrateBlocks', payload: response.data.blocks })
+    dispatch({ type: 'excercises/hydrateExcercises', payload: response.data.excercises })
+  }
+}

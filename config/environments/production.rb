@@ -44,7 +44,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -112,8 +112,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = {
-    :host => 'ec2-13-238-154-243.ap-southeast-2.compute.amazonaws.com',
-    :protocol => 'http'
+    :host => 'app.aptusfit.website',
+    :protocol => 'https'
   }
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",

@@ -3,6 +3,9 @@ import { saveNewExcercise } from 'javascript/redux/reducers/excercisesSlice'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
+    case 'blocks/hydrateBlocks': {
+      return action.payload
+    }
     case 'blocks/blockAdded': {
       return [...state, action.payload]
     }
