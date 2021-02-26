@@ -1,12 +1,11 @@
 class TrainingTemplatesController < ApplicationController
   def create
     training_template = current_user.training_templates.new(training_template_params)
-    training_template.user_id = current_user.id
 
     authorize training_template
 
     if training_template.save
-      current_user.update_column(current_training_template_id: training_template.id)
+      session[:training_template_id] = training_template.id
       render json: training_template.attributes.as_json
     else
       head :bad_request

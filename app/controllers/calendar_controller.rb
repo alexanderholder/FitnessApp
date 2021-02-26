@@ -26,7 +26,6 @@ class CalendarController < ApplicationController
 
     authorize training_template
 
-    # current_user.update_columns(current_training_template_id: training_template.id)
     session[:training_template_id] = training_template.id
 
     render json: {
