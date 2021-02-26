@@ -5,7 +5,10 @@
 # Just represents a set for a fixed block
 class ExcercisesController < ApplicationController
   def create
-    new_excercise = Excercise.create(excercise_params)
+    new_excercise = Excercise.new(excercise_params)
+
+    authorize new_excercise
+
     if new_excercise.save
       render json: new_excercise.attributes.as_json
     else
@@ -14,7 +17,9 @@ class ExcercisesController < ApplicationController
   end
 
   def update
-    excercise = Excercise.find(params[:id])
+    excercise = policy_scope(Excercise).find(params[:id])
+
+    authorize excercise
 
     if excercise.update(excercise_params)
       render json: excercise.attributes.as_json
@@ -24,7 +29,9 @@ class ExcercisesController < ApplicationController
   end
 
   def destroy
-    excercise = Excercise.find(params[:id])
+    excercise = policy_scope(Excercise).find(params[:id])
+
+    authorize excercise
 
     if excercise.destroy
       head 202

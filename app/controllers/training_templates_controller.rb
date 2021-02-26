@@ -1,19 +1,25 @@
 class TrainingTemplatesController < ApplicationController
   def create
-    @training_template = current_user.training_templates.new(training_template_params)
-    @training_template.user_id = current_user.id
+    training_template = current_user.training_templates.new(training_template_params)
+    training_template.user_id = current_user.id
 
-    if @training_template.save
-      render json: @training_template.attributes.as_json
+    authorize training_template
+
+    if training_template.save
+      current_user.update_column(current_training_template_id: training_template.id)
+      render json: training_template.attributes.as_json
     else
       head :bad_request
     end
   end
 
   def destroy
-    @training_template = current_user.training_templates.find(params[:id])
+    scoped_training_template = policy_scope(TrainingTemplate)
+    training_template = scoped_training_template.find(params[:id])
 
-    if @training_template.destroy
+    authorize training_template
+
+    if training_template.destroy
       head 202
     else
       head :bad_request

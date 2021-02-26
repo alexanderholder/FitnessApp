@@ -6,21 +6,34 @@ class CalendarController < ApplicationController
     end
   end
 
+  # TODO finish scoping
   def initial_state
-    training_templates = TrainingTemplate.where(user: current_user.id)
-    workouts = Workout.where(training_template_id: training_templates.ids)
-    blocks = Block.where(workout_id: workouts.ids)
-    excercises = Excercise.where(block_id: blocks.ids)
-
     {
       user: {
         user_id: current_user.id,
         signed_in: true,
-        selected_template: training_templates.first&.id },
-      templates: training_templates,
-      workouts: workouts,
-      blocks: blocks,
-      excercises: excercises
+        selected_template: current_training_template
+      },
+      templates: current_user.training_templates,
+      workouts: current_training_template.workouts,
+      blocks: current_training_template.blocks,
+      excercises: current_training_template.excercises
+    }
+  end
+
+  def show
+    training_template = current_user.training_templates.find(params[:id])
+
+    authorize training_template
+
+    # current_user.update_columns(current_training_template_id: training_template.id)
+    session[:training_template_id] = training_template.id
+
+    render json: {
+      template: training_template,
+      workouts: training_template.workouts,
+      blocks: training_template.blocks,
+      excercises: training_template.excercises
     }
   end
 end

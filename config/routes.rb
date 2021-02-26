@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :excercises, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'
+  get 'calendar/:id' => 'calendar#show'
   get '/' => redirect('/calendar'), as: 'root'
 
   health_check_routes

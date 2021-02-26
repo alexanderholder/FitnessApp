@@ -3,6 +3,9 @@ import WindowState from 'javascript/windowState'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
+    case 'workouts/hydrateWorkouts': {
+      return action.payload
+    }
     case 'workouts/workoutAdded': {
       return [...state, action.payload]
     }
