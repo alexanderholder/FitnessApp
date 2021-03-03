@@ -13,8 +13,7 @@ class TrainingTemplatesController < ApplicationController
   end
 
   def destroy
-    scoped_training_template = policy_scope(TrainingTemplate)
-    training_template = scoped_training_template.find(params[:id])
+    training_template = policy_scope(TrainingTemplate).find(params[:id])
 
     authorize training_template
 

@@ -27,6 +27,10 @@ class BlockPolicy < ApplicationPolicy
     true
   end
 
+  def read?
+    true
+  end
+
   def update?
     true
   end
