@@ -10,11 +10,8 @@ class ApplicationController < ActionController::Base
   # if your controller will only be used by logged in users, it should descend from AuthenticatedController
   sig { overridable.returns(T.nilable(TrainingTemplate)) }
   def current_training_template
-    @current_template ||= if session[:training_template_id]
-      current_user.training_templates.find(session[:training_template_id])
-    else
-      current_user.training_templates&.first
-    end
+    @current_template ||= current_user.training_templates.find_by(id: session[:training_template_id])
+    @current_template ||= current_user.training_templates&.first
   end
   delegate :id, to: :current_training_template, prefix: true, allow_nil: true
 

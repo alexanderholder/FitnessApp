@@ -7,7 +7,7 @@ class WorkoutPolicy < ApplicationPolicy
     end
 
     def resolve
-      scope.where(training_template_id: user.training_templates.ids)
+      scope.where(training_template_id: user.current_training_template.id)
     end
 
     private
@@ -24,6 +24,10 @@ class WorkoutPolicy < ApplicationPolicy
   end
 
   def create?
+    true
+  end
+
+  def read?
     true
   end
 
