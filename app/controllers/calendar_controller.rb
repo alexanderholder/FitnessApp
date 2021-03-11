@@ -1,6 +1,7 @@
 class CalendarController < ApplicationController
   def index
     @initial_state = initial_state
+
     respond_to do |format|
       format.html { render "index" }
     end
@@ -12,12 +13,12 @@ class CalendarController < ApplicationController
       user: {
         user_id: current_user.id,
         signed_in: true,
-        selected_template: current_training_template
+        selected_template: current_training_template.id
       },
-      templates: current_user.training_templates,
-      workouts: current_training_template.workouts,
-      blocks: current_training_template.blocks,
-      excercises: current_training_template.excercises
+      templates: policy_scope(TrainingTemplate),
+      workouts: policy_scope(Workout),
+      blocks: policy_scope(Block),
+      excercises: policy_scope(Excercise)
     }
   end
 
