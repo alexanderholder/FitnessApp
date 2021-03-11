@@ -81,7 +81,7 @@ function App(props) {
           fullWidth={true}
           open={true}
         >
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <DialogTitle id="add-template">Create your first training program!</DialogTitle>
             <DialogContent>
               <TextField
@@ -95,6 +95,8 @@ function App(props) {
                 value={dialogValue.name}
               />
               <TextField
+                error={Boolean(Number(dialogValue.length) < 1)}
+                helperText={Boolean(Number(dialogValue.length) < 1) ? "Weeks must be greater than 0." : null}
                 id="length"
                 label="How many weeks?"
                 onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
