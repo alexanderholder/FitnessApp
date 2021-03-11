@@ -125,7 +125,7 @@ const TemplateSearch = props => {
               <TextField
                 autoFocus
                 id="name"
-                label="name"
+                label="Name your program"
                 margin="dense"
                 onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
                 required={true}
@@ -133,8 +133,10 @@ const TemplateSearch = props => {
                 value={dialogValue.name}
               />
               <TextField
+                error={Boolean(Number(dialogValue.length) < 1)}
+                helperText={Boolean(Number(dialogValue.length) < 1) ? "Weeks must be greater than 0." : null}
                 id="length"
-                label="weeks"
+                label="How many weeks?"
                 margin="dense"
                 onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
                 required={true}
