@@ -9,10 +9,6 @@ const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
 let preloadedState
 if (window.__INITIAL_STATE__) {
   preloadedState = JSON.parse(window.__INITIAL_STATE__)
-  const selected_template = LocalStorage.getItem('current_template_id')
-  if (selected_template) {
-    preloadedState.user.selected_template = parseInt(selected_template)
-  }
 }
 
 const store = createStore(rootReducer, preloadedState, composedEnhancer)
