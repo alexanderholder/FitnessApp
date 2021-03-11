@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
   extend T::Sig
 
   before_action :authenticate_user!
-  # after_action :verify_authorized
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: [:index, :update, :destroy]
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # this could be nil if you aren't logged in
   # if your controller will only be used by logged in users, it should descend from AuthenticatedController
@@ -26,5 +29,12 @@ class ApplicationController < ActionController::Base
       @user                      = user
       @current_training_template = current_training_template
     end
+  end
+
+  private
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
   end
 end

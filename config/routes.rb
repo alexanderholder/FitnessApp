@@ -1,17 +1,26 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :users, :controllers => { :registrations => 'registrations' } # this is because they dont give you reset instructions
+
+  # this is because they dont give you reset instructions
+  devise_for :users, :controllers => {
+    :registrations => 'registrations',
+    :sessions => 'sessions'
+  }
   devise_scope :user do
-    get 'login', to: 'devise/sessions#new'
-    get 'logout', to: 'devise/sessions#destroy'
+    get "login" => "sessions#new"
+    post "login" => "sessions#create"
+    get 'logout', to: 'sessions#destroy'
   end
   # get '/auth/:provider/callback', to: 'sessions#create' TODO: Omniauth
 
   resources :training_templates, only: [:create, :destroy]
+
   resources :workouts, only: [:create, :update, :destroy]
   post '/workouts/copy/:id' => 'workouts#copy'
+
   resources :blocks, only: [:create, :update, :destroy]
   post '/blocks/copy/:id' => 'blocks#copy'
+
   resources :excercises, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'
