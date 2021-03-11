@@ -25,7 +25,7 @@ function Navbar(props) {
         aria-controls='user-menu'
         aria-haspopup='true'
         onClick={handleClick}
-        style={{ marginRight: '20px' }}
+        style={{ marginRight: '20px', cursor: "pointer" }}
       >
         <Avatar />
       </nav>
