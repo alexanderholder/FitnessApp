@@ -1,5 +1,6 @@
 // @flow
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { setsRepsSchemeList } from './excercises'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
@@ -11,8 +12,7 @@ import Button from '@material-ui/core/Button'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 
-export default function TestField(props) {
-  const [text, setText] = useState()
+function TestField(props) {
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState({
     title: '',
@@ -41,8 +41,7 @@ export default function TestField(props) {
   return(
     <React.Fragment>
       <Autocomplete
-        boxWidth={props.boxWidth}
-        id="sets-and-reps"
+      id={`autocomplete-${props.fieldName}`}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
@@ -60,14 +59,13 @@ export default function TestField(props) {
               category: '',
             })
           } else {
-            props.updateExcercise({ movement: newValue.title })
-            setText(newValue.title)
+            props.updateText(newValue.title)
           }
         }}
         selectOnFocus
         clearOnBlur
         handleHomeEndKeys
-        value={text}
+        value={props.value}
         options={props.listOptions}
         filterOptions={(options, params) => {
           const filter = createFilterOptions()
@@ -95,15 +93,13 @@ export default function TestField(props) {
         }}
         disableClearable
         forcePopupIcon={false}
+        onBlur={props.updateServer}
         renderInput={(params) => (
           <TextField {...params}
             label={props.fieldName}
             size='small'
-            style={{ width: props.boxWidth, textOverlow:'none' }}
+            style={props.style}
             variant='outlined'
-            value={text}
-            width='25' // TODO
-            // helperText='Some important text' TODO
           />
         )}
         renderOption={(option, { inputValue }) => {
@@ -158,3 +154,5 @@ export default function TestField(props) {
     </React.Fragment>
   )
 }
+
+export default connect()(TestField)

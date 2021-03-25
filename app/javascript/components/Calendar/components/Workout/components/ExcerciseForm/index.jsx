@@ -8,51 +8,40 @@ import * as Actions from 'javascript/redux/reducers/excercisesSlice'
 import { setsRepsSchemeList, excerciseList } from './components/excercises'
 import Menu from '@material-ui/icons/Menu'
 import MoreVert from '@material-ui/icons/MoreVert'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogActions from '@material-ui/core/DialogActions'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import parse from 'autosuggest-highlight/parse'
-import match from 'autosuggest-highlight/match'
-
-import TestField from './components/TestField'
+import TextField from './components/TextField'
 
 function ExcerciseForm(props) {
-  const { movement, measurement_value } = props.excercise
-  const [name, setName] = useState(movement || '')
-  const [setsReps, setSetsReps] = useState(measurement_value || '')
+  console.log(props.excercise.movement)
+  const [name, setName] = useState(props.excercise.movement || '')
+  const [setsReps, setSetsReps] = useState(props.excercise.measurement_value || '')
+  const updateName = () => props.updateExcercise({ movement: name })
+  const updateSetsReps = () => props.updateExcercise({ measurement_value: setsReps })
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td className='grabbable'>
-            <MoreVert />
-          </td>
-          <td>
-            <TestField
-              boxWidth='150'
-              fieldName='Sets & Reps'
-            />
-          </td>
-          <td>
-            <TestField />
-          </td>
-          <td>
-            <IconButton onClick={() => {
-              props.setShowExcerciseDetails(null)
-              props.setShowExcerciseDetails(props.excerciseId)
-            }}>
-              <Menu/>
-            </IconButton>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div style={{ display: 'flex', paddingTop: 5 }}>
+      <div className='grabbable'><MoreVert /></div>
+      <TextField
+        style={{width: 250, textOverlow:'none' }}
+        fieldName='Excercise'
+        listOptions={excerciseList}
+        updateText={setName}
+        value={name}
+        updateServer={updateName}
+      />
+      <TextField
+        style={{width: 150, textOverlow:'none' }}
+        fieldName='Sets & Reps'
+        listOptions={setsRepsSchemeList}
+        updateText={setSetsReps}
+        value={setsReps}
+        updateServer={updateSetsReps}
+      />
+      <IconButton onClick={() => {
+        props.setShowExcerciseDetails(null) // TODO LMAO
+        props.setShowExcerciseDetails(props.excerciseId)
+      }}><Menu/></IconButton>
+    </div>
   )
 }
 
