@@ -28,7 +28,7 @@ class Block < ApplicationRecord
       .compact
       .max || 0
 
-    max_sort_order + 1
+    self.order = max_sort_order + 1
   end
 
   sig { returns(T::Boolean)}
