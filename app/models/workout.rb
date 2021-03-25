@@ -25,6 +25,6 @@ class Workout < ApplicationRecord
       .compact
       .max || 0
 
-    max_sort_order + 1
+    self.sort_order = max_sort_order + 1
   end
 end
