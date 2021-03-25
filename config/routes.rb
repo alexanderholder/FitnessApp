@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  use_doorkeeper
 
-  # this is because they dont give you reset instructions
   devise_for :users, :controllers => {
     :registrations => 'registrations',
     :sessions => 'sessions'
   }
+
   devise_scope :user do
     get "login" => "sessions#new"
     post "login" => "sessions#create"
-    get 'logout', to: 'sessions#destroy'
+    get "logout", to: "sessions#destroy"
   end
   # get '/auth/:provider/callback', to: 'sessions#create' TODO: Omniauth
 
