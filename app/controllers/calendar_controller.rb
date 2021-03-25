@@ -4,6 +4,7 @@ class CalendarController < ApplicationController
 
     respond_to do |format|
       format.html { render "index" }
+      format.json { render json: initial_state }
     end
   end
 
@@ -16,9 +17,9 @@ class CalendarController < ApplicationController
         selected_template: current_training_template.id
       },
       templates: policy_scope(TrainingTemplate),
-      workouts: policy_scope(Workout),
-      blocks: policy_scope(Block),
-      excercises: policy_scope(Excercise)
+      workouts: policy_scope(Workout).sort_by(&:day_number),
+      blocks: policy_scope(Block).sort_by(&:order),
+      excercises: policy_scope(Excercise).sort_by(&:sort_order)
     }
   end
 
@@ -30,10 +31,10 @@ class CalendarController < ApplicationController
     session[:training_template_id] = training_template.id
 
     render json: {
-      template: training_template,
-      workouts: training_template.workouts,
-      blocks: training_template.blocks,
-      excercises: training_template.excercises
+      template: training_template, # this is annoying TODO for mobile
+      workouts: policy_scope(Workout).sort_by(&:day_number),
+      blocks: policy_scope(Block).sort_by(&:order),
+      excercises: policy_scope(Excercise).sort_by(&:sort_order)
     }
   end
 end

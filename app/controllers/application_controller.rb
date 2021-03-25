@@ -1,9 +1,10 @@
 # typed: true
 class ApplicationController < ActionController::Base
-  include Pundit
   extend T::Sig
+  include Pundit
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!, :if => :is_mobile_request?
+  before_action :authenticate_user!, :if => :is_web_request?
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: [:index, :update, :destroy]
 
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
     @current_template ||= current_user.training_templates&.first
   end
   delegate :id, to: :current_training_template, prefix: true, allow_nil: true
+
+  def current_user
+    return current_resource_owner if doorkeeper_token
+    super
+  end
 
   def pundit_user
     UserContext.new(current_user, current_training_template)
@@ -36,5 +42,17 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
     redirect_to(request.referrer || root_path)
+  end
+
+  def is_mobile_request?
+    doorkeeper_token.present?
+  end
+
+  def is_web_request?
+    doorkeeper_token.nil?
+  end
+
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 end

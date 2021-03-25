@@ -70,21 +70,22 @@ end
 # # this patches a bug for omniauth
 # gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
-gem 'devise'
+# authentication / authorization
+gem 'devise' # User authentication
+gem 'doorkeeper' # API authentication / OAuth providing
+gem "pundit" # authorization
 
 gem "oj", "~> 3" # fast json dumps
 
 gem 'deep_cloneable', '~> 3.0.0'
 
+# ruby best practice
 gem 'sorbet', :group => :development
 gem 'sorbet-runtime'
 gem "sorbet-rails"
 gem "sorbet-progress", group: [:development, :test]
 gem "tapioca", group: [:development, :test], require: false
-
-gem "health_check" # makes AWS health check cheaper
-
-gem "pundit"
-
 gem "rubocop-performance"
 gem "rubocop"
+
+gem "health_check" # makes AWS health check cheaper
