@@ -41,7 +41,7 @@ function TestField(props) {
   return(
     <React.Fragment>
       <Autocomplete
-      id={`autocomplete-${props.fieldName}`}
+        id={`autocomplete-${props.fieldName}`}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_220746) do
+ActiveRecord::Schema.define(version: 2021_03_26_122434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_220746) do
   create_table "excercises", force: :cascade do |t|
     t.text "movement"
     t.text "measurement_metric"
-    t.integer "measurement_value"
+    t.text "measurement_value"
     t.text "weight_metric"
     t.integer "weight_value"
     t.bigint "block_id", null: false
