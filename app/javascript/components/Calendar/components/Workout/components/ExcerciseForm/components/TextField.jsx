@@ -46,18 +46,20 @@ function TestField(props) {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true)
-              setDialogValue({
-                title: newValue,
-                category: '',
-              })
+              props.updateText(newValue)
+              // toggleOpen(true)
+              // setDialogValue({
+              //   title: newValue,
+              //   category: '',
+              // })
             })
           } else if (newValue && newValue.inputValue) {
-            toggleOpen(true)
-            setDialogValue({
-              title: newValue.inputValue,
-              category: '',
-            })
+            props.updateText(newValue.inputValue)
+            // toggleOpen(true)
+            // setDialogValue({
+            //   title: newValue.inputValue,
+            //   category: '',
+            // })
           } else {
             props.updateText(newValue.title)
           }
