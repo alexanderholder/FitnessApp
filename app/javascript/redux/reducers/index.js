@@ -4,11 +4,13 @@ import excercises from './excercisesSlice';
 import templates from './templatesSlice';
 import workouts from './workoutsSlice';
 import user from './usersSlice';
+import sessionProgressions from './sessionProgressionsSlice';
 
 export default combineReducers({
   workouts,
   blocks,
   excercises,
   templates,
-  user
+  user,
+  sessionProgressions
 })

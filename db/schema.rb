@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_122434) do
+ActiveRecord::Schema.define(version: 2021_03_28_111625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(version: 2021_03_26_122434) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "session_progressions", force: :cascade do |t|
+    t.text "name"
+    t.text "progressions"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_session_progressions_on_user_id"
+  end
+
   create_table "training_templates", force: :cascade do |t|
     t.text "name"
     t.integer "length"
@@ -163,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_122434) do
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
+  add_foreign_key "session_progressions", "users", on_delete: :cascade
   add_foreign_key "training_templates", "users", on_delete: :cascade
   add_foreign_key "workouts", "training_templates", on_delete: :cascade
 end

@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton'
 import TextField from './components/TextField'
 
 function ExcerciseForm(props) {
-  console.log(props.excercise.movement)
   const [name, setName] = useState(props.excercise.movement || '')
   const [setsReps, setSetsReps] = useState(props.excercise.measurement_value || '')
   const updateName = () => props.updateExcercise({ movement: name })
