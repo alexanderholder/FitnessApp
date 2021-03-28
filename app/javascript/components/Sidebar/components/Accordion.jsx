@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import WindowState from 'javascript/windowState'
 import { getFavouriteWorkouts, getFavouriteBlocks } from 'javascript/redux/selectors'
 import { copyBlock } from 'javascript/redux/reducers/blocksSlice'
+import { saveNewProgression } from 'javascript/redux/reducers/sessionProgressionsSlice'
 import { makeStyles } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -99,6 +100,21 @@ function SimpleAccordion(props) {
           <Typography className={classes.heading}>Excercise Library</Typography>
         </AccordionSummary>
       </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls='panel2a-content'
+          id='panel4a-header'
+        >
+          <Typography className={classes.heading}>Progression</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            {props.progressions ? props.progressions.map(progression => <>{progression.name}</>) : (<></>)}
+            <div onClick={() => props.saveNewProgression({name: 'Progression A', progressions: 'a~~~b~~~c'})}>+ Create Progression</div>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
     </div>
   )
 }
@@ -109,11 +125,13 @@ SimpleAccordion.propTypes = {
 
 const mapStateToProps = state => ({
   workouts: getFavouriteWorkouts(state),
-  blocks: getFavouriteBlocks(state)
+  blocks: getFavouriteBlocks(state),
+  progressions: state.sessionProgressions,
 })
 
 const mapDispatchToProps = dispatch => ({
-  copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id))
+  copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id)),
+  saveNewProgression: (payload) => dispatch(saveNewProgression(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleAccordion)

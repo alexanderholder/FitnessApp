@@ -15,4 +15,5 @@ class User < ApplicationRecord
            dependent: :delete_all # or :destroy if you need callbacks
 
   has_many :training_templates, inverse_of: :user, dependent: :destroy
+  has_many :session_progressions, inverse_of: :user, dependent: :destroy
 end

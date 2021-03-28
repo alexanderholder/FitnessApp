@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   resources :excercises, only: [:create, :update, :destroy]
 
+  resources :session_progressions, only: [:create, :update, :destroy]
+
   get 'calendar' => 'calendar#index'
   get 'calendar/:id' => 'calendar#show'
   get '/' => redirect('/calendar'), as: 'root'

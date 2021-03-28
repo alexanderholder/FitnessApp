@@ -8,7 +8,6 @@ class CalendarController < ApplicationController
     end
   end
 
-  # TODO finish scoping
   def initial_state
     {
       user: {
@@ -19,7 +18,8 @@ class CalendarController < ApplicationController
       templates: policy_scope(TrainingTemplate),
       workouts: policy_scope(Workout).sort_by(&:day_number),
       blocks: policy_scope(Block).sort_by(&:order),
-      excercises: policy_scope(Excercise).sort_by(&:sort_order)
+      excercises: policy_scope(Excercise).sort_by(&:sort_order),
+      sessionProgressions: policy_scope(SessionProgression)
     }
   end
 
@@ -31,7 +31,7 @@ class CalendarController < ApplicationController
     session[:training_template_id] = training_template.id
 
     render json: {
-      template: training_template, # this is annoying TODO for mobile
+      template: training_template, # TODO: this is annoying for mobile
       workouts: policy_scope(Workout).sort_by(&:day_number),
       blocks: policy_scope(Block).sort_by(&:order),
       excercises: policy_scope(Excercise).sort_by(&:sort_order)
