@@ -49,7 +49,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs({ buttonName, modalName, textBody, textBodyTwo, textBodyThree, saveName }) {
+export default function CustomizedDialogs({ buttonName, modalName, textBody, textBodyTwo, textBodyThree, saveName, submitFunction }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -57,6 +57,10 @@ export default function CustomizedDialogs({ buttonName, modalName, textBody, tex
   };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleSubmit = () => {
+    submitFunction()
+    handleClose()
   };
 
   return (
@@ -80,7 +84,7 @@ export default function CustomizedDialogs({ buttonName, modalName, textBody, tex
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button autoFocus onClick={handleSubmit} color="primary">
             {saveName}
           </Button>
         </DialogActions>
