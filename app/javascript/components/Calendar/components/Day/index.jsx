@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from "react"
-import Redux from "redux"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import WorkoutCardWrapper from "../Workout/views/WorkoutCardWrapper"

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Redux from 'redux'
 import { connect } from 'react-redux'
 import { logoutUser } from 'javascript/redux/reducers/usersSlice'
 import Avatar from '@material-ui/core/Avatar'

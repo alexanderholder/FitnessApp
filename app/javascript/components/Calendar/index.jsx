@@ -1,6 +1,5 @@
 // @flow
 import React          from 'react'
-import Redux          from 'redux'
 import PropTypes      from 'prop-types'
 import { connect }    from 'react-redux'
 import Week           from './components/Week'
