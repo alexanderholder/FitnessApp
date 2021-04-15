@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from 'react'
-import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
 import { updateExcercise, removeExcercise } from 'javascript/redux/reducers/excercisesSlice'

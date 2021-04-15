@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from 'react'
-import Redux from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import * as Selectors from 'javascript/redux/selectors'

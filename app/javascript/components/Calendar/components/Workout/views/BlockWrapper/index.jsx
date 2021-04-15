@@ -1,6 +1,5 @@
 // @flow
 import React, { useState, useMemo, useCallback } from 'react'
-import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { SortableContainer, SortableElement } from "react-sortable-hoc"
