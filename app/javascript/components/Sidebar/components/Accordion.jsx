@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Redux from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import WindowState from 'javascript/windowState'
@@ -13,6 +12,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import WorkoutCard from 'javascript/components/Calendar/components/Workout/components/WorkoutCard'
+import Modal from './Modal'
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 function SimpleAccordion(props) {
   const classes = useStyles()
   const [isShown, setIsShown] = useState(false)
+  const [name, setName] = useState("")
+  const [progressions, setProgressions] = useState("")
 
   return (
     <div className={classes.root}>
@@ -110,8 +113,28 @@ function SimpleAccordion(props) {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            {props.progressions ? props.progressions.map(progression => <>{progression.name}</>) : (<></>)}
-            <div onClick={() => props.saveNewProgression({name: 'Progression A', progressions: 'a~~~b~~~c'})}>+ Create Progression</div>
+            {props.progressions ? props.progressions.map(progression => <>{progression.name}<br/></>) : (<></>)}
+            <Modal
+              buttonName="Create Progression"
+              modalName="Create Progression"
+              textBody="Add you're sets and reps progressions to autobuild you're session progressions."
+              textBodyTwo={
+                <div style={{ textAlign: 'center' }} >
+                  <TextField
+                    label="Progression Name"
+                    style={{ boder: 5, paddingRight: 5, }}
+                    onChange={(event) => setName(event.target.value)}
+                  />
+                  <TextField
+                    label="Progression sets and reps"
+                    style={{ border: 5, }}
+                    onChange={(event) => setProgressions(event.target.value)}
+                  />
+                </div>
+              }
+              saveName="Create"
+              submitFunction={() => props.saveNewProgression({name: name, progressions: progressions})}
+            />
           </Typography>
         </AccordionDetails>
       </Accordion>
