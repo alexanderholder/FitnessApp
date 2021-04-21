@@ -8,7 +8,7 @@ import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
 import { saveNewExcercise, updateExcercise } from 'javascript/redux/reducers/excercisesSlice'
 import { updateBlock, removeBlock } from 'javascript/redux/reducers/blocksSlice'
-import ExcerciseForm from '../../components/ExcerciseForm'
+import ExcerciseForm from './ExcerciseForm'
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
@@ -44,7 +44,7 @@ const SortableList = SortableContainer(({excercises, blockId, setShowExcerciseDe
   )
 })
 
-function BlockWrapper(props) {
+function BlockForm(props) {
   const [name, setName] = useState(props.block.name || '')
   const [rounds, setRounds] = useState(props.block.sets || '')
   const [favourite, setFavourite] = useState(props.block.favourite)
@@ -162,7 +162,7 @@ function BlockWrapper(props) {
   )
 }
 
-BlockWrapper.propTypes = {
+BlockForm.propTypes = {
   block: PropTypes.object.isRequired,
   blockId: PropTypes.number.isRequired,
   excercises: PropTypes.array.isRequired,
@@ -182,4 +182,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateExcercise: (id, payload) => dispatch(updateExcercise(id, payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlockWrapper)
+export default connect(mapStateToProps, mapDispatchToProps)(BlockForm)

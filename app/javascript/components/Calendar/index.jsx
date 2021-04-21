@@ -1,9 +1,27 @@
 // @flow
-import React          from 'react'
-import PropTypes      from 'prop-types'
-import { connect }    from 'react-redux'
-import Week           from './components/Week'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
+import Day from './Day'
+
+const NUMBER_OF_DAYS_IN_WEEK = 7
+
+const Week = (props) => {
+  let cells = []
+  for (let i = 0; i < NUMBER_OF_DAYS_IN_WEEK; i++) {
+    const workoutDayNumber = (i + 1) + (NUMBER_OF_DAYS_IN_WEEK * props.weekNumber)
+
+    cells.push(
+      <Day
+        key = {workoutDayNumber}
+        dayNumber={workoutDayNumber}
+      />
+    )
+  }
+
+  return <tr>{cells}</tr>
+}
 
 const Calendar = (props) => {
   const daysOfTheWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']

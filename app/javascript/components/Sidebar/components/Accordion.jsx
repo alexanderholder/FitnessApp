@@ -11,7 +11,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import WorkoutCard from 'javascript/components/Calendar/components/Workout/components/WorkoutCard'
+import WorkoutCard from 'javascript/components/Calendar/components/WorkoutCard'
 import Modal from './Modal'
 import TextField from '@material-ui/core/TextField'
 

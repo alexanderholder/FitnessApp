@@ -7,7 +7,7 @@ import WindowState from 'javascript/windowState'
 import { copyWorkout, updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
-import WorkoutFormWrapper from '../../views/WorkoutFormWrapper'
+import WorkoutForm from '../WorkoutForm'
 
 function WorkoutCard (props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
@@ -54,7 +54,7 @@ function WorkoutCard (props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        { props.workout.name }
+        { props.cardName }
       </div>
       <Popover
         className='workout-form'
@@ -71,8 +71,8 @@ function WorkoutCard (props) {
           horizontal: 'center',
         }}
       >
-        <WorkoutFormWrapper
-          workoutId={props.workout.id}
+        <WorkoutForm
+          workoutId={props.workoutId}
           setAnchorEl={setAnchorEl}
         />
       </Popover>
@@ -82,19 +82,28 @@ function WorkoutCard (props) {
 
 WorkoutCard.propTypes = {
   templateWorkout: PropTypes.bool,
-  newCard: PropTypes.bool.isRequired,
   setIsShown: PropTypes.func.isRequired,
-  workoutId: PropTypes.number.isRequired,
+  workoutId: PropTypes.number,
+  blockId: PropTypes.number,
 }
 
 WorkoutCard.defaultProps = {
-  templateWorkout: false
+  templateWorkout: false,
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  workout: Selectors.getWorkoutById(state, ownProps.workoutId),
-  newCard: ownProps.workoutId == WindowState.new_card_id ? true : false
-})
+const mapStateToProps = (state, ownProps) => {
+  const newCard = ownProps.workoutId == WindowState.new_card_id ? true : false
+  let cardName
+  if (ownProps.excerciseId) {
+    cardName = Selectors.getExcerciseById(state, ownProps.excerciseId).movement
+  } else if (ownProps.blockId) {
+    cardName = Selectors.getBlockById(state, ownProps.blockId).name
+  } else {
+    cardName = Selectors.getWorkoutById(state, ownProps.workoutId).name
+  }
+
+  return { cardName, newCard }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   copyWorkout: () => dispatch(copyWorkout(ownProps.workoutId, WindowState.hovered_day)),

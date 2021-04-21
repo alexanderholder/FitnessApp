@@ -1,6 +1,5 @@
 // @flow
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { setsRepsSchemeList } from './excercises'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
@@ -12,7 +11,7 @@ import Button from '@material-ui/core/Button'
 import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 
-function TestField(props) {
+export default function AutoCompleteTextField(props) {
   const [open, toggleOpen] = useState(false)
   const [dialogValue, setDialogValue] = useState({
     title: '',
@@ -156,5 +155,3 @@ function TestField(props) {
     </React.Fragment>
   )
 }
-
-export default connect()(TestField)
