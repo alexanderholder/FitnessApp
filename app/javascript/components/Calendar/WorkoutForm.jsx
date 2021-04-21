@@ -6,7 +6,7 @@ import { SortableContainer, SortableElement } from "react-sortable-hoc"
 import arrayMove from 'array-move'
 import { sortBy } from "lodash"
 import * as Selectors from 'javascript/redux/selectors'
-import BlockWrapper from '../BlockWrapper'
+import BlockWrapper from './BlockForm'
 import { updateWorkout, removeWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { saveNewBlock, updateBlock } from 'javascript/redux/reducers/blocksSlice'
 import Close from '@material-ui/icons/Close'
@@ -16,7 +16,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import Tooltip from '@material-ui/core/Tooltip'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
-import ExcerciseDetails from '../ExcerciseDetails'
+import ExcerciseDetails from './ExcerciseDetails'
 
 const SortableItem = SortableElement(({block, workoutId, setShowExcerciseDetails}) => (
   <BlockWrapper
@@ -46,7 +46,7 @@ const SortableList = SortableContainer(({blocks, workoutId, setShowExcerciseDeta
   )
 })
 
-function WorkoutFormWrapper(props) {
+function WorkoutForm(props) {
   const [workoutName, setWorkoutName] = useState(props.workout.name)
   const [favourite, setFavourite] = useState(props.workout.favourite)
   const [menuShown, setMenuShown] = useState(false)
@@ -145,7 +145,7 @@ function WorkoutFormWrapper(props) {
   )
 }
 
-WorkoutFormWrapper.propTypes = {
+WorkoutForm.propTypes = {
   workoutId: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
@@ -165,4 +165,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateBlock: (id, payload) => dispatch(updateBlock(id, payload)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkoutFormWrapper)
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutForm)

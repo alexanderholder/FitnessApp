@@ -13,20 +13,23 @@ class Block < ApplicationRecord
   validates :style, inclusion: { in: %w[Variable Fixed] }
 
   before_validation :confirm_or_create_sort_order
+  before_validation :confirm_or_create_name
 
   sig { void }
   def confirm_or_create_sort_order
     self.order = self.set_default_sort_order
   end
 
+  sig { void }
+  def confirm_or_create_name
+    return if self.name.present?
+
+    self.name = "Block #{max_sort_order + 1}"
+  end
+
   sig { returns(Integer) }
   def set_default_sort_order
     return self.order if self.order.present?
-
-    max_sort_order = self.workout.blocks
-      .map(&:order)
-      .compact
-      .max || 0
 
     self.order = max_sort_order + 1
   end
@@ -34,5 +37,13 @@ class Block < ApplicationRecord
   sig { returns(T::Boolean)}
   def variable?
     style == 'Variable'
+  end
+
+  sig { returns(Integer) }
+  def max_sort_order
+    max_sort_order = self.workout.blocks
+      .map(&:order)
+      .compact
+      .max || 0
   end
 end

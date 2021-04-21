@@ -1,5 +1,6 @@
 import Request from 'javascript/api/request'
 import WindowState from 'javascript/windowState'
+import { saveNewBlock } from 'javascript/redux/reducers/blocksSlice'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
@@ -31,6 +32,7 @@ export function saveNewWorkout(initialWorkout) {
     const response = await Request.post('/workouts', { workout: initialWorkout })
     WindowState.new_card_id = response.data.id
     dispatch({ type: 'workouts/workoutAdded', payload: response.data })
+    dispatch(saveNewBlock({workout_id: response.data.id, style: 'Fixed'}))
   }
 }
 
