@@ -72,7 +72,7 @@ function App(props) {
             <div style={{ float: 'right', paddingRight: '20px' }}>
               <ButtonGroup
                 inputs={['Session','Block','Excercise']}
-                selection={props.view}
+                selected={props.view}
                 setSelection={props.changeView}
               />
             </div>
@@ -137,7 +137,7 @@ const mapStateToProps = (state) => ({
   signedIn: state.user.signed_in,
   currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
   response_url: state.user.response_url,
-  view: state.user.selected_view,
+  view: state.user.selected_view || 'Excercise',
 })
 
 const mapDispatchToProps = (dispatch) => ({
