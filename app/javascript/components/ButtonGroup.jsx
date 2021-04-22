@@ -21,7 +21,7 @@ export default function BasicButtonGroup(props) {
     <div className={classes.root}>
       <ButtonGroup color="primary" aria-label="outlined primary button group">
         {props.inputs.map((input) => (
-          <Button key={input} onClick={() => props.setSelection(input)}>{input}</Button>
+          <Button key={input} disabled={input === props.selected} onClick={() => props.setSelection(input)}>{input}</Button>
         ))}
       </ButtonGroup>
     </div>
