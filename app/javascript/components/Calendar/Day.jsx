@@ -1,7 +1,7 @@
 // @flow
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { saveNewWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import WindowState from 'javascript/windowState'
 import * as Selectors from 'javascript/redux/selectors'
@@ -9,12 +9,11 @@ import WorkoutCard from './components/WorkoutCard'
 
 function WorkoutCardWrapper(props) {
   if (props.workouts.length === 0) { return [] }
-  else if (props.blocks.length === 1) {
+  else if (props.view === 'Excercise') {
     return (
       props.excercises.map((excercise) =>
         <WorkoutCard
           className="handle" // TODO: is this needed?
-          isBlock="true"
           key={excercise.id}
           setIsShown={props.setIsShown}
           excerciseId={excercise.id}
@@ -22,12 +21,11 @@ function WorkoutCardWrapper(props) {
         />
       )
     )
-  } else if (props.workouts.length === 1) {
+  } else if (props.view === 'Block') {
     return (
       props.blocks.map((block) =>
         <WorkoutCard
           className="handle" // TODO: is this needed?
-          isBlock="true"
           key={block.id}
           setIsShown={props.setIsShown}
           blockId={block.id}
@@ -63,9 +61,10 @@ function WorkoutCardWrapper(props) {
   }
 }
 
-function Day (props) {
+function Day(props) {
   const [isShown, setIsShown] = useState(false)
   const [dragOverIsShown, setDragOverIsShown] = useState(false)
+
   const handleClick = () => {
     props.addWorkout({
       day_number: props.dayNumber,
@@ -73,16 +72,19 @@ function Day (props) {
     })
     setIsShown(false)
   }
+
   const handleDragEnter = (e) => {
     WindowState.hovered_day = props.dayNumber
     setDragOverIsShown(true)
     e.stopPropagation()
     e.preventDefault()
   }
+
   const handleMouseEnter = () => {
     WindowState.hovered_day = props.dayNumber
     setIsShown(true)
   }
+
   const handleMouseLeave = () => {
     WindowState.hovered_day = null
     setIsShown(false)
@@ -106,6 +108,7 @@ function Day (props) {
         excercises={props.excercises}
         key={props.dayNumber}
         setIsShown={setIsShown}
+        view={props.view}
       />
       { dragOverIsShown && (
         <div
@@ -120,7 +123,7 @@ function Day (props) {
           className="hyperlink-button"
           onClick={handleClick}
         >
-          {props.workouts.length > 1 ? "+ New Session" : "+ New Block"}
+          { `+ New ${props.view}` }
         </div>
       )}
     </td>
@@ -137,12 +140,13 @@ WorkoutCardWrapper.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const view = state.user.selected_view || 'Excercise'
   const trainingTemplateId = state.user.selected_template
   const workouts = Selectors.getWorkoutsByDayNumberFilter(state, ownProps.dayNumber)
-  const blocks = workouts.length === 1 ? Selectors.getBlocksByWorkoutId(state, workouts[0].id) : []
-  const excercises = blocks.length === 1 ? Selectors.getExcercisesByBlockId(state, blocks[0].id) : []
+  const blocks = Selectors.getBlocksByWorkoutId(state, workouts.map(w => w.id))
+  const excercises = Selectors.getExcercisesByBlockId(state, blocks.map(b => b.id))
 
-  return { trainingTemplateId, workouts, blocks, excercises }
+  return { trainingTemplateId, workouts, blocks, excercises, view }
 }
 
 const mapDispatchToProps = dispatch => ({

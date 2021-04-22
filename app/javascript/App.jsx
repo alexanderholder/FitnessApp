@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
+import ButtonGroup from './components/ButtonGroup'
 
 const DELETE_KEYCODE = 46
 const BACKSPACE_KEYCODE = 8
@@ -67,8 +68,13 @@ function App(props) {
           </div>
           <div className='calendar'>
             <TemplateSearch />
-            <div style={{ float: 'right' }}>
-              <Navbar />
+            <div style={{ float: 'right' }}><Navbar /></div>
+            <div style={{ float: 'right', paddingRight: '20px' }}>
+              <ButtonGroup
+                inputs={['Session','Block','Excercise']}
+                selection={props.view}
+                setSelection={props.changeView}
+              />
             </div>
             <Calendar />
           </div>
@@ -127,16 +133,18 @@ App.propTypes = {
   response_url: PropTypes.string,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   signedIn: state.user.signed_in,
   currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
   response_url: state.user.response_url,
+  view: state.user.selected_view,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   copyWorkout: (id, day) => dispatch(copyWorkout(id, day)),
   deleteWorkout: (id) => dispatch(removeWorkout(id)),
   templateAdded: (template) => dispatch(saveNewTrainingTemplate(template)),
+  changeView: (view) => dispatch({ type: 'user/viewChanged', payload: view }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

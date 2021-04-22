@@ -30,7 +30,9 @@ function Sidebar({progressions, createProgression}) {
               value={progression}
               onChange={(event) => setProgression(event.target.value)}
             >
-              {progressions && progressions.map(progression => <MenuItem value={progression.id}>{progression.name}</MenuItem>)}
+              {progressions && progressions.map(progression =>
+                <MenuItem key={progression.id} value={progression.id}>{progression.name}</MenuItem>)
+              }
             </Select>
           </div>
         }
