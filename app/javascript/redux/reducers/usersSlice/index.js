@@ -2,6 +2,12 @@ import Request from 'javascript/api/request'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
+    case 'user/viewChanged': {
+      return {
+        ...state,
+        selected_view: action.payload
+      }
+    }
     case 'user/temaplteChanged': {
       return {
         ...state,

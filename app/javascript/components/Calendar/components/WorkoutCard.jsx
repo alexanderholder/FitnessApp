@@ -93,12 +93,16 @@ WorkoutCard.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => {
   const newCard = ownProps.workoutId == WindowState.new_card_id ? true : false
+  const view = state.user.selected_view
+
   let cardName
-  if (ownProps.excerciseId) {
+  if (view === 'Excercise') {
     cardName = Selectors.getExcerciseById(state, ownProps.excerciseId).movement
-  } else if (ownProps.blockId) {
-    cardName = Selectors.getBlockById(state, ownProps.blockId).name
-  } else {
+  }
+  else if (view === 'Block') {
+    cardName = Selectors.getBlockById(state, ownProps.blockId)?.name
+  }
+  else {
     cardName = Selectors.getWorkoutById(state, ownProps.workoutId).name
   }
 

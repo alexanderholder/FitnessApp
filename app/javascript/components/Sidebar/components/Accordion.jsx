@@ -67,6 +67,7 @@ function SimpleAccordion(props) {
           {props.blocks.length > 0 ? (
             props.blocks.map(block => (
               <Typography
+                key={block.id}
                 draggable
                 onDragEnd={() => props.copyBlock(block.id)}
               >
@@ -112,8 +113,10 @@ function SimpleAccordion(props) {
           <Typography className={classes.heading}>Progression</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            {props.progressions ? props.progressions.map(progression => <>{progression.name}<br/></>) : (<></>)}
+          {/* <Typography> TODO this is a error as T is a <P> */}
+            {props.progressions ? props.progressions.map(progression =>
+              <div key={progression.name}>{progression.name}<br/></div>) : (<></>)
+            }
             <Modal
               buttonName="Create Progression"
               modalName="Create Progression"
@@ -135,7 +138,7 @@ function SimpleAccordion(props) {
               saveName="Create"
               submitFunction={() => props.saveNewProgression({name: name, progressions: progressions})}
             />
-          </Typography>
+          {/* </Typography> */}
         </AccordionDetails>
       </Accordion>
     </div>
