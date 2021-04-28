@@ -1,4 +1,4 @@
-class BlockPolicy < ApplicationPolicy
+class ProgressionPolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)
       raise Pundit::NotAuthorizedError, "must be logged in" unless user
@@ -7,7 +7,7 @@ class BlockPolicy < ApplicationPolicy
     end
 
     def resolve
-      scope.where(workout_id: user.current_training_template.workouts.ids)
+      scope.where(session_progression_id: user.user.session_progressions.ids)
     end
 
     private
@@ -15,15 +15,15 @@ class BlockPolicy < ApplicationPolicy
     attr_reader :user, :scope
   end
 
-  attr_reader :user, :block
+  attr_reader :user, :progression
 
-  def initialize(user, block)
+  def initialize(user, progression)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
     @user = user
-    @block = block
+    @progression = progression
   end
 
-  def bulk_create_sessions?
+  def show?
     true
   end
 
@@ -40,10 +40,6 @@ class BlockPolicy < ApplicationPolicy
   end
 
   def destroy?
-    true
-  end
-
-  def copy?
     true
   end
 end

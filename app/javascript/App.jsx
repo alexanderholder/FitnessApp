@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { Calendar, Navbar, Sidebar, TemplateSearch } from './components'
 import WindowState from './windowState'
 import * as Selectors from './redux/selectors'
+import { removeExcercise } from './redux/reducers/excercisesSlice'
+import { removeBlock } from './redux/reducers/blocksSlice'
 import { copyWorkout, removeWorkout } from './redux/reducers/workoutsSlice'
 import { saveNewTrainingTemplate} from './redux/reducers/templatesSlice'
 import Dialog from '@material-ui/core/Dialog'
@@ -38,7 +40,13 @@ function App(props) {
   const handleUserKeyPress = (e) => {
     if (e.keyCode === DELETE_KEYCODE || e.keyCode === BACKSPACE_KEYCODE) {
       if (WindowState.hovered_card_id) {
-        props.deleteWorkout(WindowState.hovered_card_id)
+        if (props.view === 'Session') {
+          props.deleteWorkout(WindowState.hovered_card_id)
+        } else if (props.view === 'Block') {
+          props.deleteBlock(WindowState.hovered_card_id)
+        } else if (props.view === 'Excercise') {
+          props.deleteExcercise(WindowState.hovered_card_id)
+        }
       }
     } else if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
       if (WindowState.hovered_card_id) {
@@ -57,7 +65,7 @@ function App(props) {
     return () => {
       window.removeEventListener('keydown', handleUserKeyPress)
     }
-  }, [])
+  }, [props.view])
 
   if (props.signedIn) {
     if (props.currentTemplate) {
@@ -137,12 +145,14 @@ const mapStateToProps = (state) => ({
   signedIn: state.user.signed_in,
   currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
   response_url: state.user.response_url,
-  view: state.user.selected_view || 'Excercise',
+  view: state.user.selected_view,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   copyWorkout: (id, day) => dispatch(copyWorkout(id, day)),
   deleteWorkout: (id) => dispatch(removeWorkout(id)),
+  deleteBlock: (id) => dispatch(removeBlock(id)),
+  deleteExcercise: (id) => dispatch(removeExcercise(id)),
   templateAdded: (template) => dispatch(saveNewTrainingTemplate(template)),
   changeView: (view) => dispatch({ type: 'user/viewChanged', payload: view }),
 })

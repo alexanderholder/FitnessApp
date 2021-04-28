@@ -32,7 +32,7 @@ export function saveNewWorkout(initialWorkout) {
     const response = await Request.post('/workouts', { workout: initialWorkout })
     WindowState.new_card_id = response.data.id
     dispatch({ type: 'workouts/workoutAdded', payload: response.data })
-    dispatch(saveNewBlock({workout_id: response.data.id, style: 'Fixed'}))
+    dispatch(saveNewBlock({workout_id: response.data.id, }))
   }
 }
 

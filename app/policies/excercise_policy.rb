@@ -23,6 +23,10 @@ class ExcercisePolicy < ApplicationPolicy
     @excercise = excercise
   end
 
+  def bulk_create_sessions?
+    true
+  end
+
   def create?
     true
   end

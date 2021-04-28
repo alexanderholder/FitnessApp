@@ -65,54 +65,55 @@ function BlockForm(props) {
 
   return (
     <div
-      className='block-wrapper'
-      onMouseEnter={() => setShowMenuIcons(true)}
-      onMouseLeave={() => setShowMenuIcons(false)}
+      className={props.view != 'Excercise' && 'block-wrapper'}
+      onMouseEnter={() => props.view != 'Excercise' && setShowMenuIcons(true)}
+      onMouseLeave={() => props.view != 'Excercise' && setShowMenuIcons(false)}
     >
       <div>
-        { showBlockDetails ? (
-          <TextField
-            autoFocus={true}
-            label='Block Name'
-            onChange={(e) => {
-              setName(e.target.value)
-              props.updateBlock({ name: e.target.value })
-            }}
-            size='small'
-            value={name}
-            width='50'
-            style={{ paddingBottom: '5px'}}
-          />
+        { props.view != 'Excercise' && (showBlockDetails ? (
+          <>
+            <TextField
+              autoFocus={true}
+              label='Block Name'
+              onChange={(e) => {
+                setName(e.target.value)
+                props.updateBlock({ name: e.target.value })
+              }}
+              size='small'
+              value={name}
+              width='50'
+              style={{ paddingBottom: '5px'}}
+            />
+            <TextField
+              label='Block Rounds'
+              onChange={e => {
+                setRounds(e.target.value)
+                props.updateBlock({ sets: e.target.value })
+              }}
+              size='small'
+              value={rounds}
+              width='50'
+              style={{ paddingBottom: '5px'}}
+            />
+          </>
         ) : (
-          <div
-            style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-            className='hyperlink-button'
-            onClick={() => setShowBlockDetails(true)}
-          >
-            + Block name
-          </div>
-        )}
-        { showBlockDetails ? (
-          <TextField
-            label='Block Rounds'
-            onChange={e => {
-              setRounds(e.target.value)
-              props.updateBlock({ sets: e.target.value })
-            }}
-            size='small'
-            value={rounds}
-            width='50'
-            style={{ paddingBottom: '5px'}}
-          />
-        ) : (
-          <div
-            style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-            className='hyperlink-button'
-            onClick={() => setShowBlockDetails(true)}
-          >
-            + Block rounds
-          </div>
-        )}
+          <>
+            <div
+              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
+              className='hyperlink-button'
+              onClick={() => setShowBlockDetails(true)}
+            >
+              + Block name
+            </div>
+            <div
+              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
+              className='hyperlink-button'
+              onClick={() => setShowBlockDetails(true)}
+            >
+              + Block rounds
+            </div>
+          </>
+        ))}
         { showMenuIcons && (
           <Tooltip title='Delete block'>
             <IconButton
@@ -166,13 +167,13 @@ BlockForm.propTypes = {
   block: PropTypes.object.isRequired,
   blockId: PropTypes.number.isRequired,
   excercises: PropTypes.array.isRequired,
-  workoutId: PropTypes.number.isRequired,
   setShowExcerciseDetails: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
   block: Selectors.getBlockById(state, ownProps.blockId),
-  excercises: Selectors.getExcercisesByBlockId(state, ownProps.blockId)
+  excercises: Selectors.getExcercisesByBlockId(state, ownProps.blockId),
+  view: state.user.selected_view,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

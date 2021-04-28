@@ -9,15 +9,29 @@ import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import WorkoutForm from '../WorkoutForm'
 
-function WorkoutCard (props) {
+function Card(props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
   const [dragOverIsShown, setDragOverIsShown] = useState(false)
+  const [showBlockPopover, setShowBlockPopover] = useState(false)
 
-  const handleCardIsHovered = (payload) => {
+  const handleMouseEnter = () => {
     // TODO: this will stop copy paste from tempaltes :(
     if (!props.templateWorkout) {
-      WindowState.hovered_card_id = payload
+      WindowState.hovered_card_id = props.id
     }
+    // if (props.view === 'Block') {
+      // console.log(payload)
+      // setAnchorEl(event.currentTarget)
+      // setShowBlockPopover(true)
+    // }
+  }
+  const handleMouseLeave = () => {
+    // TODO: this will stop copy paste from tempaltes :(
+    if (!props.templateWorkout) {
+      WindowState.hovered_card_id = null
+    }
+    // setAnchorEl(null)
+    // setShowBlockPopover(false)
   }
   const handleClick = (event) => {
     if (!props.templateWorkout) {
@@ -37,7 +51,7 @@ function WorkoutCard (props) {
     }
   }
   const handleDragEnter = (e) => {
-    WindowState.hovered_card_id = props.workoutId
+    WindowState.hovered_card_id = props.id
     e.stopPropagation()
     e.preventDefault()
   }
@@ -48,8 +62,8 @@ function WorkoutCard (props) {
         className='workout-element'
         draggable
         onClick={handleClick}
-        onMouseEnter={() => handleCardIsHovered(props.workoutId)}
-        onMouseLeave={() => handleCardIsHovered(null)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         onDragEnd={handleDragEnd}
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
@@ -76,18 +90,34 @@ function WorkoutCard (props) {
           setAnchorEl={setAnchorEl}
         />
       </Popover>
+      <Popover
+        className='block-hoverover'
+        id={Boolean(showBlockPopover) ? 'simple-popover' : undefined}
+        open={Boolean(showBlockPopover)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <div>hello!</div>
+      </Popover>
     </React.Fragment>
   )
 }
 
-WorkoutCard.propTypes = {
+Card.propTypes = {
   templateWorkout: PropTypes.bool,
   setIsShown: PropTypes.func.isRequired,
   workoutId: PropTypes.number,
-  blockId: PropTypes.number,
 }
 
-WorkoutCard.defaultProps = {
+Card.defaultProps = {
   templateWorkout: false,
 }
 
@@ -96,17 +126,21 @@ const mapStateToProps = (state, ownProps) => {
   const view = state.user.selected_view
 
   let cardName
+  let id
   if (view === 'Excercise') {
-    cardName = Selectors.getExcerciseById(state, ownProps.excerciseId).movement
+    cardName = Selectors.getExcerciseById(state, ownProps.excerciseId)?.movement
+    id = ownProps.excerciseId
   }
   else if (view === 'Block') {
     cardName = Selectors.getBlockById(state, ownProps.blockId)?.name
+    id = ownProps.blockId
   }
   else {
     cardName = Selectors.getWorkoutById(state, ownProps.workoutId).name
+    id = ownProps.workoutId
   }
 
-  return { cardName, newCard }
+  return { cardName, newCard, view, id }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -114,4 +148,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCard)
+export default connect(mapStateToProps, mapDispatchToProps)(Card)

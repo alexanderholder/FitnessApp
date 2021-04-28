@@ -26,7 +26,9 @@ Rails.application.routes.draw do
 
   resources :excercises, only: [:create, :update, :destroy]
 
-  resources :session_progressions, only: [:create, :update, :destroy]
+  resources :session_progressions, only: [:create, :destroy]
+  post '/session_progressions/bulk_create_sessions' => 'session_progressions#bulk_create_sessions'
+  resources :progressions, only: [:create, :update, :destroy]
 
   get 'calendar' => 'calendar#index'
   get 'calendar/:id' => 'calendar#show'

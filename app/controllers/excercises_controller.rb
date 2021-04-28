@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Each excercise or set that belongs to a block.
-# A excercise/movement for variable block
-# Just represents a set for a fixed block
 class ExcercisesController < ApplicationController
   def create
     new_excercise = Excercise.new(excercise_params)

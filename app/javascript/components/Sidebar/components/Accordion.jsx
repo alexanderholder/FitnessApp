@@ -11,7 +11,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import WorkoutCard from 'javascript/components/Calendar/components/WorkoutCard'
+import Card from 'javascript/components/Calendar/components/Card'
 import Modal from './Modal'
 import TextField from '@material-ui/core/TextField'
 
@@ -43,7 +43,7 @@ function SimpleAccordion(props) {
         </AccordionSummary>
         {props.workouts.length > 0 ? (
           props.workouts.map(workout => (
-            <WorkoutCard
+            <Card
               style={{display: 'inline'}}
               key={workout.id}
               setIsShown={setIsShown}
@@ -136,7 +136,7 @@ function SimpleAccordion(props) {
                 </div>
               }
               saveName="Create"
-              submitFunction={() => props.saveNewProgression({name: name, progressions: progressions})}
+              submitFunction={() => props.saveNewProgression(name, progressions.split(','))}
             />
           {/* </Typography> */}
         </AccordionDetails>
@@ -157,7 +157,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id)),
-  saveNewProgression: (payload) => dispatch(saveNewProgression(payload)),
+  saveNewProgression: (name, progressions) => dispatch(saveNewProgression(name, progressions)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleAccordion)

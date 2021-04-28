@@ -72,10 +72,10 @@ function WorkoutForm(props) {
   return (
     <div className="workout-form">
       <div
-        onMouseEnter={() => setMenuShown(true)}
-        onMouseLeave={() => setMenuShown(false)}
+        onMouseEnter={() => props.view === 'Session' && setMenuShown(true)}
+        onMouseLeave={() => props.view === 'Session' && setMenuShown(false)}
       >
-        <TextField
+       {props.view === 'Session' && <TextField
           autoFocus={true}
           id="workout-name"
           label="Session Name"
@@ -83,7 +83,7 @@ function WorkoutForm(props) {
           onFocus={e => e.target.select()}
           value={workoutName}
           width="300"
-        />
+        />}
         {(menuShown || (workoutName && props.blocks.length === 0)) && (
           <Tooltip title="Delete workout">
             <IconButton onClick={props.deleteWorkout}>
@@ -106,14 +106,14 @@ function WorkoutForm(props) {
             </Tooltip>
           )
         )}
-        <Tooltip title="Close window">
+        { props.view === 'Session' && <Tooltip title="Close window">
           <IconButton
             onClick={() => props.setAnchorEl(null)}
             style={{ float: 'right', marginRight: '5px' }}
           >
             <Close />
           </IconButton>
-        </Tooltip>
+        </Tooltip>}
       </div>
       <div>
         <div
@@ -139,7 +139,7 @@ function WorkoutForm(props) {
         className="hyperlink-button"
         onClick={props.addBlock}
       >
-        + Add Block
+        { props.view != 'Excercise' && "+ Add Block" }
       </div>
     </div>
   )
@@ -149,18 +149,18 @@ WorkoutForm.propTypes = {
   workoutId: PropTypes.number.isRequired,
   workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
-  open: PropTypes.string, // TODO: confirm we dont actually need this as required (undefined vs false)
   setAnchorEl: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
   workout: Selectors.getWorkoutById(state, ownProps.workoutId),
   blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workoutId),
+  view: state.user.selected_view,
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload)),
-  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workoutId, style: 'Fixed' })),
+  addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workoutId, })),
   deleteWorkout: () => dispatch(removeWorkout(ownProps.workoutId)),
   updateBlock: (id, payload) => dispatch(updateBlock(id, payload)),
 })

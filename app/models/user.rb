@@ -16,4 +16,5 @@ class User < ApplicationRecord
 
   has_many :training_templates, inverse_of: :user, dependent: :destroy
   has_many :session_progressions, inverse_of: :user, dependent: :destroy
+  has_many :progressions, through: :session_progressions
 end
