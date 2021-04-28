@@ -1,14 +1,6 @@
 import Request from 'javascript/api/request'
 
-const initialState = {
-  selected_view: 'Excercise',
-  selected_tempalte: null,
-  user_id: null,
-  signed_in: false,
-  response_url: null,
-}
-
-export default function appReducer(state = initialState, action) {
+export default function appReducer(state = null, action) {
   switch (action.type) {
     case 'user/viewChanged': {
       return {
