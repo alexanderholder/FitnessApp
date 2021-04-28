@@ -10,17 +10,24 @@ import Card from './components/Card'
 function CardWrapper(props) {
   if (props.workouts.length === 0) { return [] }
   else if (props.view === 'Excercise') {
-    return (
-      props.excercises.map((excercise) =>
-        <Card
-          className="handle" // TODO: is this needed?
-          key={excercise.id}
-          setIsShown={props.setIsShown}
-          excerciseId={excercise.id}
-          workoutId={props.workouts[0].id}
-        />
-      )
+    let cards = []
+
+    props.blocks.map((block) =>
+      props.excercises.map((excercise) => {
+        if (excercise.block_id === block.id) {
+          cards.push(
+            <Card
+              className="handle" // TODO: is this needed?
+              key={excercise.id}
+              setIsShown={props.setIsShown}
+              excerciseId={excercise.id}
+              workoutId={block.workout_id}
+            />
+          )
+        }
+      })
     )
+    return cards
   } else if (props.view === 'Block') {
     return (
       props.blocks.map((block) =>
@@ -29,7 +36,7 @@ function CardWrapper(props) {
           key={block.id}
           setIsShown={props.setIsShown}
           blockId={block.id}
-          workoutId={props.workouts[0].id}
+          workoutId={block.workout_id}
         />
       )
     )

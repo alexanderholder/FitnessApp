@@ -7,31 +7,23 @@ import WindowState from 'javascript/windowState'
 import { copyWorkout, updateWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
-import WorkoutForm from '../WorkoutForm'
+import Form from '../Form'
 
 function Card(props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
   const [dragOverIsShown, setDragOverIsShown] = useState(false)
-  const [showBlockPopover, setShowBlockPopover] = useState(false)
 
   const handleMouseEnter = () => {
     // TODO: this will stop copy paste from tempaltes :(
     if (!props.templateWorkout) {
       WindowState.hovered_card_id = props.id
     }
-    // if (props.view === 'Block') {
-      // console.log(payload)
-      // setAnchorEl(event.currentTarget)
-      // setShowBlockPopover(true)
-    // }
   }
   const handleMouseLeave = () => {
     // TODO: this will stop copy paste from tempaltes :(
     if (!props.templateWorkout) {
       WindowState.hovered_card_id = null
     }
-    // setAnchorEl(null)
-    // setShowBlockPopover(false)
   }
   const handleClick = (event) => {
     if (!props.templateWorkout) {
@@ -71,8 +63,8 @@ function Card(props) {
         { props.cardName }
       </div>
       <Popover
-        className='workout-form'
-        id={Boolean(anchorEl) ? 'simple-popover' : undefined}
+        className='card-popover'
+        id={Boolean(anchorEl) ? 'card-popover' : undefined}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         onClose={handleClose}
@@ -85,27 +77,10 @@ function Card(props) {
           horizontal: 'center',
         }}
       >
-        <WorkoutForm
+        <Form
           workoutId={props.workoutId}
           setAnchorEl={setAnchorEl}
         />
-      </Popover>
-      <Popover
-        className='block-hoverover'
-        id={Boolean(showBlockPopover) ? 'simple-popover' : undefined}
-        open={Boolean(showBlockPopover)}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <div>hello!</div>
       </Popover>
     </React.Fragment>
   )
@@ -124,9 +99,9 @@ Card.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   const newCard = ownProps.workoutId == WindowState.new_card_id ? true : false
   const view = state.user.selected_view
-
   let cardName
   let id
+
   if (view === 'Excercise') {
     cardName = Selectors.getExcerciseById(state, ownProps.excerciseId)?.movement
     id = ownProps.excerciseId
