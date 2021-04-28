@@ -13,6 +13,7 @@ class CalendarController < ApplicationController
       user: {
         user_id: current_user.id,
         signed_in: true,
+        selected_view: 'Session',
         selected_template: current_training_template.id
       },
       templates: policy_scope(TrainingTemplate),
