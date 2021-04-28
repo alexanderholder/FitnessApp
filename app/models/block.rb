@@ -10,8 +10,6 @@ class Block < ApplicationRecord
 
   has_many :excercises, inverse_of: :block, dependent: :destroy
 
-  validates :style, inclusion: { in: %w[Variable Fixed] }
-
   before_validation :confirm_or_create_sort_order
   before_validation :confirm_or_create_name
 
@@ -32,11 +30,6 @@ class Block < ApplicationRecord
     return self.order if self.order.present?
 
     self.order = max_sort_order + 1
-  end
-
-  sig { returns(T::Boolean)}
-  def variable?
-    style == 'Variable'
   end
 
   sig { returns(Integer) }

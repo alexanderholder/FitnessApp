@@ -23,6 +23,10 @@ class SessionProgressionPolicy < ApplicationPolicy
     @session_progression = session_progression
   end
 
+  def bulk_create_sessions?
+    true
+  end
+
   def show?
     true
   end

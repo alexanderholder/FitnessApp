@@ -6,6 +6,7 @@ import * as Selectors from 'javascript/redux/selectors'
 import Day from './Day'
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
+const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
 const Week = (props) => {
   let cells = []
@@ -24,7 +25,6 @@ const Week = (props) => {
 }
 
 const Calendar = (props) => {
-  const daysOfTheWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
   const TableRows = () => {
     const rows = []
     for(var i = 0; i < props.templateLength; i++) {

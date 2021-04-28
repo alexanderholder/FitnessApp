@@ -5,14 +5,14 @@ import { connect } from 'react-redux'
 import { saveNewWorkout } from 'javascript/redux/reducers/workoutsSlice'
 import WindowState from 'javascript/windowState'
 import * as Selectors from 'javascript/redux/selectors'
-import WorkoutCard from './components/WorkoutCard'
+import Card from './components/Card'
 
-function WorkoutCardWrapper(props) {
+function CardWrapper(props) {
   if (props.workouts.length === 0) { return [] }
   else if (props.view === 'Excercise') {
     return (
       props.excercises.map((excercise) =>
-        <WorkoutCard
+        <Card
           className="handle" // TODO: is this needed?
           key={excercise.id}
           setIsShown={props.setIsShown}
@@ -24,7 +24,7 @@ function WorkoutCardWrapper(props) {
   } else if (props.view === 'Block') {
     return (
       props.blocks.map((block) =>
-        <WorkoutCard
+        <Card
           className="handle" // TODO: is this needed?
           key={block.id}
           setIsShown={props.setIsShown}
@@ -37,7 +37,7 @@ function WorkoutCardWrapper(props) {
     // TODO sort_by
     return (
       props.workouts.map(workout =>
-        <WorkoutCard
+        <Card
           className="handle" // TODO: is this needed?
           key={workout.id}
           setIsShown={props.setIsShown}
@@ -49,7 +49,7 @@ function WorkoutCardWrapper(props) {
     return (
       <>
         {props.workouts.map(workout =>
-          <WorkoutCard
+          <Card
             key={workout.id}
             setIsShown={props.setIsShown}
             workoutId={workout.id}
@@ -68,7 +68,7 @@ function Day(props) {
   const handleClick = () => {
     props.addWorkout({
       day_number: props.dayNumber,
-      training_template_id: props.trainingTemplateId
+      training_template_id: props.trainingTemplateId,
     })
     setIsShown(false)
   }
@@ -102,7 +102,7 @@ function Day(props) {
       onMouseLeave={handleMouseLeave}
     >
       { props.dayNumber }
-      <WorkoutCardWrapper
+      <CardWrapper
         workouts={props.workouts}
         blocks={props.blocks}
         excercises={props.excercises}
@@ -134,17 +134,17 @@ Day.propTypes = {
   dayNumber: PropTypes.number.isRequired,
 }
 
-WorkoutCardWrapper.propTypes = {
+CardWrapper.propTypes = {
   workouts: PropTypes.array.isRequired,
   setIsShown: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const view = state.user.selected_view || 'Excercise'
+  const view = state.user.selected_view
   const trainingTemplateId = state.user.selected_template
   const workouts = Selectors.getWorkoutsByDayNumberFilter(state, ownProps.dayNumber)
-  const blocks = Selectors.getBlocksByWorkoutId(state, workouts.map(w => w.id))
-  const excercises = Selectors.getExcercisesByBlockId(state, blocks.map(b => b.id))
+  const blocks = Selectors.getBlocksByWorkoutIds(state, workouts.map(w => w.id))
+  const excercises = Selectors.getExcercisesByBlockIds(state, blocks.map(b => b.id))
 
   return { trainingTemplateId, workouts, blocks, excercises, view }
 }

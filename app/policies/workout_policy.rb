@@ -23,6 +23,10 @@ class WorkoutPolicy < ApplicationPolicy
     @workout = workout
   end
 
+  def bulk_create_sessions?
+    true
+  end
+
   def create?
     true
   end
