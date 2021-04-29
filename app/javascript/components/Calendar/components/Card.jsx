@@ -78,6 +78,7 @@ function Card(props) {
         }}
       >
         <Form
+          ref={props.ref}
           workoutId={props.workoutId}
           setAnchorEl={setAnchorEl}
         />

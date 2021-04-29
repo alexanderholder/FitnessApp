@@ -8,6 +8,26 @@ import * as Selectors from 'javascript/redux/selectors'
 import Card from './components/Card'
 
 function CardWrapper(props) {
+  const wrapperRef = React.useRef(null);
+  const [isShown, setIsShown] = useState(false)
+
+  const handleClick = () => {
+    setIsShown(true)
+  }
+
+  React.useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsShown(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [wrapperRef])
+
   if (props.workouts.length === 0) { return [] }
   else if (props.view === 'Excercise') {
     let cards = []
@@ -40,7 +60,7 @@ function CardWrapper(props) {
         />
       )
     )
-  } else if (props.workouts.length < 5) {
+  } else if (props.workouts.length < 6) {
     // TODO sort_by
     return (
       props.workouts.map(workout =>
@@ -53,18 +73,52 @@ function CardWrapper(props) {
       )
     )
   } else {
-    return (
-      <>
-        {props.workouts.map(workout =>
+    let output = []
+
+    props.workouts.map((workout, index) => {
+      if (index < 5) {
+        output.push(
           <Card
             key={workout.id}
             setIsShown={props.setIsShown}
             workoutId={workout.id}
           />
-        )}
-        <div>Show More</div>
-      </>
-    )
+        )
+      }
+    })
+    if (props.workouts.length > 5) {
+      output.push(
+        <>
+          <div onClick={handleClick}>
+            {`${props.workouts.length - 5} more`}
+          </div>
+          {isShown && (
+            <div
+              ref={wrapperRef}
+              style={{
+                // marginLeft: '20px',
+                boxShadow: '0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)',
+                display: 'inline-block',
+                cursor: 'default',
+                position: 'fixed',
+                backgroundColor: 'white',
+                width: '150px',
+              }}
+            >
+              {props.workouts.map((workout, index) =>
+                <Card
+                  ref={wrapperRef}
+                  key={workout.id}
+                  setIsShown={props.setIsShown}
+                  workoutId={workout.id}
+                />
+              )}
+            </div>
+          )}
+        </>
+      )
+    }
+    return output
   }
 }
 
@@ -89,7 +143,9 @@ function Day(props) {
 
   const handleMouseEnter = () => {
     WindowState.hovered_day = props.dayNumber
-    setIsShown(true)
+    if (props.workouts.length < 6 || props.blocks.length < 6 || props.excercises.length < 6) {
+      setIsShown(true)
+    }
   }
 
   const handleMouseLeave = () => {
