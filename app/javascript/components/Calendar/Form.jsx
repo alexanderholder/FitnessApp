@@ -70,8 +70,12 @@ function WorkoutForm(props) {
   }
 
   return (
-    <div className="workout-form">
+    <div
+      ref={props.ref}
+      className="workout-form"
+    >
       <div
+        ref={props.ref}
         onMouseEnter={() => props.view === 'Session' && setMenuShown(true)}
         onMouseLeave={() => props.view === 'Session' && setMenuShown(false)}
       >
