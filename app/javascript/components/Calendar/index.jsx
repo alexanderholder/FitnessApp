@@ -10,11 +10,10 @@ const NUMBER_OF_DAYS_IN_WEEK = 7
 const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
 function Calendar(props) {
-  const [search, setSearch] = React.useState('')
-
   const Week = ({weekNumber, day}) => {
     const cells = []
     let i
+
     if (day) {
       const dayNumber = daysOfTheWeek.indexOf(day)
 
@@ -23,7 +22,7 @@ function Calendar(props) {
 
         cells.push(
           <Day
-            key = {workoutDayNumber}
+            key={workoutDayNumber}
             dayNumber={workoutDayNumber}
           />
         )
@@ -35,7 +34,7 @@ function Calendar(props) {
 
         cells.push(
           <Day
-            key = {workoutDayNumber}
+            key={workoutDayNumber}
             dayNumber={workoutDayNumber}
           />
         )
@@ -48,11 +47,11 @@ function Calendar(props) {
   const TableRows = () => {
     const rows = []
 
-    if (daysOfTheWeek.includes(search)) {
+    if (daysOfTheWeek.includes(props.search)) {
       rows.push(
         <Week
-          key={search}
-          day={search}
+          key={props.search}
+          day={props.search}
         />
       )
     }
@@ -71,11 +70,11 @@ function Calendar(props) {
   }
 
   const TableHeader = () => {
-    if (daysOfTheWeek.includes(search)) {
+    if (daysOfTheWeek.includes(props.search)) {
       let i
       const headerRow = []
       for (i = 0; i < props.templateLength; i++) {
-        headerRow.push(<th key={`${search} i`} className='header-cell'>{search}</th>)
+        headerRow.push(<th key={`${props.search} ${i}`} className='header-cell'>{props.search}</th>)
       }
       return headerRow
     }
@@ -85,14 +84,7 @@ function Calendar(props) {
   }
 
   return (
-    <>
-    <TextField
-      label="Search"
-      style={{ boder: 5, paddingRight: 5, }}
-      value={search}
-      onChange={(event) => setSearch(event.target.value)}
-    />
-    <table className='calendar'>
+    <table className='table-fixed w-full border-collapse'>
       <thead>
         <tr>
           <TableHeader />
@@ -102,7 +94,6 @@ function Calendar(props) {
         <TableRows />
       </tbody>
     </table>
-    </>
   )
 }
 

@@ -1,29 +1,17 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
-
-export default function BasicButtonGroup(props) {
-  const classes = useStyles();
+export default function ButtonGroup(props) {
 
   return (
-    <div className={classes.root}>
-      <ButtonGroup color="primary" aria-label="outlined primary button group">
-        {props.inputs.map((input) => (
-          <Button key={input} disabled={input === props.selected} onClick={() => props.setSelection(input)}>{input}</Button>
-        ))}
-      </ButtonGroup>
+    <div className={`p-1 bg-white rounded-xl shadow-md items-center border border-solid border-black divide-x group ${props.className}`}>
+      {props.inputs.map((input) => (
+        <button
+          className='p-1 px-2 disabled:text-opacity-50'
+          key={input}
+          disabled={input === props.selected}
+          onClick={() => props.setSelection(input)}
+        >{input}</button>
+      ))}
     </div>
   );
 }

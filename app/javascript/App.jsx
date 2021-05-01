@@ -19,11 +19,13 @@ import TextField from '@material-ui/core/TextField'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import ButtonGroup from './components/ButtonGroup'
+import Search from './components/Calendar/components/Search'
 
 const DELETE_KEYCODE = 46
 const BACKSPACE_KEYCODE = 8
 
 function App(props) {
+  const [search, setSearch] = React.useState('')
   const [dialogValue, setDialogValue] = React.useState({
     name: '',
     length: '',
@@ -70,21 +72,31 @@ function App(props) {
   if (props.signedIn) {
     if (props.currentTemplate) {
       return (
-        <div className='app'>
-          <div className='side-bar'>
+        <div className='p-3'>
+          <div className='w-48 inline-block max-w-xs'>
             <Sidebar />
           </div>
-          <div className='calendar'>
-            <TemplateSearch />
-            <div style={{ float: 'right' }}><Navbar /></div>
-            <div style={{ float: 'right', paddingRight: '20px' }}>
-              <ButtonGroup
-                inputs={['Session','Block','Excercise']}
-                selected={props.view}
-                setSelection={props.changeView}
-              />
+          <div className='inline-block pl-1.5 w-auto fixed'>
+            <div className='sticky w-full items-center'>
+              <div className='float-left flex'>
+                <TemplateSearch />
+                <Search
+                  className='w-96'
+                  value={search}
+                  onChange={setSearch}
+                />
+              </div>
+              <div className='float-right flex'>
+                <ButtonGroup
+                  className='mr-4'
+                  inputs={['Session','Block','Excercise']}
+                  selected={props.view}
+                  setSelection={props.changeView}
+                />
+                <Navbar />
+              </div>
             </div>
-            <Calendar />
+            <Calendar search={search} />
           </div>
         </div>
       )
