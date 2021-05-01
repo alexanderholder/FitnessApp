@@ -72,7 +72,7 @@ function WorkoutForm(props) {
   return (
     <div
       ref={props.ref}
-      className="workout-form"
+      class="p-2 mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block"
     >
       <div
         ref={props.ref}

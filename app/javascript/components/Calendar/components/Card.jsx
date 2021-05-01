@@ -43,9 +43,9 @@ function Card(props) {
     }
   }
   const handleDragEnter = (e) => {
-    WindowState.hovered_card_id = props.id
     e.stopPropagation()
     e.preventDefault()
+    WindowState.hovered_card_id = props.id
   }
 
   return (
