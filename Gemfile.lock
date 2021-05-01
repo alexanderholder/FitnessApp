@@ -141,6 +141,8 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.2-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.11.2-x86_64-linux)
+      racc (~> 1.4)
     oj (3.11.3)
     orm_adapter (0.5.0)
     parallel (1.20.1)
@@ -207,7 +209,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rubocop (1.12.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -247,6 +249,7 @@ GEM
       sorbet-runtime (>= 0.5)
     sorbet-runtime (0.5.6357)
     sorbet-static (0.5.6357-universal-darwin-20)
+    sorbet-static (0.5.6357-x86_64-linux)
     spoom (1.1.0)
       colorize
       sorbet (>= 0.5.6347)
@@ -307,6 +310,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
