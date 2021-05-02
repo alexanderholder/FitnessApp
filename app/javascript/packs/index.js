@@ -5,7 +5,6 @@ import * as serviceWorker from '../serviceWorker';
 import ErrorBoundary from '../errorBoundry';
 import store from '../redux/store';
 import App from '../App';
-import "../stylesheets/application"; // Tailwind CSS
 
 const renderApp = () => {
   document.addEventListener('DOMContentLoaded', () => {
