@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as Selectors from 'javascript/redux/selectors'
 import Day from './Day'
-import TextField from '@material-ui/core/TextField';
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
 const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
