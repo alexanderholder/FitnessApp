@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from 'Calendar/redux/store';
 import Calendar from 'Calendar';
-import 'stylesheets/application.css';
+import './application.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
