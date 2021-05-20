@@ -6,7 +6,7 @@ import * as Selectors from '../redux/selectors'
 import Day from './Day'
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
-const daysOfTheWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+const daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 function Calendar(props) {
   const Week = ({weekNumber, day}) => {
@@ -70,10 +70,17 @@ function Calendar(props) {
 
   const TableHeader = () => {
     if (daysOfTheWeek.includes(props.search)) {
-      let i
       const headerRow = []
+      let i
+
       for (i = 0; i < props.templateLength; i++) {
-        headerRow.push(<th key={`${props.search} ${i}`} className='header-cell'>{props.search}</th>)
+        headerRow.push(
+        <th
+          key={`${props.search} ${i}`}
+          className='header-cell'>
+            {props.search}
+          </th>
+        )
       }
       return headerRow
     }

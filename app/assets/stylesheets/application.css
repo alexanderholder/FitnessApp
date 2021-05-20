@@ -71,19 +71,6 @@ div {
   line-height: 20px;
 }
 
-.workout-element {
-  text-align: center;
-  height: 22px;
-  width: 100%;
-  background-color: rgb(216,216,216);
-  border-color: white;
-  border: solid;
-  border-width: 0.5px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
 .workout-element-outline {
   height: 22px;
   width: 100%;
@@ -108,13 +95,4 @@ div {
   border-radius: 10px;
   margin-bottom: 10px;
   cursor: grab;
-}
-
-.login {
-  text-align: center;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 0;
 }

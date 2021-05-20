@@ -1,4 +1,4 @@
-import Request from 'Calendar/api/request'
+import Request from 'api/request'
 import WindowState from 'windowState'
 import { saveNewBlock } from '../blocksSlice'
 

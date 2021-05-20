@@ -1,4 +1,4 @@
-import Request from 'Calendar/api/request'
+import Request from 'api/request'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {

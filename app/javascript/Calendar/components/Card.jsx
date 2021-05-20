@@ -51,7 +51,7 @@ function Card(props) {
   return (
     <React.Fragment>
       <div
-        className='workout-element'
+        className='text-center h-5 w-full bg-gray-300 rounded text-white cursor-pointer border-b border-white dark:border-gray-800'
         draggable
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
@@ -60,7 +60,7 @@ function Card(props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        { props.cardName }
+        { `${props.cardName} ${props.setsAndReps ? ` ${props.setsAndReps}` : ''}` }
       </div>
       <Popover
         className='card-popover'
@@ -102,9 +102,12 @@ const mapStateToProps = (state, ownProps) => {
   const view = state.user.selected_view
   let cardName
   let id
+  let setsAndReps
 
   if (view === 'Excercise') {
-    cardName = Selectors.getExcerciseById(state, ownProps.excerciseId)?.movement
+    let excercise = Selectors.getExcerciseById(state, ownProps.excerciseId)
+    cardName = excercise?.movement
+    setsAndReps = excercise?.measurement_value
     id = ownProps.excerciseId
   }
   else if (view === 'Block') {
@@ -116,7 +119,7 @@ const mapStateToProps = (state, ownProps) => {
     id = ownProps.workoutId
   }
 
-  return { cardName, newCard, view, id }
+  return { cardName, newCard, view, id, setsAndReps }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
