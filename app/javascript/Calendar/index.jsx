@@ -72,30 +72,39 @@ function App(props) {
   if (props.signedIn) {
     if (props.currentTemplate) {
       return (
-        <div className='p-3'>
-          <div className='w-48 inline-block max-w-xs'>
+        <div className="w-screen dark:bg-gray-800 dark:text-white">
+          <div className='p-3 min-w-min h-screen overflow-hidden w-1/12 inline-block max-w-xs align-top bg-gray-50 dark:bg-gray-600 dark:text-white'>
             <Sidebar />
           </div>
-          <div className='inline-block pl-1.5 w-auto fixed'>
-            <div className='sticky w-full items-center'>
-              <div className='float-left flex'>
+
+          <div className='p-3 h-screen w-11/12 inline-block pl-1.5 sticky items-center shadow'>
+            <div className='flex justify-around'>
+              <div className='flex flex-row'>
                 <TemplateSearch />
+              </div>
+
+              <div className='flex flex-row'>
                 <Search
                   className='w-96'
                   value={search}
                   onChange={setSearch}
                 />
               </div>
-              <div className='float-right flex'>
+
+              <div className='flex flex-row'>
                 <ButtonGroup
                   className='mr-4'
                   inputs={['Session','Block','Excercise']}
                   selected={props.view}
                   setSelection={props.changeView}
                 />
+              </div>
+
+              <div className='flex flex-row justify-end'>
                 <Navbar />
               </div>
             </div>
+
             <Calendar search={search} />
           </div>
         </div>

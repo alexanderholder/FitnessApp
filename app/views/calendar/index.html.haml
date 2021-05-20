@@ -1,4 +1,5 @@
 #root{:'data-initial-options' => @initial_state.to_json}
   :javascript
     window['__INITIAL_STATE__'] = document.getElementById("root").dataset.initialOptions;
+  -# = render "layouts/navigation/above_nav"
   = javascript_pack_tag 'calendar'

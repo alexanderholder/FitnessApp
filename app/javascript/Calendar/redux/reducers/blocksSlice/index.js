@@ -1,4 +1,4 @@
-import Request from 'Calendar/api/request'
+import Request from 'api/request'
 import { saveNewExcercise } from '../excercisesSlice'
 
 export default function appReducer(state = null, action) {

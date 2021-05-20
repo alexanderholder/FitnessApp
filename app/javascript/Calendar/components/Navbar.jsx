@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../redux/reducers/usersSlice'
-import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -21,12 +20,12 @@ function Navbar(props) {
   return (
     <div>
       <nav
-        aria-controls='user-menu'
-        aria-haspopup='true'
         onClick={handleClick}
-        style={{ marginRight: '20px', cursor: "pointer" }}
+        className='cursor-pointer py-4 px-6'
       >
-        <Avatar />
+        <div class="flex -space-x-2 overflow-hidden">
+          <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+        </div>
       </nav>
       <Menu
         id='user-menu'
