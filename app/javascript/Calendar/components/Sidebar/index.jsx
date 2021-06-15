@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SimpleAccordion from './components/Accordion';
-import Modal from './components/Modal';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { createProgressionTemplate } from '../../redux/reducers/sessionProgressionsSlice';
-// import Modalv2 from './components/Modalv2';
 import FullPageModal from './components/FullPageModal';
 import ProgressionsTable from './components/ProgressionsTable';
 
@@ -20,71 +14,68 @@ function Sidebar({ progressions, createProgression, saveNewProgression }) {
   const [open, setOpen] = useState(false)
   const [menu, setMenu] = useState('Home')
 
-      {/* <Modal
-        buttonName="Program Builder"
-        // buttonStyle={{}} TODO
-        modalName="Quick Builder"
-        textBody="Quickly build a program using an excercise and a progression template."
-        textBodyTwo={
-          <div style={{ textAlign: 'center' }} >
-            <TextField
-              label="Excercise"
-              style={{ boder: 5, paddingRight: 5, }}
-              value={excercise}
-              onChange={(event) => setExcercise(event.target.value)}
-            />
-            <Select
-              labelId="Progression"
-              id="Progression-select"
-              style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
-              value={progression}
-              onChange={(event) => setProgression(event.target.value)}
-            >
-              {progressions && progressions.map(progression =>
-                <MenuItem key={progression.id} value={progression.id}>{progression.name}</MenuItem>
-              )}
-            </Select>
-            <Select
-              labelId="AncorDay"
-              id="AncorDay-select"
-              style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
-              value={ancorDay}
-              onChange={(event) => setAncorDay(event.target.value)}
-            >
-              {daysOfTheWeek.map((day) =>
-                <MenuItem key={day} value={day}>{day}</MenuItem>
-              )}
-            </Select>
-          </div>
-        }
-        saveName="Create"
-        submitFunction={() => createProgression(excercise, progression, daysOfTheWeek.indexOf(ancorDay))}
-      /> */}
+  {/* <Modal
+    buttonName="Program Builder"
+    // buttonStyle={{}} TODO
+    modalName="Quick Builder"
+    textBody="Quickly build a program using an excercise and a progression template."
+    textBodyTwo={
+      <div style={{ textAlign: 'center' }} >
+        <TextField
+          label="Excercise"
+          style={{ boder: 5, paddingRight: 5, }}
+          value={excercise}
+          onChange={(event) => setExcercise(event.target.value)}
+        />
+        <Select
+          labelId="Progression"
+          id="Progression-select"
+          style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
+          value={progression}
+          onChange={(event) => setProgression(event.target.value)}
+        >
+          {progressions && progressions.map(progression =>
+            <MenuItem key={progression.id} value={progression.id}>{progression.name}</MenuItem>
+          )}
+        </Select>
+        <Select
+          labelId="AncorDay"
+          id="AncorDay-select"
+          style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
+          value={ancorDay}
+          onChange={(event) => setAncorDay(event.target.value)}
+        >
+          {daysOfTheWeek.map((day) =>
+            <MenuItem key={day} value={day}>{day}</MenuItem>
+          )}
+        </Select>
+      </div>
+    }
+    saveName="Create"
+    submitFunction={() => createProgression(excercise, progression, daysOfTheWeek.indexOf(ancorDay))}
+  /> */}
 
-
-      {/* <SimpleAccordion /> */}
-
-      {/* <Modal
-        buttonName="Create Progression"
-        modalName="Create Progression"
-        textBody="Add you're sets and reps progressions to autobuild you're session progressions."
-        textBodyTwo={
-          <div style={{ textAlign: 'center' }} >
-            <TextField
-              label="Progression Name"
-              style={{ boder: 5, paddingRight: 5, }}
-              onChange={(event) => setName(event.target.value)}
-            />
-            <TextField
-              label="Progression sets and reps"
-              style={{ border: 5, }}
-              onChange={(event) => setProgressions(event.target.value)}
-            />
-          </div>
-        }
-        saveName="Create"
-        submitFunction={() => saveNewProgression(name, progressions.split(','))}
-      /> */}
+  {/* <Modal
+    buttonName="Create Progression"
+    modalName="Create Progression"
+    textBody="Add you're sets and reps progressions to autobuild you're session progressions."
+    textBodyTwo={
+      <div style={{ textAlign: 'center' }} >
+        <TextField
+          label="Progression Name"
+          style={{ boder: 5, paddingRight: 5, }}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <TextField
+          label="Progression sets and reps"
+          style={{ border: 5, }}
+          onChange={(event) => setProgressions(event.target.value)}
+        />
+      </div>
+    }
+    saveName="Create"
+    submitFunction={() => saveNewProgression(name, progressions.split(','))}
+  /> */}
 
   switch(menu) {
     case "Progressions":
