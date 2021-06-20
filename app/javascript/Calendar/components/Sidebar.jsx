@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProgressionTemplate } from '../../redux/reducers/sessionProgressionsSlice';
-import FullPageModal from './components/FullPageModal';
-import ProgressionsTable from './components/ProgressionsTable';
+import { createProgressionTemplate } from 'Calendar/redux/reducers/sessionProgressionsSlice';
+import FullPageModal from 'components/FullPageModal';
+import ProgressionsTable from './ProgressionsTable';
 
 const daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -81,16 +81,25 @@ function Sidebar({ progressions, createProgression, saveNewProgression }) {
     case "Progressions":
     return (
       <React.Fragment>
-        <div className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
           </svg>
           <p>Back to menu</p>
-        </div>
+        </button>
         <br/>
-        {progressions ? progressions.map(progression =>
-          <p className="font-sans text-base" key={progression.name}>{progression.name}<br/></p>) : (<></>)
-        }
+        <h2 className="font-sans text-lg bold">Progressions</h2>
+        {progressions ? progressions.map(progression => <>
+          <p className="font-sans text-base" key={progression.name}>{progression.name}</p><br/>
+        </>) : (<></>)}
+        <p className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setOpen(true)}>Add progression</p>
+        <FullPageModal
+          open={open}
+          setOpen={setOpen}
+          title='Create Progression'
+          body={<ProgressionsTable />}
+          submitText='Create Progression'
+        />
       </React.Fragment>
     )
     default:
@@ -102,14 +111,6 @@ function Sidebar({ progressions, createProgression, saveNewProgression }) {
         <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Sets and Reps</p>
         <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Excercise Libaray</p>
         <p className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("Progressions")}>Progressions</p>
-        {/* onClick={() => setOpen(true)} */}
-        <FullPageModal
-          open={open}
-          setOpen={setOpen}
-          title='Create Progression'
-          body={<ProgressionsTable />}
-          submitText='Create Progression'
-        />
       </React.Fragment>
     )
   }

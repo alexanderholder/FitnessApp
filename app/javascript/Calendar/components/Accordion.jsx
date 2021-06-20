@@ -12,7 +12,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Card from '../../Card'
-import Modal from './Modal'
+import Modal from 'components/Modal'
 import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles((theme) => ({

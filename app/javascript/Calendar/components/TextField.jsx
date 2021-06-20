@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react'
 import { setsRepsSchemeList } from './excercises'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
