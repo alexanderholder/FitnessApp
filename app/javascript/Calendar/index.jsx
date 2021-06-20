@@ -91,7 +91,7 @@ function App(props) {
             />
           </nav>
 
-          <main className='h-screen p-1.5 flex'>
+          <main className='h-screen flex'>
             <aside className='p-3 min-w-min h-screen w-1/12 bg-gray-50 dark:bg-gray-600 dark:text-white'>
               <Sidebar />
             </aside>
