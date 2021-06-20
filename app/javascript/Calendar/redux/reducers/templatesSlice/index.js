@@ -2,6 +2,9 @@ import Request from 'api/request'
 
 export default function appReducer(state = null, action) {
   switch (action.type) {
+    case 'trainingTemplates/hydrateTemplates': {
+      return action.payload
+    }
     case 'trainingTemplates/templateAdded': {
       return [...state, action.payload]
     }

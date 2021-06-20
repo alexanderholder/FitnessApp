@@ -1,177 +1,105 @@
-// @flow
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as Selectors from '../redux/selectors'
-import * as Actions from '../redux/reducers/templatesSlice'
-import { currentTemplateChanged } from '../redux/reducers/usersSlice'
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import DeleteIcon from '@material-ui/icons/Delete'
-import parse from 'autosuggest-highlight/parse'
-import match from 'autosuggest-highlight/match'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogActions from '@material-ui/core/DialogActions'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
+import * as Selectors from 'Calendar/redux/selectors'
+import * as Actions from 'Calendar/redux/reducers/templatesSlice'
+import { currentTemplateChanged } from 'Calendar/redux/reducers/usersSlice'
+import DropSearch from 'components/DropSearch';
+import FullPageModal from 'components/FullPageModal';
 
-const TemplateSearch = props => {
-  const [open, toggleOpen] = useState(false)
-  const [openDelete, toggleOpenDelete] = useState(false)
-  const [dialogValue, setDialogValue] = useState({
-    name: '',
-    length: '',
-  })
+function TemplateSearch(props) {
+  //   props.templateAdded({
+  //     name: dialogValue.name,
+  //     length: parseInt(dialogValue.length, 10),
 
-  const handleClose = () => {
-    setDialogValue({
-      name: '',
-      length: '',
-    })
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [createOpen, setCreateOpen] = useState(false)
+  const [templateValue, setTemplateValue] = useState(props.currentTemplate.name)
 
-    toggleOpen(false)
+  function changeTemplate(name) {
+    const template = props.templates.find((template) => template.name == name)
+    setTemplateValue(name)
+    props.templateChanged(template.id)
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    props.templateAdded({
-      name: dialogValue.name,
-      length: parseInt(dialogValue.length, 10),
-    })
+  function DeleteTemplate() {
+    return(
+      <form onSubmit={null}>
+      {/* () => props.templateRemoved(props.currentTemplate.id, props.templates[0].id)}> */}
 
-    handleClose()
+      </form>
+    )
+  }
+
+  function CreateTemplate() {
+    return (
+      <form onSubmit={null}>
+        <input
+          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+          id="name"
+          label="Name your program"
+          // margin="dense"
+          // onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
+          // required={true}
+          type="text"
+          // value={dialogValue.name}
+        />
+        <input
+          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+          // error={Boolean(Number(dialogValue.length) < 1)}
+          // helperText={Boolean(Number(dialogValue.length) < 1) ? "Weeks must be greater than 0." : null}
+          id="length"
+          label="How many weeks?"
+          // margin="dense"
+          // onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
+          // required={true}
+          type="number"
+          // value={dialogValue.length}
+        />
+      </form>
+    )
   }
 
   return (
     <React.Fragment>
-      <div className="vertical-inline-block">
-        <Autocomplete
-          id="template-list"
-          style={{ width: 300 }}
-          onChange={(event, newValue) => {
-            if (typeof newValue === 'string') {
-              // timeout to avoid instant validation of the dialog's form.
-              setTimeout(() => {
-                toggleOpen(true)
-                setDialogValue({
-                  name: newValue,
-                  length: '',
-                })
-              })
-            } else if (newValue && newValue.inputValue) {
-              toggleOpen(true)
-              setDialogValue({
-                name: newValue.inputValue,
-                length: '',
-              })
-            } else {
-              props.templateChanged(newValue.id)
-            }
-          }}
-          selectOnFocus
-          clearOnBlur
-          handleHomeEndKeys
-          value={props.currentTemplate}
-          options={props.templates}
-          filterOptions={(options, params) => {
-            const filter = createFilterOptions()
-            const filtered = filter(options, params)
-            // Suggest the creation of a new value
-            if (params.inputValue !== '') {
-              filtered.push({
-                inputValue: params.inputValue,
-                name: `Add "${params.inputValue}"`,
-              })
-            }
-            return filtered
-          }}
-          getOptionLabel={(option) => {
-            // Value selected with enter, right from the input
-            if (typeof option === 'string') {
-              return option
-            }
-            // Add "xxx" option created dynamically
-            if (option.inputValue) {
-              return option.inputValue
-            }
-            // Regular option
-            return option.name
-          }}
-          renderInput={(params) => (
-            <TextField {...params} label="Programs" variant="outlined" margin="normal" />
-          )}
-          renderOption={(option, { inputValue }) => {
-            const matches = match(option.name, inputValue)
-            const parts = parse(option.name, matches)
-
-            return (
-              <div>
-                {parts.map((part, index) => (
-                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
-                    {part.text}
-                  </span>
-                ))}
-              </div>
-            )
-          }}
+      <div className={`flex ${props.className}`}>
+        <DropSearch
+          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+          datalist={props.templates.map(template => template.name)}
+          id='template-search'
+          onChange={(e) => changeTemplate(e)}
+          value={templateValue}
         />
-        <Dialog open={open} aria-labelledby="add-template">
-          <form onSubmit={handleSubmit}>
-            <DialogTitle id="add-template">Add a new template</DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
-                id="name"
-                label="Name your program"
-                margin="dense"
-                onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
-                required={true}
-                type="text"
-                value={dialogValue.name}
-              />
-              <TextField
-                error={Boolean(Number(dialogValue.length) < 1)}
-                helperText={Boolean(Number(dialogValue.length) < 1) ? "Weeks must be greater than 0." : null}
-                id="length"
-                label="How many weeks?"
-                margin="dense"
-                onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
-                required={true}
-                type="number"
-                value={dialogValue.length}
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button type="submit" color="primary">
-                Add
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
+        <button className="focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+        {/* <button className="focus:outline-none" onClick={() => setCreateOpen(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </button>
+        <FullPageModal
+          open={createOpen}
+          setOpen={setCreateOpen}
+          title='Create New Program'
+          body={<CreateTemplate />}
+          submitText='Create Program'
+        />
+        <button className="focus:outline-none" onClick={() => setDeleteOpen(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+        </button>
+        <FullPageModal
+          open={deleteOpen}
+          setOpen={setDeleteOpen}
+          title={`Are you sure you want to delete ${props.currentTemplate.name} template?`}
+          submitText='Delete Program'
+        /> */}
       </div>
-      <IconButton onClick={() => toggleOpenDelete(true)}>
-        <DeleteIcon/>
-      </IconButton>
-      <Dialog open={openDelete} onClose={() => toggleOpenDelete(false)} aria-labelledby="confirm-delete">
-          <form onSubmit={() => props.templateRemoved(props.currentTemplate.id, props.templates[0].id)}>
-            <DialogTitle id="confirm-delete">
-              Are you sure you want to delete {props.currentTemplate.name} template?
-            </DialogTitle>
-            <DialogActions>
-              <Button onClick={() => toggleOpenDelete(false)} color="primary">
-                Cancel
-              </Button>
-              <Button type="submit" color="primary">
-                Delete
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
     </React.Fragment>
   )
 }
@@ -181,14 +109,14 @@ TemplateSearch.propTypes = {
   currentTemplate: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   templates: Selectors.getTemplatesByUserId(state, state.user.user_id),
   currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   templateAdded: (template) => dispatch(Actions.saveNewTrainingTemplate(template)),
-  templateChanged: (id) => dispatch(currentTemplateChanged(id)),
+  templateChanged: (name) => dispatch(currentTemplateChanged(name)),
   templateRemoved: (current, next) => dispatch(Actions.deleteTrainingTemplate(current, next)),
 })
 

@@ -37,6 +37,7 @@ export function currentTemplateChanged(id) {
   return async function currentTemplateChanged(dispatch, getState) {
     dispatch({ type: 'user/temaplteChanged', payload: id })
     const response = await Request.get(`/calendar/${id}`)
+    dispatch({ type: 'trainingTemplates/hydrateTemplates', payload: response.data.templates })
     dispatch({ type: 'workouts/hydrateWorkouts', payload: response.data.workouts })
     dispatch({ type: 'blocks/hydrateBlocks', payload: response.data.blocks })
     dispatch({ type: 'excercises/hydrateExcercises', payload: response.data.excercises })

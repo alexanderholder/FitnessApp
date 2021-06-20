@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -6,7 +5,7 @@ import * as Selectors from '../redux/selectors'
 import Day from './Day'
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
-const daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 function Calendar(props) {
   const Week = ({weekNumber, day}) => {
@@ -14,7 +13,7 @@ function Calendar(props) {
     let i
 
     if (day) {
-      const dayNumber = daysOfTheWeek.indexOf(day)
+      const dayNumber = DAYS_OF_THE_WEEK.indexOf(day)
 
       for (i = 0; i < props.templateLength; i++) {
         const workoutDayNumber = dayNumber + 1 + (i * NUMBER_OF_DAYS_IN_WEEK)
@@ -46,7 +45,7 @@ function Calendar(props) {
   const TableRows = () => {
     const rows = []
 
-    if (daysOfTheWeek.includes(props.search)) {
+    if (DAYS_OF_THE_WEEK.includes(props.search)) {
       rows.push(
         <Week
           key={props.search}
@@ -69,7 +68,7 @@ function Calendar(props) {
   }
 
   const TableHeader = () => {
-    if (daysOfTheWeek.includes(props.search)) {
+    if (DAYS_OF_THE_WEEK.includes(props.search)) {
       const headerRow = []
       let i
 
@@ -85,12 +84,12 @@ function Calendar(props) {
       return headerRow
     }
     else {
-      return daysOfTheWeek.map(day => <th key={day} className='header-cell'>{day}</th>)
+      return DAYS_OF_THE_WEEK.map(day => <th key={day} className='header-cell'>{day}</th>)
     }
   }
 
   return (
-    <table className='table-fixed w-full border-collapse'>
+    <table className='table-fixed w-full'>
       <thead>
         <tr>
           <TableHeader />

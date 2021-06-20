@@ -1,25 +1,24 @@
-// @flow
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Calendar from './components/Calendar'
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
-import TemplateSearch from './components/TemplateSearch'
+import Calendar from 'Calendar/components/Calendar'
+import Navbar from 'Calendar/components/Navbar'
+import Sidebar from 'Calendar/components/Sidebar'
+import TemplateSearch from 'Calendar/components/TemplateSearch'
+import ButtonGroup from 'Calendar/components/ButtonGroup'
+import Search from 'components/Search'
 import WindowState from 'windowState'
-import * as Selectors from './redux/selectors'
-import { removeExcercise } from './redux/reducers/excercisesSlice'
-import { removeBlock } from './redux/reducers/blocksSlice'
-import { copyWorkout, removeWorkout } from './redux/reducers/workoutsSlice'
-import { saveNewTrainingTemplate} from './redux/reducers/templatesSlice'
+import * as Selectors from 'Calendar/redux/selectors'
+import { removeExcercise } from 'Calendar/redux/reducers/excercisesSlice'
+import { removeBlock } from 'Calendar/redux/reducers/blocksSlice'
+import { copyWorkout, removeWorkout } from 'Calendar/redux/reducers/workoutsSlice'
+import { saveNewTrainingTemplate} from 'Calendar/redux/reducers/templatesSlice'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import ButtonGroup from './components/ButtonGroup'
-import Search from './components/Search'
 
 const DELETE_KEYCODE = 46
 const BACKSPACE_KEYCODE = 8
@@ -72,41 +71,33 @@ function App(props) {
   if (props.signedIn) {
     if (props.currentTemplate) {
       return (
-        <div className="w-screen dark:bg-gray-800 dark:text-white">
-          <div className='p-3 min-w-min h-screen overflow-hidden w-1/12 inline-block max-w-xs align-top bg-gray-50 dark:bg-gray-600 dark:text-white'>
-            <Sidebar />
-          </div>
+        <div className='dark:bg-gray-800 dark:text-white'>
+          <nav className='h-20 flex sticky top-0 justify-around bg-white shadow'>
+            <h1 className='my-6 text-xl font-mono'>AptusFit</h1>
 
-          <div className='p-3 h-screen w-11/12 inline-block pl-1.5 sticky items-center shadow'>
-            <div className='flex justify-around'>
-              <div className='flex flex-row'>
-                <TemplateSearch />
-              </div>
+            <TemplateSearch className='my-1' />
 
-              <div className='flex flex-row'>
-                <Search
-                  className='w-96'
-                  value={search}
-                  onChange={setSearch}
-                />
-              </div>
+            <Search
+              className='w-96 my-1'
+              value={search}
+              onChange={setSearch}
+            />
 
-              <div className='flex flex-row'>
-                <ButtonGroup
-                  className='mr-4'
-                  inputs={['Session','Block','Excercise']}
-                  selected={props.view}
-                  setSelection={props.changeView}
-                />
-              </div>
+            <ButtonGroup
+              className='mr-4 my-2'
+              inputs={['Session','Block','Excercise']}
+              selected={props.view}
+              setSelection={props.changeView}
+            />
+          </nav>
 
-              <div className='flex flex-row justify-end'>
-                <Navbar />
-              </div>
-            </div>
+          <main className='h-screen p-1.5 flex'>
+            <aside className='p-3 min-w-min h-screen w-1/12 bg-gray-50 dark:bg-gray-600 dark:text-white'>
+              <Sidebar />
+            </aside>
 
             <Calendar search={search} />
-          </div>
+          </main>
         </div>
       )
     } else {

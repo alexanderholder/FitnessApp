@@ -1,4 +1,3 @@
-// @flow
 import { Axios } from "axios"
 
 const addInterceptor = (axios) => axios.interceptors.request.use(
