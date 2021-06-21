@@ -1,84 +1,80 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import WindowState from 'windowState';
 import { createProgressionTemplate } from 'Calendar/redux/reducers/sessionProgressionsSlice';
+import { getFavouriteWorkouts, getFavouriteBlocks } from 'Calendar/redux/selectors';
+import { copyBlock } from 'Calendar/redux/reducers/blocksSlice';
+import { saveNewProgression } from 'Calendar/redux/reducers/sessionProgressionsSlice';
+import DropSearch from 'components/DropSearch';
 import FullPageModal from 'components/FullPageModal';
 import ProgressionsTable from './ProgressionsTable';
+import Card from './Card'
 
-const daysOfTheWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-function Sidebar({ progressions, createProgression, saveNewProgression }) {
+function Sidebar(props) {
   const [excercise, setExcercise] = useState('')
   const [progression, setProgression] = useState('')
   const [ancorDay, setAncorDay] = useState('')
   const [open, setOpen] = useState(false)
+  const [openBuilder, setOpenBuilder] = useState(false)
   const [menu, setMenu] = useState('Home')
 
-  {/* <Modal
-    buttonName="Program Builder"
-    // buttonStyle={{}} TODO
-    modalName="Quick Builder"
-    textBody="Quickly build a program using an excercise and a progression template."
-    textBodyTwo={
-      <div style={{ textAlign: 'center' }} >
-        <TextField
-          label="Excercise"
-          style={{ boder: 5, paddingRight: 5, }}
-          value={excercise}
-          onChange={(event) => setExcercise(event.target.value)}
-        />
-        <Select
-          labelId="Progression"
-          id="Progression-select"
-          style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
-          value={progression}
-          onChange={(event) => setProgression(event.target.value)}
-        >
-          {progressions && progressions.map(progression =>
-            <MenuItem key={progression.id} value={progression.id}>{progression.name}</MenuItem>
-          )}
-        </Select>
-        <Select
-          labelId="AncorDay"
-          id="AncorDay-select"
-          style={{ minWidth: 120, marginTop: 16, marginLeft: 5, }}
-          value={ancorDay}
-          onChange={(event) => setAncorDay(event.target.value)}
-        >
-          {daysOfTheWeek.map((day) =>
-            <MenuItem key={day} value={day}>{day}</MenuItem>
-          )}
-        </Select>
-      </div>
-    }
-    saveName="Create"
-    submitFunction={() => createProgression(excercise, progression, daysOfTheWeek.indexOf(ancorDay))}
-  /> */}
-
-  {/* <Modal
-    buttonName="Create Progression"
-    modalName="Create Progression"
-    textBody="Add you're sets and reps progressions to autobuild you're session progressions."
-    textBodyTwo={
-      <div style={{ textAlign: 'center' }} >
-        <TextField
-          label="Progression Name"
-          style={{ boder: 5, paddingRight: 5, }}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <TextField
-          label="Progression sets and reps"
-          style={{ border: 5, }}
-          onChange={(event) => setProgressions(event.target.value)}
-        />
-      </div>
-    }
-    saveName="Create"
-    submitFunction={() => saveNewProgression(name, progressions.split(','))}
-  /> */}
-
   switch(menu) {
-    case "Progressions":
+    case "favSessions":
+    return (
+      <React.Fragment>
+        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
+          </svg>
+          <p>Back to menu</p>
+        </button>
+        <br/>
+        <h2 className="font-sans text-lg bold">Favourite Sessions</h2>
+        {props.workouts.length > 0 ? (
+          props.workouts.map(workout => (
+            <Card
+              style={{display: 'inline'}}
+              key={workout.id}
+              setIsShown={() => false}
+              templateWorkout={true}
+              workoutId={workout.id}
+            />
+          ))
+        ) : (
+          <p>No Sessions Favourited</p>
+        )}
+      </React.Fragment>
+    )
+    case "favBlocks":
+    return(
+      <React.Fragment>
+        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
+          </svg>
+          <p>Back to menu</p>
+        </button>
+        <br/>
+        <h2 className="font-sans text-lg bold">Favourite Blocks</h2>
+        {props.blocks.length > 0 ? (
+          props.blocks.map(block => (
+            <ul
+              key={block.id}
+              draggable
+              onDragEnd={() => props.copyBlock(block.id)}
+            >
+              {block.name || 'unnamed block'}
+            </ul>
+          ))
+        ) : (
+          <p>No Blocks Favourited</p>
+        )}
+      </React.Fragment>
+    )
+    case "progressions":
     return (
       <React.Fragment>
         <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
@@ -89,16 +85,15 @@ function Sidebar({ progressions, createProgression, saveNewProgression }) {
         </button>
         <br/>
         <h2 className="font-sans text-lg bold">Progressions</h2>
-        {progressions ? progressions.map(progression => <>
-          <p className="font-sans text-base" key={progression.name}>{progression.name}</p><br/>
-        </>) : (<></>)}
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setOpen(true)}>Add progression</p>
+        {props.progressions && props.progressions.map(progression => <ul className="font-sans text-base" key={progression.name}>{progression.name}</ul>)}
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setOpen(true)}>Add progression</ul>
         <FullPageModal
           open={open}
           setOpen={setOpen}
           title='Create Progression'
           body={<ProgressionsTable />}
           submitText='Create Progression'
+          submitFunction={() => props.saveNewProgression(name, [])}
         />
       </React.Fragment>
     )
@@ -106,26 +101,66 @@ function Sidebar({ progressions, createProgression, saveNewProgression }) {
     return (
       <React.Fragment>
         <h2 className="font-sans text-lg bold">Menu</h2>
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Favourite Sessions</p>
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Favourite Blocks</p>
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Sets and Reps</p>
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer">Excercise Libaray</p>
-        <p className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("Progressions")}>Progressions</p>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("favSessions")}>Favourite Sessions</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("favBlocks")}>Favourite Blocks</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer">Sets and Reps</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer">Excercise Libaray</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("progressions")}>Progressions</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setOpenBuilder(true)}>Quick Build</ul>
+        <FullPageModal
+          open={openBuilder}
+          setOpen={setOpenBuilder}
+          title='Program Builder'
+          body={
+            <React.Fragment>
+              <label>Excercise</label>
+              <input
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                value={excercise}
+                onChange={(event) => setExcercise(event.target.value)}
+              />
+              <label>Progression</label>
+              <DropSearch
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                datalist={props.progressions.map(progression => progression.name)}
+                id='progression-search'
+                onChange={(e) => setProgression(e)}
+                onClick={() => setProgression('')}
+                onFocus={() => setProgression('')}
+                onBlur={() => setProgression()}
+                value={progression}
+              />
+              <label>AncorDay</label>
+              <DropSearch
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                datalist={DAYS_OF_THE_WEEK.map(day => day)}
+                id='ancor-day-search'
+                onChange={(e) => setAncorDay(e)}
+                onClick={() => setAncorDay('')}
+                onFocus={() => setAncorDay('')}
+                onBlur={() => setAncorDay()}
+                value={ancorDay}
+              />
+            </React.Fragment>
+          }
+          submitText='Autobuild Program'
+          submitFunction={() => createProgression(excercise, progression, DAYS_OF_THE_WEEK.indexOf(ancorDay))}
+        />
       </React.Fragment>
     )
   }
 }
 
-Sidebar.propTypes = {
-  progressions: PropTypes.array,
-}
-
 const mapStateToProps = (state) => ({
+  progressions: state.sessionProgressions,
+  workouts: getFavouriteWorkouts(state),
+  blocks: getFavouriteBlocks(state),
   progressions: state.sessionProgressions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   createProgression: (excercise, progression, day) => dispatch(createProgressionTemplate(excercise, progression, day)),
+  copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id)),
   saveNewProgression: (name, progressions) => dispatch(saveNewProgression(name, progressions)),
 });
 

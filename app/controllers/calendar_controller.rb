@@ -16,7 +16,7 @@ class CalendarController < ApplicationController
         user_id: current_user.id,
         signed_in: true,
         selected_view: 'Session',
-        selected_template: current_training_template.id
+        selected_template: current_training_template&.id
       },
       templates: current_user.training_templates,
       workouts: current_user.workouts.sort_by(&:day_number),
