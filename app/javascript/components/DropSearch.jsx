@@ -8,6 +8,7 @@ export default function DropSearch(props) {
         className={props.className}
         id={props.id}
         list='options'
+        onBlur={(event) => props.onBlur(event.target.value)}
         onChange={(event) => props.onChange(event.target.value)}
         onClick={(event) => props.onClick(event.target.value)}
         onFocus={(event) => props.onFocus(event.target.value)}

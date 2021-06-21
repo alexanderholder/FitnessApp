@@ -13,11 +13,14 @@ function TemplateSearch(props) {
   const [templateValue, setTemplateValue] = useState(props.currentTemplate.name)
   const [newTemplate, setNewTemplate] = useState('')
   const [newTemplateLength, setNewTemplateLength] = useState(6)
+  const [confirmedTemplate, setConfirmedTemplate] = useState(props.currentTemplate.name)
 
   function changeTemplate(name) {
     const template = props.templates.find((template) => template.name == name)
+
     setTemplateValue(name)
     if (template) {
+      setConfirmedTemplate(name)
       props.templateChanged(template.id)
     }
   }
@@ -55,6 +58,7 @@ function TemplateSearch(props) {
           onChange={(e) => changeTemplate(e)}
           onClick={() => changeTemplate('')} // TODO: I think there is a better way...
           onFocus={() => changeTemplate('')}
+          onBlur={() => changeTemplate(confirmedTemplate)}
           value={templateValue}
         />
 

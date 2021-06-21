@@ -1,4 +1,6 @@
 class CalendarController < ApplicationController
+  skip_after_action :verify_policy_scoped # TODO: remove the funny scoping
+
   def index
     @initial_state = initial_state
 
@@ -19,8 +21,9 @@ class CalendarController < ApplicationController
       templates: current_user.training_templates,
       workouts: current_user.workouts.sort_by(&:day_number),
       blocks: current_user.blocks.sort_by(&:order),
-      excercises: current_user.excercises.sort_by(&:sort_order),
-      sessionProgressions: policy_scope(SessionProgression)
+      excercises: current_user.excercises,
+      sessionProgressions: current_user.session_progressions
+      # progressions: current_user.progressions
     }
   end
 
