@@ -36,7 +36,6 @@ function CardWrapper(props) {
         if (excercise.block_id === block.id) {
           cards.push(
             <Card
-              className="handle" // TODO: is this needed?
               key={excercise.id}
               setIsShown={props.setIsShown}
               excerciseId={excercise.id}
@@ -51,7 +50,6 @@ function CardWrapper(props) {
     return (
       props.blocks.map((block) =>
         <Card
-          className="handle" // TODO: is this needed?
           key={block.id}
           setIsShown={props.setIsShown}
           blockId={block.id}
@@ -64,7 +62,6 @@ function CardWrapper(props) {
     return (
       props.workouts.map(workout =>
         <Card
-          className="handle" // TODO: is this needed?
           key={workout.id}
           setIsShown={props.setIsShown}
           workoutId={workout.id}

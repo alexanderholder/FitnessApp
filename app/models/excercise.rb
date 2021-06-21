@@ -4,6 +4,8 @@ class Excercise < ApplicationRecord
 
   belongs_to :block, inverse_of: :excercises, optional: false
 
+  has_one :user, inverse_of: :excercise
+
   before_validation :confirm_or_create_sort_order
 
   sig { returns(Integer) }

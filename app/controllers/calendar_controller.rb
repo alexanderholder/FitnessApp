@@ -16,10 +16,10 @@ class CalendarController < ApplicationController
         selected_view: 'Session',
         selected_template: current_training_template.id
       },
-      templates: policy_scope(TrainingTemplate),
-      workouts: policy_scope(Workout).sort_by(&:day_number),
-      blocks: policy_scope(Block).sort_by(&:order),
-      excercises: policy_scope(Excercise).sort_by(&:sort_order),
+      templates: current_user.training_templates,
+      workouts: current_user.workouts.sort_by(&:day_number),
+      blocks: current_user.blocks.sort_by(&:order),
+      excercises: current_user.excercises.sort_by(&:sort_order),
       sessionProgressions: policy_scope(SessionProgression)
     }
   end
@@ -31,12 +31,6 @@ class CalendarController < ApplicationController
 
     session[:training_template_id] = training_template.id
 
-    render json: {
-      template: training_template,
-      templates: policy_scope(TrainingTemplate),
-      workouts: policy_scope(Workout).sort_by(&:day_number),
-      blocks: policy_scope(Block).sort_by(&:order),
-      excercises: policy_scope(Excercise).sort_by(&:sort_order)
-    }
+    head 200
   end
 end

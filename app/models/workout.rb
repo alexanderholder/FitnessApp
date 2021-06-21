@@ -4,6 +4,8 @@ class Workout < ApplicationRecord
 
   belongs_to :training_template, inverse_of: :workouts, optional: false
 
+  has_one :user, inverse_of: :workout
+
   has_many :blocks, inverse_of: :workout, dependent: :destroy
 
   validates :name, :presence => true
