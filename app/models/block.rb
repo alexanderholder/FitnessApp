@@ -8,6 +8,8 @@ class Block < ApplicationRecord
 
   belongs_to :workout, inverse_of: :blocks, optional: false
 
+  has_one :user, inverse_of: :block
+
   has_many :excercises, inverse_of: :block, dependent: :destroy
 
   before_validation :confirm_or_create_sort_order
