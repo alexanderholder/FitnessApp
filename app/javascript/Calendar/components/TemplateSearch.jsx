@@ -11,7 +11,7 @@ function TemplateSearch(props) {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
   const [templateValue, setTemplateValue] = useState(props.currentTemplate.name)
-  const [newTemplate, setNewTemplate] = useState('')
+  const [newTemplateName, setNewTemplateName] = useState('')
   const [newTemplateLength, setNewTemplateLength] = useState(6)
   const [confirmedTemplate, setConfirmedTemplate] = useState(props.currentTemplate.name)
 
@@ -25,27 +25,17 @@ function TemplateSearch(props) {
     }
   }
 
-  function CreateTemplate() {
-    return (
-      <form>
-        <label>Name your program</label>
-        <input
-          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
-          id="name"
-          onChange={(event) => setNewTemplate(event.target.value)}
-          type="text"
-          value={newTemplate}
-        />
-        <label>How many weeks?</label>
-        <input
-          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
-          id="length"
-          onChange={(event) => setNewTemplateLength(event.target.value)}
-          type="number"
-          value={newTemplateLength}
-        />
-      </form>
-    )
+  function removeTemplate() {
+    changeTemplate(props.templates[0].name)
+    props.templateRemoved(props.currentTemplate.id, props.templates[0].id)
+  }
+
+  function createTemplate() {
+    props.templateAdded({
+      name: newTemplateName,
+      length: parseInt(newTemplateLength, 10),
+    })
+    changeTemplate(newTemplateName)
   }
 
   return (
@@ -71,14 +61,28 @@ function TemplateSearch(props) {
           open={createOpen}
           setOpen={setCreateOpen}
           title='Create New Program'
-          body={<CreateTemplate />}
-          submitText='Create Program'
-          submitFunction={() =>
-            props.templateAdded({
-              name: newTemplate,
-              length: parseInt(newTemplateLength, 10),
-            })
+          body={
+            <form>
+              <label>Name your program</label>
+              <input
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                id="name"
+                onChange={(event) => setNewTemplateName(event.target.value)}
+                type="text"
+                value={newTemplateName}
+              />
+              <label>How many weeks?</label>
+              <input
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                id="length"
+                onChange={(event) => setNewTemplateLength(event.target.value)}
+                type="number"
+                value={newTemplateLength}
+              />
+            </form>
           }
+          submitText='Create Program'
+          submitFunction={() => createTemplate()}
         />
 
         <button className="focus:outline-none" onClick={() => setDeleteOpen(true)}>
@@ -91,7 +95,7 @@ function TemplateSearch(props) {
           setOpen={setDeleteOpen}
           title={`Are you sure you want to delete ${props.currentTemplate.name} template?`}
           submitText='Delete Program'
-          submitFunction={() => props.templateRemoved(props.currentTemplate.id, props.templates[0].id)}
+          submitFunction={() => removeTemplate()}
         />
       </div>
     </React.Fragment>
