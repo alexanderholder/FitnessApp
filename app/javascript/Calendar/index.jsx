@@ -5,7 +5,8 @@ import Calendar from 'Calendar/components/Calendar'
 import Navbar from 'Calendar/components/Navbar'
 import Sidebar from 'Calendar/components/Sidebar'
 import TemplateSearch from 'Calendar/components/TemplateSearch'
-import ButtonGroup from 'Calendar/components/ButtonGroup'
+import ButtonGroup from 'components/ButtonGroup'
+import FullPageModal from 'components/FullPageModal'
 import Search from 'components/Search'
 import WindowState from 'windowState'
 import * as Selectors from 'Calendar/redux/selectors'
@@ -13,30 +14,14 @@ import { removeExcercise } from 'Calendar/redux/reducers/excercisesSlice'
 import { removeBlock } from 'Calendar/redux/reducers/blocksSlice'
 import { copyWorkout, removeWorkout } from 'Calendar/redux/reducers/workoutsSlice'
 import { saveNewTrainingTemplate} from 'Calendar/redux/reducers/templatesSlice'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogActions from '@material-ui/core/DialogActions'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 
 const DELETE_KEYCODE = 46
 const BACKSPACE_KEYCODE = 8
 
 function App(props) {
+  const [newTemplateName, setNewTemplateName] = React.useState('')
+  const [newTemplateLength, setNewTemplateLength] = React.useState(6)
   const [search, setSearch] = React.useState('')
-  const [dialogValue, setDialogValue] = React.useState({
-    name: '',
-    length: '',
-  })
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    props.templateAdded({
-      name: dialogValue.name,
-      length: parseInt(dialogValue.length, 10),
-    })
-  }
 
   const handleUserKeyPress = (e) => {
     if (e.keyCode === DELETE_KEYCODE || e.keyCode === BACKSPACE_KEYCODE) {
@@ -102,43 +87,36 @@ function App(props) {
       )
     } else {
       return (
-        <Dialog
-          aria-labelledby="add-template"
-          fullWidth={true}
+        <FullPageModal
           open={true}
-        >
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <DialogTitle id="add-template">Create your first training program!</DialogTitle>
-            <DialogContent>
-              <TextField
-                autoFocus
+          setOpen={() => false}
+          title='Create your first training program'
+          body={
+            <form>
+              <label>Name your program</label>
+              <input
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
                 id="name"
-                label="Name your program"
-                onChange={(event) => setDialogValue({ ...dialogValue, name: event.target.value })}
-                required={true}
-                style={{ margin: '5px'}}
+                onChange={(event) => setNewTemplateName(event.target.value)}
                 type="text"
-                value={dialogValue.name}
+                value={newTemplateName}
               />
-              <TextField
-                error={Boolean(Number(dialogValue.length) < 1)}
-                helperText={Boolean(Number(dialogValue.length) < 1) ? "Weeks must be greater than 0." : null}
+              <label>How many weeks?</label>
+              <input
+                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
                 id="length"
-                label="How many weeks?"
-                onChange={(event) => setDialogValue({ ...dialogValue, length: event.target.value })}
-                required={true}
-                style={{ margin: '5px'}}
+                onChange={(event) => setNewTemplateLength(event.target.value)}
                 type="number"
-                value={dialogValue.length}
+                value={newTemplateLength}
               />
-            </DialogContent>
-            <DialogActions>
-              <Button type="submit" color="primary">
-                Get started
-              </Button>
-            </DialogActions>
-          </form>
-        </Dialog>
+            </form>
+          }
+          submitText='Get started'
+          submitFunction={() => props.templateAdded({
+            name: newTemplateName,
+            length: parseInt(newTemplateLength, 10),
+          })}
+        />
       )
     }
   } else {
