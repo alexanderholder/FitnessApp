@@ -1,24 +1,16 @@
-// @flow
 import React, { useState, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { connect }  from 'react-redux'
 import { SortableContainer, SortableElement } from "react-sortable-hoc"
 import arrayMove from 'array-move'
 import { sortBy } from "lodash"
-import * as Selectors from '../redux/selectors'
+import * as Selectors from 'Calendar/redux/selectors'
+import { updateWorkout, removeWorkout } from 'Calendar/redux/reducers/workoutsSlice'
+import { saveNewBlock, updateBlock } from 'Calendar/redux/reducers/blocksSlice'
 import BlockWrapper from './BlockForm'
-import { updateWorkout, removeWorkout } from '../redux/reducers/workoutsSlice'
-import { saveNewBlock, updateBlock } from '../redux/reducers/blocksSlice'
-import Close from '@material-ui/icons/Close'
-import Delete from '@material-ui/icons/Delete'
-import Favorite from '@material-ui/icons/Favorite'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
-import Tooltip from '@material-ui/core/Tooltip'
-import TextField from '@material-ui/core/TextField'
-import IconButton from '@material-ui/core/IconButton'
 import ExcerciseDetails from './ExcerciseDetails'
 
-const SortableItem = SortableElement(({block, workoutId, setShowExcerciseDetails}) => (
+const SortableItem = SortableElement(({ block, workoutId, setShowExcerciseDetails }) => (
   <BlockWrapper
     blockId={block.id}
     key={block.id}
@@ -27,11 +19,11 @@ const SortableItem = SortableElement(({block, workoutId, setShowExcerciseDetails
   />
 ))
 
-const SortableList = SortableContainer(({blocks, workoutId, setShowExcerciseDetails}) => {
+const SortableList = SortableContainer(({ blocks, workoutId, setShowExcerciseDetails }) => {
   const collection = useMemo(() => sortBy(blocks, b => b.order))
 
   return (
-    <div className='grabbable'>
+    <div className='cursor-move'>
       {collection.map((block, index) => (
         <SortableItem
           collection={collection}
@@ -71,58 +63,66 @@ function WorkoutForm(props) {
 
   return (
     <div
-      ref={props.ref}
-      class="p-2 mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block"
+      class="p-2 mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block dark:bg-gray-600 dark:text-gray-200"
+      ref={props.wrapperRef}
     >
       <div
-        ref={props.ref}
+        ref={props.wrapperRef}
         onMouseEnter={() => props.view === 'Session' && setMenuShown(true)}
         onMouseLeave={() => props.view === 'Session' && setMenuShown(false)}
       >
-       {props.view === 'Session' && <TextField
-          autoFocus={true}
-          id="workout-name"
-          label="Session Name"
-          onChange={handleChange}
-          onFocus={e => e.target.select()}
-          value={workoutName}
-          width="300"
-        />}
+        {props.view === 'Session' &&
+          <input
+            autoFocus
+            className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
+            id="session-name"
+            type="text"
+            placeholder="Session Name"
+            value={workoutName}
+            onChange={handleChange}
+          />
+        }
         {(menuShown || (workoutName && props.blocks.length === 0)) && (
-          <Tooltip title="Delete workout">
-            <IconButton onClick={props.deleteWorkout}>
-              <Delete />
-            </IconButton>
-          </Tooltip>
+          <button onClick={props.deleteWorkout}>
+            {/* delete */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
         )}
         {(menuShown || (workoutName && props.blocks.length === 0)) && (
           favourite ? (
-            <Tooltip title="Remove session from side bar">
-              <IconButton onClick={handleFavourite}>
-                <Favorite />
-              </IconButton>
-            </Tooltip>
+            <button onClick={handleFavourite}>
+              {/* full heart */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+            </button>
           ) : (
-            <Tooltip title="Add session to side bar">
-              <IconButton onClick={handleFavourite}>
-                <FavoriteBorder />
-              </IconButton>
-            </Tooltip>
+            <button onClick={handleFavourite}>
+              {/* hollow heart */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </button>
           )
         )}
-        { props.view === 'Session' && <Tooltip title="Close window">
-          <IconButton
+        { props.view === 'Session' &&
+          <button
+            className='float-right mr-1.5'
             onClick={() => props.setAnchorEl(null)}
-            style={{ float: 'right', marginRight: '5px' }}
           >
-            <Close />
-          </IconButton>
-        </Tooltip>}
+            {/* close */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        }
       </div>
       <div>
         <div
+          className='mt-3 inline-block'
           id='workout-wrapper'
-          style={{ paddingTop: '10px', display: 'inline-block' }}
         >
           <SortableList
             blocks={props.blocks}
@@ -140,7 +140,7 @@ function WorkoutForm(props) {
         )}
       </div>
       <div
-        className="hyperlink-button"
+        className="cursor-pointer"
         onClick={props.addBlock}
       >
         { props.view != 'Excercise' && "+ Add Block" }
@@ -150,23 +150,23 @@ function WorkoutForm(props) {
 }
 
 WorkoutForm.propTypes = {
-  workoutId: PropTypes.number.isRequired,
-  workout: PropTypes.object.isRequired,
   blocks: PropTypes.array.isRequired,
   setAnchorEl: PropTypes.func.isRequired,
+  workout: PropTypes.object.isRequired,
+  workoutId: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  workout: Selectors.getWorkoutById(state, ownProps.workoutId),
   blocks: Selectors.getBlocksByWorkoutId(state, ownProps.workoutId),
   view: state.user.selected_view,
+  workout: Selectors.getWorkoutById(state, ownProps.workoutId),
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload)),
   addBlock: () => dispatch(saveNewBlock({ workout_id: ownProps.workoutId, })),
   deleteWorkout: () => dispatch(removeWorkout(ownProps.workoutId)),
   updateBlock: (id, payload) => dispatch(updateBlock(id, payload)),
+  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutForm)

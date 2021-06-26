@@ -74,9 +74,10 @@ function Calendar(props) {
 
       for (i = 0; i < props.templateLength; i++) {
         headerRow.push(
-        <th
-          key={`${props.search} ${i}`}
-          className='header-cell'>
+          <th
+            key={`${props.search} ${i}`}
+            className='text-center border-l border-r text-sm dark:text-gray-200'
+          >
             {props.search}
           </th>
         )
@@ -84,12 +85,12 @@ function Calendar(props) {
       return headerRow
     }
     else {
-      return DAYS_OF_THE_WEEK.map(day => <th key={day} className='header-cell'>{day}</th>)
+      return DAYS_OF_THE_WEEK.map(day => <th key={day} className='text-center border-l border-r text-sm dark:text-gray-200'>{day}</th>)
     }
   }
 
   return (
-    <table className='table-fixed w-full'>
+    <table className={`table-fixed w-full ${props.className}`}>
       <thead>
         <tr>
           <TableHeader />

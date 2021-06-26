@@ -42,7 +42,7 @@ function TemplateSearch(props) {
     <React.Fragment>
       <div className={`flex ${props.className}`}>
         <DropSearch
-          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400'
           datalist={props.templates.map(template => template.name)}
           id='template-search'
           onChange={(e) => changeTemplate(e)}
