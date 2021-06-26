@@ -100,13 +100,13 @@ function Sidebar(props) {
     default:
     return (
       <React.Fragment>
-        <h2 className="font-sans text-lg bold">Menu</h2>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("favSessions")}>Favourite Sessions</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("favBlocks")}>Favourite Blocks</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer">Sets and Reps</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer">Excercise Libaray</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setMenu("progressions")}>Progressions</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer" onClick={() => setOpenBuilder(true)}>Quick Build</ul>
+        <h2 className="font-sans text-lg bold dark:text-gray-200">Menu</h2>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favSessions")}>Favourite Sessions</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favBlocks")}>Favourite Blocks</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200">Sets and Reps</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200">Excercise Libaray</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("progressions")}>Progressions</ul>
+        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setOpenBuilder(true)}>Quick Build</ul>
         <FullPageModal
           open={openBuilder}
           setOpen={setOpenBuilder}

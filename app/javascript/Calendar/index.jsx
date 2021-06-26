@@ -56,9 +56,9 @@ function App(props) {
   if (props.signedIn) {
     if (props.currentTemplate) {
       return (
-        <div className='dark:bg-gray-800 dark:text-white'>
-          <nav className='h-20 flex sticky top-0 justify-around bg-white shadow'>
-            <h1 className='my-6 text-xl font-mono'>AptusFit</h1>
+        <div className='dark:bg-gray-800 dark:text-gray-200'>
+          <nav className='h-20 flex sticky top-0 justify-around bg-white shadow dark:bg-gray-800'>
+            <h1 className='my-6 text-xl font-mono dark:text-gray-200'>AptusFit</h1>
 
             <TemplateSearch className='my-1' />
 
@@ -69,7 +69,7 @@ function App(props) {
             />
 
             <ButtonGroup
-              className='mr-4 my-2'
+              className='mr-4 my-2 dark:bg-gray-200'
               inputs={['Session','Block','Excercise']}
               selected={props.view}
               setSelection={props.changeView}
@@ -77,11 +77,11 @@ function App(props) {
           </nav>
 
           <main className='h-screen flex'>
-            <aside className='p-3 min-w-min h-screen w-1/12 bg-gray-50 dark:bg-gray-600 dark:text-white'>
+            <aside className='p-3 min-w-min h-screen w-1/12 bg-gray-50 dark:bg-gray-700 dark:text-white'>
               <Sidebar />
             </aside>
 
-            <Calendar search={search} />
+            <Calendar search={search} className='dark:bg-gray-700 dark:text-white' />
           </main>
         </div>
       )

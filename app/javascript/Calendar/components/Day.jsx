@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { saveNewWorkout } from '../redux/reducers/workoutsSlice'
 import WindowState from 'windowState'
-import * as Selectors from '../redux/selectors'
+import { saveNewWorkout } from 'Calendar/redux/reducers/workoutsSlice'
+import * as Selectors from 'Calendar/redux/selectors'
 import Card from './Card'
 
 function CardWrapper(props) {
-  const wrapperRef = React.useRef(null);
   const [isShown, setIsShown] = useState(false)
 
   const handleClick = () => {
@@ -16,7 +15,7 @@ function CardWrapper(props) {
 
   React.useEffect(() => {
     function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      if (props.wrapperRef.current && !props.wrapperRef.current.contains(event.target)) {
         setIsShown(false)
       }
     }
@@ -25,7 +24,7 @@ function CardWrapper(props) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [wrapperRef])
+  }, [props.wrapperRef])
 
   if (props.workouts.length === 0) { return [] }
   else if (props.view === 'Excercise') {
@@ -40,6 +39,7 @@ function CardWrapper(props) {
               setIsShown={props.setIsShown}
               excerciseId={excercise.id}
               workoutId={block.workout_id}
+              wrapperRef={props.wrapperRef}
             />
           )
         }
@@ -54,6 +54,7 @@ function CardWrapper(props) {
           setIsShown={props.setIsShown}
           blockId={block.id}
           workoutId={block.workout_id}
+          wrapperRef={props.wrapperRef}
         />
       )
     )
@@ -65,6 +66,7 @@ function CardWrapper(props) {
           key={workout.id}
           setIsShown={props.setIsShown}
           workoutId={workout.id}
+          wrapperRef={props.wrapperRef}
         />
       )
     )
@@ -78,31 +80,31 @@ function CardWrapper(props) {
             key={workout.id}
             setIsShown={props.setIsShown}
             workoutId={workout.id}
+            wrapperRef={props.wrapperRef}
           />
         )
       }
     })
     if (props.workouts.length > 5) {
       output.push(
-        <>
-          <div onClick={handleClick}>
+        <React.Fragment>
+          <div className='dark:text-gray-200' onClick={handleClick}>
             {`${props.workouts.length - 5} more`}
           </div>
           {isShown && (
-            <div ref={wrapperRef} class="p-1 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 fixed">
-              <div class="text-xl font-medium text-black">
-                {props.workouts.map((workout, index) =>
-                  <Card
-                    ref={wrapperRef}
-                    key={workout.id}
-                    setIsShown={props.setIsShown}
-                    workoutId={workout.id}
-                  />
-                )}
-              </div>
+            <div ref={props.wrapperRef} class="w-40 p-1 text-xl font-medium text-black max-w-sm mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed dark:bg-gray-600 dark:text-gray-200">
+              {props.workouts.map((workout, index) =>
+                <Card
+                  ref={props.wrapperRef}
+                  key={workout.id}
+                  setIsShown={props.setIsShown}
+                  workoutId={workout.id}
+                  wrapperRef={props.wrapperRef}
+                />
+              )}
             </div>
           )}
-        </>
+        </React.Fragment>
       )
     }
     return output
@@ -110,6 +112,7 @@ function CardWrapper(props) {
 }
 
 function Day(props) {
+  const wrapperRef = React.useRef(props.dayNumber);
   const [isShown, setIsShown] = useState(false)
   const [dragOverIsShown, setDragOverIsShown] = useState(false)
 
@@ -130,8 +133,9 @@ function Day(props) {
 
   const handleMouseEnter = () => {
     WindowState.hovered_day = props.dayNumber
-    if (props.view === 'Session' && props.workouts.length < 6) {
-      // TODO || props.blocks.length < 6 || props.excercises.length < 6)
+    if ((props.view === 'Session' && props.workouts.length < 6) ||
+        (props.view === 'Block' && props.blocks.length < 6) ||
+        (props.view === 'Excercise' && props.excercises.length < 6)) {
       setIsShown(true)
     }
   }
@@ -143,7 +147,7 @@ function Day(props) {
 
   return (
     <td
-      className="cell"
+      className="h-40 text-xs text-center align-top border border-t-0 dark:text-gray-200"
       key={props.dayNumber}
       onDragEnter={handleDragEnter}
       onDragLeave={() => setDragOverIsShown(false)}
@@ -154,16 +158,17 @@ function Day(props) {
     >
       { props.dayNumber }
       <CardWrapper
-        workouts={props.workouts}
         blocks={props.blocks}
         excercises={props.excercises}
         key={props.dayNumber}
         setIsShown={setIsShown}
         view={props.view}
+        wrapperRef={wrapperRef}
+        workouts={props.workouts}
       />
       { dragOverIsShown && (
         <div
-          className='workout-element-outline'
+          className='h-5 border'
           onDrop={() => setDragOverIsShown(false)}
           onDragLeave={() => setDragOverIsShown(false)}
           onDragEnter={handleDragEnter}
@@ -171,7 +176,7 @@ function Day(props) {
       )}
       { isShown && (
         <div
-          className="hyperlink-button"
+          className="cursor-pointer dark:text-gray-200"
           onClick={handleClick}
         >
           { `+ New ${props.view}` }
