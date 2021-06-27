@@ -63,11 +63,10 @@ function WorkoutForm(props) {
 
   return (
     <div
-      class="p-2 mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block dark:bg-gray-600 dark:text-gray-200"
-      ref={props.wrapperRef}
+      className="p-2 mx-auto text-left bg-white rounded-xl shadow-md space-x-4 fixed inline-block dark:bg-gray-600 dark:text-gray-200"
     >
       <div
-        ref={props.wrapperRef}
+        className='flex'
         onMouseEnter={() => props.view === "Session" && setMenuShown(true)}
         onMouseLeave={() => props.view === "Session" && setMenuShown(false)}
       >
@@ -85,7 +84,7 @@ function WorkoutForm(props) {
         {(menuShown || (workoutName && props.blocks.length === 0)) && (
           <button onClick={props.deleteWorkout}>
             {/* delete */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
           </button>
@@ -94,14 +93,14 @@ function WorkoutForm(props) {
           favourite ? (
             <button onClick={handleFavourite}>
               {/* full heart */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" viewBox="0 0 24 24" fill="currentColor">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
               </svg>
             </button>
           ) : (
             <button onClick={handleFavourite}>
               {/* hollow heart */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </button>
@@ -109,11 +108,11 @@ function WorkoutForm(props) {
         )}
         { props.view === "Session" &&
           <button
-            className="float-right mr-1.5"
+            className="justify-self-end mr-1.5"
             onClick={() => props.setAnchorEl(null)}
           >
             {/* close */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -140,7 +139,7 @@ function WorkoutForm(props) {
         )}
       </div>
       <div
-        className="cursor-pointer"
+        className="cursor-pointer dark:text-gray-200"
         onClick={props.addBlock}
       >
         { props.view != "Excercise" && "+ Add Block" }
