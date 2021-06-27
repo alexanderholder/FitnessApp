@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import WindowState from 'windowState'
-import { saveNewWorkout } from 'Calendar/redux/reducers/workoutsSlice'
-import * as Selectors from 'Calendar/redux/selectors'
-import Card from './Card'
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import WindowState from "windowState"
+import { saveNewWorkout } from "Calendar/redux/reducers/workoutsSlice"
+import * as Selectors from "Calendar/redux/selectors"
+import Card from "./Card"
 
 function CardWrapper(props) {
   const [isShown, setIsShown] = useState(false)
@@ -27,7 +27,7 @@ function CardWrapper(props) {
   }, [props.wrapperRef])
 
   if (props.workouts.length === 0) { return [] }
-  else if (props.view === 'Excercise') {
+  else if (props.view === "Excercise") {
     let cards = []
 
     props.blocks.map((block) =>
@@ -46,7 +46,7 @@ function CardWrapper(props) {
       })
     )
     return cards
-  } else if (props.view === 'Block') {
+  } else if (props.view === "Block") {
     return (
       props.blocks.map((block) =>
         <Card
@@ -88,7 +88,7 @@ function CardWrapper(props) {
     if (props.workouts.length > 5) {
       output.push(
         <React.Fragment>
-          <div className='dark:text-gray-200' onClick={handleClick}>
+          <div className="dark:text-gray-200" onClick={handleClick}>
             {`${props.workouts.length - 5} more`}
           </div>
           {isShown && (
@@ -133,9 +133,9 @@ function Day(props) {
 
   const handleMouseEnter = () => {
     WindowState.hovered_day = props.dayNumber
-    if ((props.view === 'Session' && props.workouts.length < 6) ||
-        (props.view === 'Block' && props.blocks.length < 6) ||
-        (props.view === 'Excercise' && props.excercises.length < 6)) {
+    if ((props.view === "Session" && props.workouts.length < 6) ||
+        (props.view === "Block" && props.blocks.length < 6) ||
+        (props.view === "Excercise" && props.excercises.length < 6)) {
       setIsShown(true)
     }
   }
@@ -168,7 +168,7 @@ function Day(props) {
       />
       { dragOverIsShown && (
         <div
-          className='h-5 border'
+          className="h-5 border"
           onDrop={() => setDragOverIsShown(false)}
           onDragLeave={() => setDragOverIsShown(false)}
           onDragEnter={handleDragEnter}

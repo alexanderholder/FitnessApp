@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function ProgressionsTable(props) {
   function Rows() {
@@ -6,11 +6,11 @@ export default function ProgressionsTable(props) {
 
     for (let i = 0; i < 4; i++) {
       rows.push(
-        <tr className='w-16'>
-          <td><input className='border' /></td>
-          <td><input className='border' /></td>
-          <td><input className='border' /></td>
-          <td><input className='border' /></td>
+        <tr className="w-16">
+          <td><input className="border" /></td>
+          <td><input className="border" /></td>
+          <td><input className="border" /></td>
+          <td><input className="border" /></td>
         </tr>
       )
     }
@@ -23,7 +23,7 @@ export default function ProgressionsTable(props) {
 
     for (let i = 0; i < 4; i++) {
       tables.push(
-        <table className='text-center inline-block m-2'>
+        <table className="text-center inline-block m-2">
           {`Week ${i + 1}`}
           <tr className="grid grid-cols-4 gap-4">
             <th>Reps</th>
@@ -41,7 +41,7 @@ export default function ProgressionsTable(props) {
 
   return (
     <React.Fragment>
-      <input placeholder='Strength A' label='Progression Name' className='border' /><br/>
+      <input placeholder="Strength A" label="Progression Name" className="border" /><br/>
       <Tables />
     </React.Fragment>
   )

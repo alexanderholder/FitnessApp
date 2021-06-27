@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect }  from 'react-redux'
-import { updateExcercise, removeExcercise } from 'Calendar/redux/reducers/excercisesSlice'
-import * as Selectors from 'Calendar/redux/selectors'
-import ButtonGroup from 'components/ButtonGroup'
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { connect }  from "react-redux"
+import { updateExcercise, removeExcercise } from "Calendar/redux/reducers/excercisesSlice"
+import * as Selectors from "Calendar/redux/selectors"
+import ButtonGroup from "components/ButtonGroup"
 
 function ExcerciseDetails(props) {
   const [measurement, setMeasurement] = useState(props.excercise.measurement_value)
   const [weight, setWeight] = useState(props.excercise.weight_value)
-  const [weightMetric, setWeightMetric] = React.useState('KG')
+  const [weightMetric, setWeightMetric] = React.useState("KG")
 
   return (
     <React.Fragment
@@ -27,7 +27,7 @@ function ExcerciseDetails(props) {
           </svg>
         </button>
         <button
-          className='float-right'
+          className="float-right"
           onClick={() => props.setShowExcerciseDetails(null)}
         >
           {/* close */}
@@ -37,8 +37,8 @@ function ExcerciseDetails(props) {
         </button>
       </div>
       <input
-        key='weight-text-box'
-        label='Weight'
+        key="weight-text-box"
+        label="Weight"
         margin="dense"
         type="text"
         onChange={e => {
@@ -48,14 +48,14 @@ function ExcerciseDetails(props) {
         value={weight}
       />
       <ButtonGroup
-        className='mr-4 my-2 dark:bg-gray-200'
-        inputs={['KG','LB']}
+        className="mr-4 my-2 dark:bg-gray-200"
+        inputs={["KG","LB"]}
         selected={props.weightMetric}
         setSelection={props.setWeightMetric}
       />
       <input
-        key='measurement-text-box'
-        label='Sets & Reps'
+        key="measurement-text-box"
+        label="Sets & Reps"
         margin="dense"
         type="text"
         onChange={e => {

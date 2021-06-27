@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import React, { Fragment } from "react"
+import { Disclosure, Menu, Transition } from "@headlessui/react"
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
-const profile = ['Your Profile', 'Settings', 'Sign out']
+const navigation = ["Dashboard", "Team", "Projects", "Calendar", "Reports"]
+const profile = ["Your Profile", "Settings", "Sign out"]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ")
 }
 
 export default function Navigation() {
@@ -89,8 +89,8 @@ export default function Navigation() {
                                     <a
                                       href="#"
                                       className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
+                                        active ? "bg-gray-100" : "",
+                                        "block px-4 py-2 text-sm text-gray-700"
                                       )}
                                     >
                                       {item}

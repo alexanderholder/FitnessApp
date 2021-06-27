@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import * as Selectors from 'Calendar/redux/selectors'
-import * as Actions from 'Calendar/redux/reducers/templatesSlice'
-import { currentTemplateChanged } from 'Calendar/redux/reducers/usersSlice'
-import DropSearch from 'components/DropSearch';
-import FullPageModal from 'components/FullPageModal';
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import * as Selectors from "Calendar/redux/selectors"
+import * as Actions from "Calendar/redux/reducers/templatesSlice"
+import { currentTemplateChanged } from "Calendar/redux/reducers/usersSlice"
+import DropSearch from "components/DropSearch";
+import FullPageModal from "components/FullPageModal";
 
 function TemplateSearch(props) {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
   const [templateValue, setTemplateValue] = useState(props.currentTemplate.name)
-  const [newTemplateName, setNewTemplateName] = useState('')
+  const [newTemplateName, setNewTemplateName] = useState("")
   const [newTemplateLength, setNewTemplateLength] = useState(6)
   const [confirmedTemplate, setConfirmedTemplate] = useState(props.currentTemplate.name)
 
@@ -42,12 +42,12 @@ function TemplateSearch(props) {
     <React.Fragment>
       <div className={`flex ${props.className}`}>
         <DropSearch
-          className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400'
+          className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
           datalist={props.templates.map(template => template.name)}
-          id='template-search'
+          id="template-search"
           onChange={(e) => changeTemplate(e)}
-          onClick={() => changeTemplate('')} // TODO: I think there is a better way...
-          onFocus={() => changeTemplate('')}
+          onClick={() => changeTemplate("")} // TODO: I think there is a better way...
+          onFocus={() => changeTemplate("")}
           onBlur={() => changeTemplate(confirmedTemplate)}
           value={templateValue}
         />
@@ -60,12 +60,12 @@ function TemplateSearch(props) {
         <FullPageModal
           open={createOpen}
           setOpen={setCreateOpen}
-          title='Create New Program'
+          title="Create New Program"
           body={
             <form>
               <label>Name your program</label>
               <input
-                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                 id="name"
                 onChange={(event) => setNewTemplateName(event.target.value)}
                 type="text"
@@ -73,7 +73,7 @@ function TemplateSearch(props) {
               />
               <label>How many weeks?</label>
               <input
-                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                 id="length"
                 onChange={(event) => setNewTemplateLength(event.target.value)}
                 type="number"
@@ -81,7 +81,7 @@ function TemplateSearch(props) {
               />
             </form>
           }
-          submitText='Create Program'
+          submitText="Create Program"
           submitFunction={() => createTemplate()}
         />
 
@@ -94,7 +94,7 @@ function TemplateSearch(props) {
           open={deleteOpen}
           setOpen={setDeleteOpen}
           title={`Are you sure you want to delete ${props.currentTemplate.name} template?`}
-          submitText='Delete Program'
+          submitText="Delete Program"
           submitFunction={() => removeTemplate()}
         />
       </div>
