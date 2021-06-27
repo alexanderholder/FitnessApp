@@ -62,31 +62,27 @@ function BlockForm(props) {
       onMouseEnter={() => props.view != "Excercise" && setShowMenuIcons(true)}
       onMouseLeave={() => props.view != "Excercise" && setShowMenuIcons(false)}
     >
-      <div className="m-1 px-3">
+      <div className="m-1 px-3 flex">
         { props.view != "Excercise" && (showBlockDetails ? (
           <React.Fragment>
             <input
-              autoFocus={true}
-              label="Block Name"
+              autoFocus
+              className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
+              // label="Block Name"
               onChange={(e) => {
                 setName(e.target.value)
                 props.updateBlock({ name: e.target.value })
               }}
-              size="small"
               value={name}
-              width="50"
-              style={{ paddingBottom: "5px"}}
             />
             <input
-              label="Block Rounds"
+              // label="Block Rounds"
+              className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
               onChange={e => {
                 setRounds(e.target.value)
                 props.updateBlock({ sets: e.target.value })
               }}
-              size="small"
               value={rounds}
-              width="50"
-              style={{ paddingBottom: "5px"}}
             />
           </React.Fragment>
         ) : (
@@ -110,9 +106,10 @@ function BlockForm(props) {
         { showMenuIcons && (
           <button
             onClick={props.deleteBlock}
-            size={showBlockDetails ? "medium" : "small"}
+            size={showBlockDetails ? "medium" : "small"} // TODO
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {/* Trash */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
           </button>
@@ -123,7 +120,8 @@ function BlockForm(props) {
               onClick={() => handleFavourite(false)}
               size={showBlockDetails ? "medium" : "small"}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              {/* Full Heart */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" viewBox="0 0 24 24" fill="currentColor">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
               </svg>
             </button>
@@ -132,7 +130,8 @@ function BlockForm(props) {
               size={showBlockDetails ? "medium" : "small"}
               onClick={() => handleFavourite(true)}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {/* Empty Heart */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </button>
@@ -147,7 +146,7 @@ function BlockForm(props) {
         setShowExcerciseDetails={props.setShowExcerciseDetails}
       />
       <div
-        className="cursor-pointer"
+        className="cursor-pointer dark:text-gray-200"
         onClick={props.addExcercise}
       >
         + Add Excercise

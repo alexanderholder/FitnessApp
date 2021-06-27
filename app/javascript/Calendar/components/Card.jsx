@@ -53,7 +53,7 @@ function Card(props) {
   return (
     <React.Fragment>
       <div
-        className="text-center h-5 w-full bg-gray-300 rounded text-white cursor-pointer border-b border-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 transition duration-300 ease-in-out"
+        className="h-5 w-full bg-gray-300 rounded text-white cursor-pointer border-b border-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 transition duration-300 ease-in-out"
         draggable
         id={`card-${props.view}-${props.id}`}
         onClick={handleClick}
@@ -67,7 +67,6 @@ function Card(props) {
       </div>
       { Boolean(anchorEl) &&
         <SessionForm
-          wrapperRef={props.wrapperRef}
           workoutId={props.workoutId}
           setAnchorEl={setAnchorEl}
         />

@@ -101,12 +101,12 @@ function Sidebar(props) {
     return (
       <React.Fragment>
         <h2 className="font-sans text-lg bold dark:text-gray-200">Menu</h2>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favSessions")}>Favourite Sessions</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favBlocks")}>Favourite Blocks</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200">Sets and Reps</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200">Excercise Libaray</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("progressions")}>Progressions</ul>
-        <ul className="font-sans text-base hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setOpenBuilder(true)}>Quick Build</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favSessions")}>Favourite Sessions</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("favBlocks")}>Favourite Blocks</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200">Sets and Reps</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200">Excercise Libaray</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setMenu("progressions")}>Progressions</ul>
+        <ul className="font-sans text-base transition duration-100 ease-in-out transform hover:scale-105 hover:text-blue-600 cursor-pointer dark:text-gray-200" onClick={() => setOpenBuilder(true)}>Quick Build</ul>
         <FullPageModal
           open={openBuilder}
           setOpen={setOpenBuilder}

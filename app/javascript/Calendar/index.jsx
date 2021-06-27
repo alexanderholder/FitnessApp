@@ -51,7 +51,7 @@ function App(props) {
     return () => {
       window.removeEventListener("keydown", handleUserKeyPress)
     }
-  }, [props.view])
+  })
 
   if (props.signedIn) {
     if (props.currentTemplate) {

@@ -14,7 +14,6 @@ function ExcerciseDetails(props) {
     <React.Fragment
       className="p-1 max-w-sm mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block"
       key={`excercise-popover-${props.excerciseId}`}
-      ref={props.ref}
     >
       <div>
         {props.excercise.movement}
