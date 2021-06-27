@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import WindowState from 'windowState'
-import * as Selectors from 'Calendar/redux/selectors'
-import { copyWorkout, updateWorkout } from 'Calendar/redux/reducers/workoutsSlice'
-import SessionForm from './forms/SessionForm'
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import WindowState from "windowState"
+import * as Selectors from "Calendar/redux/selectors"
+import { copyWorkout, updateWorkout } from "Calendar/redux/reducers/workoutsSlice"
+import SessionForm from "./forms/SessionForm"
 
 function Card(props) {
   const [anchorEl, setAnchorEl] = useState(props.newCard)
@@ -53,7 +53,7 @@ function Card(props) {
   return (
     <React.Fragment>
       <div
-        className='text-center h-5 w-full bg-gray-300 rounded text-white cursor-pointer border-b border-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 transition duration-300 ease-in-out'
+        className="text-center h-5 w-full bg-gray-300 rounded text-white cursor-pointer border-b border-white dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 transition duration-300 ease-in-out"
         draggable
         id={`card-${props.view}-${props.id}`}
         onClick={handleClick}
@@ -63,7 +63,7 @@ function Card(props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        { `${props.cardName} ${props.setsAndReps ? ` ${props.setsAndReps}` : ''}` }
+        { `${props.cardName} ${props.setsAndReps ? ` ${props.setsAndReps}` : ""}` }
       </div>
       { Boolean(anchorEl) &&
         <SessionForm
@@ -93,13 +93,13 @@ const mapStateToProps = (state, ownProps) => {
   let id
   let setsAndReps
 
-  if (view === 'Excercise') {
+  if (view === "Excercise") {
     let excercise = Selectors.getExcerciseById(state, ownProps.excerciseId)
     cardName = excercise?.movement
     setsAndReps = excercise?.measurement_value
     id = ownProps.excerciseId
   }
-  else if (view === 'Block') {
+  else if (view === "Block") {
     cardName = Selectors.getBlockById(state, ownProps.blockId)?.name
     id = ownProps.blockId
   }

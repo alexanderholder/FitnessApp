@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import WindowState from 'windowState';
-import { createProgressionTemplate } from 'Calendar/redux/reducers/sessionProgressionsSlice';
-import { getFavouriteWorkouts, getFavouriteBlocks } from 'Calendar/redux/selectors';
-import { copyBlock } from 'Calendar/redux/reducers/blocksSlice';
-import { saveNewProgression } from 'Calendar/redux/reducers/sessionProgressionsSlice';
-import DropSearch from 'components/DropSearch';
-import FullPageModal from 'components/FullPageModal';
-import ProgressionsTable from './ProgressionsTable';
-import Card from './Card'
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import WindowState from "windowState";
+import { createProgressionTemplate } from "Calendar/redux/reducers/sessionProgressionsSlice";
+import { getFavouriteWorkouts, getFavouriteBlocks } from "Calendar/redux/selectors";
+import { copyBlock } from "Calendar/redux/reducers/blocksSlice";
+import { saveNewProgression } from "Calendar/redux/reducers/sessionProgressionsSlice";
+import DropSearch from "components/DropSearch";
+import FullPageModal from "components/FullPageModal";
+import ProgressionsTable from "./ProgressionsTable";
+import Card from "./Card"
 
-const DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAYS_OF_THE_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 function Sidebar(props) {
-  const [excercise, setExcercise] = useState('')
-  const [progression, setProgression] = useState('')
-  const [ancorDay, setAncorDay] = useState('')
+  const [excercise, setExcercise] = useState("")
+  const [progression, setProgression] = useState("")
+  const [ancorDay, setAncorDay] = useState("")
   const [open, setOpen] = useState(false)
   const [openBuilder, setOpenBuilder] = useState(false)
-  const [menu, setMenu] = useState('Home')
+  const [menu, setMenu] = useState("Home")
 
   switch(menu) {
     case "favSessions":
     return (
       <React.Fragment>
-        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+        <button className="flex font-sans text-sm hover:text-blue-600 cursor-pointer" onClick={() => setMenu("Menu")}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
           </svg>
@@ -36,7 +36,7 @@ function Sidebar(props) {
         {props.workouts.length > 0 ? (
           props.workouts.map(workout => (
             <Card
-              style={{display: 'inline'}}
+              style={{display: "inline"}}
               key={workout.id}
               setIsShown={() => false}
               templateWorkout={true}
@@ -51,7 +51,7 @@ function Sidebar(props) {
     case "favBlocks":
     return(
       <React.Fragment>
-        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+        <button className="flex font-sans text-sm hover:text-blue-600 cursor-pointer" onClick={() => setMenu("Menu")}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
           </svg>
@@ -66,7 +66,7 @@ function Sidebar(props) {
               draggable
               onDragEnd={() => props.copyBlock(block.id)}
             >
-              {block.name || 'unnamed block'}
+              {block.name || "unnamed block"}
             </ul>
           ))
         ) : (
@@ -77,7 +77,7 @@ function Sidebar(props) {
     case "progressions":
     return (
       <React.Fragment>
-        <button className='flex font-sans text-sm hover:text-blue-600 cursor-pointer' onClick={() => setMenu('Menu')}>
+        <button className="flex font-sans text-sm hover:text-blue-600 cursor-pointer" onClick={() => setMenu("Menu")}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clipRule="evenodd" />
           </svg>
@@ -90,9 +90,9 @@ function Sidebar(props) {
         <FullPageModal
           open={open}
           setOpen={setOpen}
-          title='Create Progression'
+          title="Create Progression"
           body={<ProgressionsTable />}
-          submitText='Create Progression'
+          submitText="Create Progression"
           submitFunction={() => props.saveNewProgression(name, [])}
         />
       </React.Fragment>
@@ -110,40 +110,40 @@ function Sidebar(props) {
         <FullPageModal
           open={openBuilder}
           setOpen={setOpenBuilder}
-          title='Program Builder'
+          title="Program Builder"
           body={
             <React.Fragment>
               <label>Excercise</label>
               <input
-                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                 value={excercise}
                 onChange={(event) => setExcercise(event.target.value)}
               />
               <label>Progression</label>
               <DropSearch
-                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                 datalist={props.progressions.map(progression => progression.name)}
-                id='progression-search'
+                id="progression-search"
                 onChange={(e) => setProgression(e)}
-                onClick={() => setProgression('')}
-                onFocus={() => setProgression('')}
+                onClick={() => setProgression("")}
+                onFocus={() => setProgression("")}
                 onBlur={() => setProgression()}
                 value={progression}
               />
               <label>AncorDay</label>
               <DropSearch
-                className='bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none'
+                className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                 datalist={DAYS_OF_THE_WEEK.map(day => day)}
-                id='ancor-day-search'
+                id="ancor-day-search"
                 onChange={(e) => setAncorDay(e)}
-                onClick={() => setAncorDay('')}
-                onFocus={() => setAncorDay('')}
+                onClick={() => setAncorDay("")}
+                onFocus={() => setAncorDay("")}
                 onBlur={() => setAncorDay()}
                 value={ancorDay}
               />
             </React.Fragment>
           }
-          submitText='Autobuild Program'
+          submitText="Autobuild Program"
           submitFunction={() => createProgression(excercise, progression, DAYS_OF_THE_WEEK.indexOf(ancorDay))}
         />
       </React.Fragment>

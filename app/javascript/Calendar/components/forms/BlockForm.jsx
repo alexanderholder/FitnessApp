@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useState, useMemo, useCallback } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 import { SortableContainer, SortableElement } from "react-sortable-hoc"
-import arrayMove from 'array-move'
+import arrayMove from "array-move"
 import { sortBy } from "lodash"
-import * as Selectors from 'Calendar/redux/selectors'
-import { saveNewExcercise, updateExcercise } from 'Calendar/redux/reducers/excercisesSlice'
-import { updateBlock, removeBlock } from 'Calendar/redux/reducers/blocksSlice'
-import ExcerciseForm from './ExcerciseForm'
+import * as Selectors from "Calendar/redux/selectors"
+import { saveNewExcercise, updateExcercise } from "Calendar/redux/reducers/excercisesSlice"
+import { updateBlock, removeBlock } from "Calendar/redux/reducers/blocksSlice"
+import ExcerciseForm from "./ExcerciseForm"
 
 const SortableItem = SortableElement(({excercise, blockId, setShowExcerciseDetails}) => (
   <ExcerciseForm
@@ -22,7 +22,7 @@ const SortableList = SortableContainer(({excercises, blockId, setShowExcerciseDe
   const collection = useMemo(() => sortBy(excercises, e => e.sort_order))
 
   return (
-    <div className='cursor-move'>
+    <div className="cursor-move">
       {collection.map((excercise, index) => (
         <SortableItem
           blockId={blockId}
@@ -38,8 +38,8 @@ const SortableList = SortableContainer(({excercises, blockId, setShowExcerciseDe
 })
 
 function BlockForm(props) {
-  const [name, setName] = useState(props.block.name || '')
-  const [rounds, setRounds] = useState(props.block.sets || '')
+  const [name, setName] = useState(props.block.name || "")
+  const [rounds, setRounds] = useState(props.block.sets || "")
   const [favourite, setFavourite] = useState(props.block.favourite)
   const [showBlockDetails, setShowBlockDetails] = useState(props.block.name || props.block.sets)
   const [showMenuIcons, setShowMenuIcons] = useState(false)
@@ -58,49 +58,49 @@ function BlockForm(props) {
 
   return (
     <div
-      className={props.view != 'Excercise' && 'm-1 px-3 border rounded-lg cursor-move'}
-      onMouseEnter={() => props.view != 'Excercise' && setShowMenuIcons(true)}
-      onMouseLeave={() => props.view != 'Excercise' && setShowMenuIcons(false)}
+      className={props.view != "Excercise" && "m-1 px-3 border rounded-lg cursor-move"}
+      onMouseEnter={() => props.view != "Excercise" && setShowMenuIcons(true)}
+      onMouseLeave={() => props.view != "Excercise" && setShowMenuIcons(false)}
     >
-      <div className='m-1 px-3'>
-        { props.view != 'Excercise' && (showBlockDetails ? (
+      <div className="m-1 px-3">
+        { props.view != "Excercise" && (showBlockDetails ? (
           <React.Fragment>
             <input
               autoFocus={true}
-              label='Block Name'
+              label="Block Name"
               onChange={(e) => {
                 setName(e.target.value)
                 props.updateBlock({ name: e.target.value })
               }}
-              size='small'
+              size="small"
               value={name}
-              width='50'
-              style={{ paddingBottom: '5px'}}
+              width="50"
+              style={{ paddingBottom: "5px"}}
             />
             <input
-              label='Block Rounds'
+              label="Block Rounds"
               onChange={e => {
                 setRounds(e.target.value)
                 props.updateBlock({ sets: e.target.value })
               }}
-              size='small'
+              size="small"
               value={rounds}
-              width='50'
-              style={{ paddingBottom: '5px'}}
+              width="50"
+              style={{ paddingBottom: "5px"}}
             />
           </React.Fragment>
         ) : (
           <React.Fragment>
             <div
-              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-              className='cursor-pointer'
+              style={{paddingRight: "2px", display: "inline-block", paddingBottom: "10px", paddingTop: "2px"}}
+              className="cursor-pointer"
               onClick={() => setShowBlockDetails(true)}
             >
               + Block name
             </div>
             <div
-              style={{paddingRight: '2px', display: 'inline-block', paddingBottom: '10px', paddingTop: '2px'}}
-              className='cursor-pointer'
+              style={{paddingRight: "2px", display: "inline-block", paddingBottom: "10px", paddingTop: "2px"}}
+              className="cursor-pointer"
               onClick={() => setShowBlockDetails(true)}
             >
               + Block rounds
@@ -110,7 +110,7 @@ function BlockForm(props) {
         { showMenuIcons && (
           <button
             onClick={props.deleteBlock}
-            size={showBlockDetails ? 'medium' : 'small'}
+            size={showBlockDetails ? "medium" : "small"}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -121,7 +121,7 @@ function BlockForm(props) {
           ( favourite ? (
             <button
               onClick={() => handleFavourite(false)}
-              size={showBlockDetails ? 'medium' : 'small'}
+              size={showBlockDetails ? "medium" : "small"}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
@@ -129,7 +129,7 @@ function BlockForm(props) {
             </button>
           ) : (
             <button
-              size={showBlockDetails ? 'medium' : 'small'}
+              size={showBlockDetails ? "medium" : "small"}
               onClick={() => handleFavourite(true)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -147,7 +147,7 @@ function BlockForm(props) {
         setShowExcerciseDetails={props.setShowExcerciseDetails}
       />
       <div
-        className='cursor-pointer'
+        className="cursor-pointer"
         onClick={props.addExcercise}
       >
         + Add Excercise
@@ -170,7 +170,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  addExcercise: () => dispatch(saveNewExcercise({ movement: '', block_id: ownProps.blockId })),
+  addExcercise: () => dispatch(saveNewExcercise({ movement: "", block_id: ownProps.blockId })),
   deleteBlock: () => dispatch(removeBlock(ownProps.blockId)),
   updateBlock: (payload) => dispatch(updateBlock(ownProps.blockId, payload)),
   updateExcercise: (id, payload) => dispatch(updateExcercise(id, payload)),

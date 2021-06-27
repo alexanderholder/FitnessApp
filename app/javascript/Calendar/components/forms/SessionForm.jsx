@@ -1,14 +1,14 @@
-import React, { useState, useMemo, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { connect }  from 'react-redux'
+import React, { useState, useMemo, useCallback } from "react"
+import PropTypes from "prop-types"
+import { connect }  from "react-redux"
 import { SortableContainer, SortableElement } from "react-sortable-hoc"
-import arrayMove from 'array-move'
+import arrayMove from "array-move"
 import { sortBy } from "lodash"
-import * as Selectors from 'Calendar/redux/selectors'
-import { updateWorkout, removeWorkout } from 'Calendar/redux/reducers/workoutsSlice'
-import { saveNewBlock, updateBlock } from 'Calendar/redux/reducers/blocksSlice'
-import BlockWrapper from './BlockForm'
-import ExcerciseDetails from './ExcerciseDetails'
+import * as Selectors from "Calendar/redux/selectors"
+import { updateWorkout, removeWorkout } from "Calendar/redux/reducers/workoutsSlice"
+import { saveNewBlock, updateBlock } from "Calendar/redux/reducers/blocksSlice"
+import BlockWrapper from "./BlockForm"
+import ExcerciseDetails from "./ExcerciseDetails"
 
 const SortableItem = SortableElement(({ block, workoutId, setShowExcerciseDetails }) => (
   <BlockWrapper
@@ -23,7 +23,7 @@ const SortableList = SortableContainer(({ blocks, workoutId, setShowExcerciseDet
   const collection = useMemo(() => sortBy(blocks, b => b.order))
 
   return (
-    <div className='cursor-move'>
+    <div className="cursor-move">
       {collection.map((block, index) => (
         <SortableItem
           collection={collection}
@@ -68,10 +68,10 @@ function WorkoutForm(props) {
     >
       <div
         ref={props.wrapperRef}
-        onMouseEnter={() => props.view === 'Session' && setMenuShown(true)}
-        onMouseLeave={() => props.view === 'Session' && setMenuShown(false)}
+        onMouseEnter={() => props.view === "Session" && setMenuShown(true)}
+        onMouseLeave={() => props.view === "Session" && setMenuShown(false)}
       >
-        {props.view === 'Session' &&
+        {props.view === "Session" &&
           <input
             autoFocus
             className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
@@ -107,9 +107,9 @@ function WorkoutForm(props) {
             </button>
           )
         )}
-        { props.view === 'Session' &&
+        { props.view === "Session" &&
           <button
-            className='float-right mr-1.5'
+            className="float-right mr-1.5"
             onClick={() => props.setAnchorEl(null)}
           >
             {/* close */}
@@ -121,8 +121,8 @@ function WorkoutForm(props) {
       </div>
       <div>
         <div
-          className='mt-3 inline-block'
-          id='workout-wrapper'
+          className="mt-3 inline-block"
+          id="workout-wrapper"
         >
           <SortableList
             blocks={props.blocks}
@@ -143,7 +143,7 @@ function WorkoutForm(props) {
         className="cursor-pointer"
         onClick={props.addBlock}
       >
-        { props.view != 'Excercise' && "+ Add Block" }
+        { props.view != "Excercise" && "+ Add Block" }
       </div>
     </div>
   )

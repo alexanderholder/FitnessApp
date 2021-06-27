@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import * as Selectors from '../redux/selectors'
-import Day from './Day'
+import React from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import * as Selectors from "../redux/selectors"
+import Day from "./Day"
 
 const NUMBER_OF_DAYS_IN_WEEK = 7
-const DAYS_OF_THE_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const DAYS_OF_THE_WEEK = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 function Calendar(props) {
   const Week = ({weekNumber, day}) => {
@@ -76,7 +76,7 @@ function Calendar(props) {
         headerRow.push(
           <th
             key={`${props.search} ${i}`}
-            className='text-center border-l border-r text-sm dark:text-gray-200'
+            className="text-center border-l border-r text-sm dark:text-gray-200"
           >
             {props.search}
           </th>
@@ -85,7 +85,7 @@ function Calendar(props) {
       return headerRow
     }
     else {
-      return DAYS_OF_THE_WEEK.map(day => <th key={day} className='text-center border-l border-r text-sm dark:text-gray-200'>{day}</th>)
+      return DAYS_OF_THE_WEEK.map(day => <th key={day} className="text-center border-l border-r text-sm dark:text-gray-200">{day}</th>)
     }
   }
 
