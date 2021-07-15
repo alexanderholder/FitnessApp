@@ -19,31 +19,25 @@ function ExcerciseForm(props) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
         </svg>
       </button>
-      {/* <DropSearch
-        className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
-        datalist={props.templates.map(template => template.name)}
-        id="template-search"
-        onChange={(e) => changeTemplate(e)}
-        onClick={() => changeTemplate("")} // TODO: I think there is a better way...
-        onFocus={() => changeTemplate("")}
-        onBlur={() => changeTemplate(confirmedTemplate)}
-        value={templateValue}
-      /> */}
       <DropSearch
         className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
-        fieldName="Excercise"
-        datalist={excerciseList}
-        updateText={setName}
+        datalist={excerciseList.map(excercise => excercise.title)}
+        id="excercise-search"
+        onChange={(e) => setName(e)}
+        onClick={() => setName("")} // TODO: I think there is a better way...
+        onFocus={() => setName("")}
+        onBlur={() => updateName(name)}
         value={name}
-        updateServer={updateName}
       />
       <DropSearch
         className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
-        fieldName="Sets & Reps"
-        datalist={setsRepsSchemeList}
-        updateText={setSetsReps}
+        datalist={setsRepsSchemeList.map(setsRep => setsRep.title)}
+        id="sets-reps-search"
+        onChange={(e) => setSetsReps(e)}
+        onClick={() => setSetsReps("")} // TODO: I think there is a better way...
+        onFocus={() => setSetsReps("")}
+        onBlur={() => updateSetsReps(setsReps)}
         value={setsReps}
-        updateServer={updateSetsReps}
       />
       <button onClick={() => {
         props.setShowExcerciseDetails(null) // TODO LMAO
