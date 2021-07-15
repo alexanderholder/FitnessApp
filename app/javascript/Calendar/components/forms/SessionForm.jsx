@@ -62,9 +62,7 @@ function WorkoutForm(props) {
   }
 
   return (
-    <div
-      className="p-2 mx-auto text-left bg-white rounded-xl shadow-md space-x-4 fixed inline-block dark:bg-gray-600 dark:text-gray-200"
-    >
+    <div className="p-2 mx-auto text-left bg-white rounded-xl shadow-md space-x-4 fixed inline-block dark:bg-gray-600 dark:text-gray-200">
       <div
         className='flex'
         onMouseEnter={() => props.view === "Session" && setMenuShown(true)}

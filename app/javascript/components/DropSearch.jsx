@@ -7,7 +7,7 @@ export default function DropSearch(props) {
       <input
         className={props.className}
         id={props.id}
-        list="options"
+        list={`${props.id}-options`}
         onBlur={(event) => props.onBlur(event.target.value)}
         onChange={(event) => props.onChange(event.target.value)}
         onClick={(event) => props.onClick(event.target.value)}
@@ -15,7 +15,7 @@ export default function DropSearch(props) {
         type="search"
         value={props.value}
       />
-      <datalist id="options">
+      <datalist id={`${props.id}-options`}>
         {props.datalist.map((option) =>
           <option value={option} key={option} />
         )}
