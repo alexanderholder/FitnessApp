@@ -19,8 +19,6 @@ class BlocksController < ApplicationController
     authorize new_block
 
     if new_block.save
-      excercises = new_block.excercises
-
       render json: {
         block: new_block.attributes.as_json,
         excercises: new_block.excercises.flat_map { |e| e.attributes.as_json }

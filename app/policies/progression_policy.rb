@@ -21,6 +21,7 @@ class ProgressionPolicy < ApplicationPolicy
   def initialize(user, progression)
     raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super
     @user = user
     @progression = progression
   end

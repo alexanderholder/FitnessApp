@@ -21,6 +21,7 @@ class BlockPolicy < ApplicationPolicy
   def initialize(user, block)
     raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super
     @user = user
     @block = block
   end

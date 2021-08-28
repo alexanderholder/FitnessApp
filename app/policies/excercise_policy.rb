@@ -21,6 +21,7 @@ class ExcercisePolicy < ApplicationPolicy
   def initialize(user, excercise)
     raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super
     @user = user
     @excercise = excercise
   end
