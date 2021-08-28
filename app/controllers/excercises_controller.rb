@@ -31,7 +31,7 @@ class ExcercisesController < ApplicationController
     authorize excercise
 
     if excercise.destroy
-      head 202
+      head :accepted
     else
       head :bad_request
     end
@@ -40,6 +40,7 @@ class ExcercisesController < ApplicationController
   private
 
   def excercise_params
-    params.require(:excercise).permit(:sort_order, :block_id, :movement, :measurement_metric, :measurement_value, :weight_metric, :weight_value)
+    params.require(:excercise).permit(:sort_order, :block_id, :movement, :measurement_metric, :measurement_value,
+                                      :weight_metric, :weight_value)
   end
 end

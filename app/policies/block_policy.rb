@@ -1,7 +1,8 @@
 class BlockPolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)
-      raise Pundit::NotAuthorizedError, "must be logged in" unless user
+      raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
       @user  = user
       @scope = scope
     end
@@ -18,7 +19,8 @@ class BlockPolicy < ApplicationPolicy
   attr_reader :user, :block
 
   def initialize(user, block)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
     @user = user
     @block = block
   end

@@ -1,7 +1,8 @@
 class ExcercisePolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)
-      raise Pundit::NotAuthorizedError, "must be logged in" unless user
+      raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
       @user  = user
       @scope = scope
     end
@@ -18,7 +19,8 @@ class ExcercisePolicy < ApplicationPolicy
   attr_reader :user, :excercise
 
   def initialize(user, excercise)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
     @user = user
     @excercise = excercise
   end

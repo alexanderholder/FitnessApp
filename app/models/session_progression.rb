@@ -3,5 +3,5 @@ class SessionProgression < ApplicationRecord
 
   has_many :progressions, inverse_of: :session_progression
 
-  validates :name, :presence => true
+  validates :name, presence: true
 end

@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
   extend T::Sig
   include Pundit
 
-  before_action :doorkeeper_authorize!, :if => :is_mobile_request?
-  before_action :authenticate_user!, :if => :is_web_request?
+  before_action :doorkeeper_authorize!, if: :is_mobile_request?
+  before_action :authenticate_user!, if: :is_web_request?
   after_action :verify_authorized, except: :index
-  after_action :verify_policy_scoped, only: [:index, :update, :destroy]
+  after_action :verify_policy_scoped, only: %i[index update destroy]
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return current_resource_owner if doorkeeper_token
+
     super
   end
 
@@ -40,8 +41,8 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referer || root_path)
   end
 
   def is_mobile_request?

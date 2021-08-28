@@ -13,7 +13,9 @@ class WorkoutsController < ApplicationController
   def copy
     existing_workout = policy_scope(Workout).find(params[:id])
 
-    new_workout = existing_workout.deep_clone include: { blocks: :excercises }, except: [ :favourite, { blocks: [:favourite] } ]
+    new_workout = existing_workout.deep_clone include: { blocks: :excercises },
+                                              except: [:favourite,
+                                                       { blocks: [:favourite] }]
     new_workout.day_number = workout_params[:day_number]
     new_workout.favourite = false
 
@@ -51,7 +53,7 @@ class WorkoutsController < ApplicationController
     authorize workout
 
     if workout.destroy
-      head 202
+      head :accepted
     else
       head :bad_request
     end
