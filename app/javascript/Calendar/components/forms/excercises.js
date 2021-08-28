@@ -7,8 +7,8 @@ export const setsRepsSchemeList = [
   { title: "3x8" },
   { title: "3x10" },
   { title: "3x10,8,6" },
-  { title: "5x10,8,6,4,2" }
-]
+  { title: "5x10,8,6,4,2" },
+];
 
 export const excerciseCategoryList = [
   { title: "Clean & Jerk", category: "Clean Variations" },
@@ -135,10 +135,19 @@ export const excerciseCategoryList = [
   { title: "Seated Good Morning", category: "Hip Dominant" },
   { title: "Sumo Good Morning", category: "Hip Dominant" },
   { title: "Dumbbell Romanian Deadlift (RDL)", category: "Hip Dominant" },
-  { title: "Dumbbell Romanian Deadlift 1-Arm/1-Leg (Contralateral)", category: "Hip Dominant" },
-  { title: "Dumbbell Romanian Deadlift 1-Arm/1-Leg (Ipsilateral)", category: "Hip Dominant" },
+  {
+    title: "Dumbbell Romanian Deadlift 1-Arm/1-Leg (Contralateral)",
+    category: "Hip Dominant",
+  },
+  {
+    title: "Dumbbell Romanian Deadlift 1-Arm/1-Leg (Ipsilateral)",
+    category: "Hip Dominant",
+  },
   { title: "Dumbell Romanian Deadlift 2-Arm/1-Leg", category: "Hip Dominant" },
-  { title: "Single-leg Romanian Deadlift (Barbell) (RDL)", category: "Hip Dominant" },
+  {
+    title: "Single-leg Romanian Deadlift (Barbell) (RDL)",
+    category: "Hip Dominant",
+  },
   { title: "Romainian Deadlift (Barbell)", category: "Hip Dominant" },
   { title: "Zerher Romanian Deadlift (RDL)", category: "Hip Dominant" },
   { title: "Stiff-Legged Deadlift", category: "Hip Dominant" },
@@ -154,9 +163,15 @@ export const excerciseCategoryList = [
   { title: "Glute Bridge (Elevated Feet)", category: "Hip Dominant" },
   { title: "Glute Bridge (Floor)", category: "Hip Dominant" },
   { title: "Glute Bridge Single Leg (Ball)", category: "Hip Dominant" },
-  { title: "Glute Bridge Single Leg (Elevated Feet)", category: "Hip Dominant" },
+  {
+    title: "Glute Bridge Single Leg (Elevated Feet)",
+    category: "Hip Dominant",
+  },
   { title: "Glute Bridge Single Leg (Floor)", category: "Hip Dominant" },
-  { title: "Glute Bridge Single Leg Alternating (Floor)", category: "Hip Dominant" },
+  {
+    title: "Glute Bridge Single Leg Alternating (Floor)",
+    category: "Hip Dominant",
+  },
   { title: "Glute Ham Raise", category: "Hip Dominant" },
   { title: "Glute Ham Raise ISO Hold", category: "Hip Dominant" },
   { title: "Glute Ham Raise Single Leg ISO Hold", category: "Hip Dominant" },
@@ -193,10 +208,16 @@ export const excerciseCategoryList = [
   { title: "Close Grip Bench Press", category: "Horizontal Pressing" },
   { title: "Dumbbell Bench Press", category: "Horizontal Pressing" },
   { title: "Incline Dumbbel Bench Press", category: "Horizontal Pressing" },
-  { title: "Single Arm Incline Dumbbel Bench Press", category: "Horizontal Pressing" },
+  {
+    title: "Single Arm Incline Dumbbel Bench Press",
+    category: "Horizontal Pressing",
+  },
   { title: "Single-Arm Dumbbel Bench Press", category: "Horizontal Pressing" },
   { title: "Alternating Dumbbel Bench Press", category: "Horizontal Pressing" },
-  { title: "Alternating Incline Dumbbel Bench Press", category: "Horizontal Pressing" },
+  {
+    title: "Alternating Incline Dumbbel Bench Press",
+    category: "Horizontal Pressing",
+  },
   { title: "Pause Bench Press", category: "Horizontal Pressing" },
   { title: "Pause Bench Press", category: "Horizontal Pressing" },
   { title: "Dumbbell Floor Press", category: "Horizontal Pressing" },
@@ -215,10 +236,16 @@ export const excerciseCategoryList = [
   { title: "Barbell Push Press", category: "Vertical Pressing" },
   { title: "Dumbbell Push Press", category: "Vertical Pressing" },
   { title: "Single Arm Dumbbell Push Press", category: "Vertical Pressing" },
-  { title: "Alternating Dumbbell Shoulder Press", category: "Vertical Pressing" },
+  {
+    title: "Alternating Dumbbell Shoulder Press",
+    category: "Vertical Pressing",
+  },
   { title: "Sots Press", category: "Vertical Pressing" },
   { title: "Arnold Press", category: "Vertical Pressing" },
-  { title: "Half-Kneeling Single Arm Dumbell Press", category: "Vertical Pressing" },
+  {
+    title: "Half-Kneeling Single Arm Dumbell Press",
+    category: "Vertical Pressing",
+  },
   { title: "Half-kneeling Land Mine Press", category: "Vertical Pressing" },
   { title: "Single Arm Land Mine Press", category: "Vertical Pressing" },
   { title: "Military Press", category: "Vertical Pressing" },
@@ -246,7 +273,10 @@ export const excerciseCategoryList = [
   { title: "Chest Suported Incline Row", category: "Horizontal Pulling" },
   { title: "DB Bent Over Row 1-Arm (Neutral)", category: "Horizontal Pulling" },
   { title: "DB Bent Over Row 1-Arm (Wide)", category: "Horizontal Pulling" },
-  { title: "DB Bent Over Row 2-Arm (Alternating)", category: "Horizontal Pulling" },
+  {
+    title: "DB Bent Over Row 2-Arm (Alternating)",
+    category: "Horizontal Pulling",
+  },
   { title: "DB Bent Over Row 2-Arm (Neutral)", category: "Horizontal Pulling" },
   { title: "DB Bent Over Row 2-Arm (Wide)", category: "Horizontal Pulling" },
   { title: "Rings Inverted Row (Neutral)", category: "Horizontal Pulling" },
@@ -405,8 +435,8 @@ export const excerciseCategoryList = [
   { title: "Assult Bike", category: "Cardio" },
   { title: "Bike Erg", category: "Cardio" },
   { title: "Ski Erg", category: "Cardio" },
-  { title: "Battle Ropes", category: "Cardio" }
-]
+  { title: "Battle Ropes", category: "Cardio" },
+];
 
 export const excerciseList = [
   { title: "Clean & Jerk" },
@@ -803,5 +833,5 @@ export const excerciseList = [
   { title: "Assult Bike" },
   { title: "Bike Erg" },
   { title: "Ski Erg" },
-  { title: "Battle Ropes" }
-]
+  { title: "Battle Ropes" },
+];

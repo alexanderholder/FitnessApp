@@ -1,12 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React, { Fragment, useRef, useState } from "react"
-import { Dialog, Transition } from "@headlessui/react"
-import { ExclamationIcon } from "@heroicons/react/outline"
+import React, { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationIcon } from "@heroicons/react/outline";
 
 export default function Modal(props) {
-  const [open, setOpen] = useState(props.open)
+  const [open, setOpen] = useState(props.open);
 
-  const cancelButtonRef = useRef()
+  const cancelButtonRef = useRef();
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -32,7 +32,10 @@ export default function Modal(props) {
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -51,13 +54,14 @@ export default function Modal(props) {
                     <ExclamationIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
                   </div> */}
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg leading-6 font-medium text-gray-900"
+                    >
                       {props.title}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        {props.body}
-                      </p>
+                      <p className="text-sm text-gray-500">{props.body}</p>
                     </div>
                   </div>
                 </div>
@@ -84,5 +88,5 @@ export default function Modal(props) {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

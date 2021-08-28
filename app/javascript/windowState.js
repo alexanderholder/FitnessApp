@@ -11,9 +11,9 @@ window.CalendarWindowState = window.CalendarWindowState || {
   // mouse_down: false,
   new_card_id: null,
   hovered_day: null,
-}
+};
 
-const windowState = window.CalendarWindowState
+const windowState = window.CalendarWindowState;
 
 // if (document.body) {
 //   document.body.onmousedown = function () {
@@ -24,4 +24,4 @@ const windowState = window.CalendarWindowState
 //   }
 // }
 
-export default windowState
+export default windowState;

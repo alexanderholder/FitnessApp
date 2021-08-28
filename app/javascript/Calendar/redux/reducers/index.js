@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import blocks from './blocksSlice';
-import excercises from './excercisesSlice';
-import templates from './templatesSlice';
-import workouts from './workoutsSlice';
-import user from './usersSlice';
-import sessionProgressions from './sessionProgressionsSlice';
+import { combineReducers } from "redux";
+import blocks from "./blocksSlice";
+import excercises from "./excercisesSlice";
+import templates from "./templatesSlice";
+import workouts from "./workoutsSlice";
+import user from "./usersSlice";
+import sessionProgressions from "./sessionProgressionsSlice";
 
 export default combineReducers({
   workouts,
@@ -12,5 +12,5 @@ export default combineReducers({
   excercises,
   templates,
   user,
-  sessionProgressions
-})
+  sessionProgressions,
+});
