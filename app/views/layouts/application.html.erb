@@ -32,9 +32,12 @@
 
 <script>
   window.onload = function(){
-    document.getElementById('alert').onclick = function(){
-        document.getElementById('alert').remove();
+    let alert = document.getElementById('alert')
+    if (alert) {
+      alert.onclick = function(){
+        alert.remove();
         return false;
+      };
     };
   };
 </script>
