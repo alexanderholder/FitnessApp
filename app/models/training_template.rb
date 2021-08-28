@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingTemplate < ApplicationRecord
   belongs_to :user, inverse_of: :training_templates, optional: false
 

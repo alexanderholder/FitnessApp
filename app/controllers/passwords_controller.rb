@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordsController < Devise::PasswordsController
   skip_after_action :verify_policy_scoped, :verify_authorized
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingTemplatePolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)

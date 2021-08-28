@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == 20210117120417 AddSortOrderToExcercises: migrating =========================
 # -- add_column(:excercises, :sort_order, :integer)
 #    -> 0.0163s

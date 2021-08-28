@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrainingTemplatesController < ApplicationController
   def create
     training_template = current_user.training_templates.new(training_template_params)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionProgression < ApplicationRecord
   belongs_to :user, inverse_of: :session_progressions, optional: false
 

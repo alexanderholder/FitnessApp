@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgressionPolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)

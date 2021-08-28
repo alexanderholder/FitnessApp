@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionProgressionsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WorkoutsController < ApplicationController
   def create
     new_workout = current_training_template.workouts.new(workout_params)
