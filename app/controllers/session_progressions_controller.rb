@@ -27,7 +27,8 @@ class SessionProgressionsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       data = session_progression.progressions.each_with_index.map do |progression, index|
-        workout = current_training_template.workouts.new(day_number: day_number + index * 7) # name: "#{excercise} Progression #{day_number}"
+        # name: "#{excercise} Progression #{day_number}"
+        workout = current_training_template.workouts.new(day_number: day_number + index * 7)
         authorize workout
         workout.save!
 
