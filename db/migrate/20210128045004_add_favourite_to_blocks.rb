@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == 20210128045004 AddFavouriteToBlocks: migrating =============================
 # -- add_column(:blocks, :favourite, :boolean, {:default=>false})
 #    -> 0.1464s

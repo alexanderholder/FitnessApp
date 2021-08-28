@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # typed: strict
 class Workout < ApplicationRecord
   extend T::Sig

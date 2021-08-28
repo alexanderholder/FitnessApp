@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BlocksController < ApplicationController
   def create
     new_block = current_training_template.blocks.new(block_params)

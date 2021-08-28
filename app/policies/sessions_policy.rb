@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsPolicy
   attr_reader :user, :session
 

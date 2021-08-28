@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == 20210126010135 AddFavoriteToWorkout: migrating =============================
 # -- add_column(:workouts, :favourite, :boolean, {:default=>false})
 #    -> 0.0058s

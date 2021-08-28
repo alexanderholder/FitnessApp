@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # typed: strict
 
 # This is the container for a set of movments to be done on a day or part day.

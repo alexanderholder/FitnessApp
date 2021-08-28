@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < Devise::SessionsController
   skip_after_action :verify_policy_scoped, :verify_authorized
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == 20210128051201 AddSortOrderToWorkouts: migrating ===========================
 # -- add_column(:workouts, :sort_order, :integer)
 #    -> 0.0052s
