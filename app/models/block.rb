@@ -36,9 +36,9 @@ class Block < ApplicationRecord
 
   sig { returns(Integer) }
   def max_sort_order
-    max_sort_order = workout.blocks
-                            .map(&:order)
-                            .compact
-                            .max || 0
+    workout.blocks
+           .map(&:order)
+           .compact
+           .max || 0
   end
 end

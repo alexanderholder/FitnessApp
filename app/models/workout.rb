@@ -35,9 +35,9 @@ class Workout < ApplicationRecord
 
   sig { returns(Integer) }
   def max_sort_order
-    max_sort_order = training_template.workouts.where(day_number: day_number)
-                                      .map(&:sort_order)
-                                      .compact
-                                      .max || 0
+    training_template.workouts.where(day_number: day_number)
+                     .map(&:sort_order)
+                     .compact
+                     .max || 0
   end
 end
