@@ -1,0 +1,6 @@
+require: rubocop-performance
+require: rubocop-rails
+
+# Performance/Size:
+#   Exclude:
+#     - lib/example.rb

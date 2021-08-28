@@ -18,7 +18,7 @@ class TrainingTemplatesController < ApplicationController
     authorize training_template
 
     if training_template.destroy
-      head 202
+      head :accepted
     else
       head :bad_request
     end

@@ -10,7 +10,8 @@ class SessionProgressionsController < ApplicationController
         new_session_progression.save!
       end
 
-      render json: { session_progression: new_session_progression.attributes.as_json, progressions: progressions.map(&:attributes).as_json }
+      render json: { session_progression: new_session_progression.attributes.as_json,
+                     progressions: progressions.map(&:attributes).as_json }
     rescue ActiveRecord::StatementInvalid
       head :bad_request
     end
@@ -38,10 +39,15 @@ class SessionProgressionsController < ApplicationController
         authorize excercise
         excercise.save!
 
-        { workout: workout.attributes.as_json, block: block.attributes.as_json, excercise: excercise.attributes.as_json }
+        { workout: workout.attributes.as_json, block: block.attributes.as_json,
+          excercise: excercise.attributes.as_json }
       end
 
-      render json: { workouts: data.map { |s| s[:workout] }, blocks: data.map { |s| s[:block] }, excercises: data.map { |s| s[:excercise] } }.as_json
+      render json: { workouts: data.map { |s| s[:workout] }, blocks: data.map do |s|
+                                                                       s[:block]
+                                                                     end, excercises: data.map do |s|
+                                                                                        s[:excercise]
+                                                                                      end }.as_json
     rescue ActiveRecord::StatementInvalid
       head :bad_request
     end
@@ -53,7 +59,7 @@ class SessionProgressionsController < ApplicationController
     authorize session_progression
 
     if session_progression.destroy
-      head 202
+      head :accepted
     else
       head :bad_request
     end
@@ -64,8 +70,8 @@ class SessionProgressionsController < ApplicationController
   def session_progression_params
     params.require(:session_progression).permit(
       :name,
-      :progressions => [:sets_reps],
-      :workout_progressions => [:excercise, :progression_id, :day_number]
+      progressions: [:sets_reps],
+      workout_progressions: %i[excercise progression_id day_number]
     )
   end
 end

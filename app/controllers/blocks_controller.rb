@@ -48,7 +48,7 @@ class BlocksController < ApplicationController
     authorize block
 
     if block.destroy
-      head 202
+      head :accepted
     else
       head :bad_request
     end

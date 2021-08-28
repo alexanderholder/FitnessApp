@@ -1,7 +1,8 @@
 class ProgressionPolicy < ApplicationPolicy
   class Scope
     def initialize(user, scope)
-      raise Pundit::NotAuthorizedError, "must be logged in" unless user
+      raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
       @user  = user
       @scope = scope
     end
@@ -18,7 +19,8 @@ class ProgressionPolicy < ApplicationPolicy
   attr_reader :user, :progression
 
   def initialize(user, progression)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
+
     @user = user
     @progression = progression
   end

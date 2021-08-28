@@ -5,7 +5,7 @@ class CalendarController < ApplicationController
     @initial_state = initial_state
 
     respond_to do |format|
-      format.html { render "index" }
+      format.html { render 'index' }
       format.json { render json: initial_state }
     end
   end
@@ -34,6 +34,6 @@ class CalendarController < ApplicationController
 
     session[:training_template_id] = training_template.id
 
-    head 200
+    head :ok
   end
 end

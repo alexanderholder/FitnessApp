@@ -8,6 +8,6 @@ class ErrorsController < ApplicationController
       return
     end
 
-    render file: "public/404.html", status: :not_found, layout: false
+    render file: 'public/404.html', status: :not_found, layout: false
   end
 end

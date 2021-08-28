@@ -23,25 +23,30 @@ workouts = Workout.create(
 )
 blocks = Block.create(
   [
-    { name: "Box Jumps", workout_id: workouts.first.id },
-    { name: "Squats", workout_id: workouts.first.id },
-    { name: "EMOM", workout_id: workouts.first.id },
-    { name: "Squats", workout_id: workouts.first.id },
-    { name: "Squats", workout_id: workouts[1].id },
-    { name: "Squats", workout_id: workouts[2].id },
-    { name: "Squats", workout_id: workouts[3].id },
-    { name: "Squats", workout_id: workouts[4].id },
-    { name: "Squats", workout_id: workouts[5].id },
-    { name: "Squats", workout_id: workouts[6].id },
-    { name: "Squats", workout_id: workouts[7].id }
+    { name: 'Box Jumps', workout_id: workouts.first.id },
+    { name: 'Squats', workout_id: workouts.first.id },
+    { name: 'EMOM', workout_id: workouts.first.id },
+    { name: 'Squats', workout_id: workouts.first.id },
+    { name: 'Squats', workout_id: workouts[1].id },
+    { name: 'Squats', workout_id: workouts[2].id },
+    { name: 'Squats', workout_id: workouts[3].id },
+    { name: 'Squats', workout_id: workouts[4].id },
+    { name: 'Squats', workout_id: workouts[5].id },
+    { name: 'Squats', workout_id: workouts[6].id },
+    { name: 'Squats', workout_id: workouts[7].id }
   ]
 )
 Excercise.create(
   [
-    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "5", weight_metric: "none", weight_value: 0, block_id: blocks.first.id },
-    { movement: "Back Squat", measurement_metric: "reps", measurement_value: "5", weight_metric: "percent", weight_value: 80, block_id: blocks.second.id },
-    { movement: "Row", measurement_metric: "distance", measurement_value: "200", weight_metric: "none", weight_value: 0, block_id: blocks.third.id },
-    { movement: "Box Jump", measurement_metric: "reps", measurement_value: "10", weight_metric: "none", weight_value: 0, block_id: blocks.third.id },
-    { movement: "Power Clean", measurement_metric: "reps", measurement_value: "6", weight_metric: "kg", weight_value: 60, block_id: blocks.third.id }
+    { movement: 'Box Jump', measurement_metric: 'reps', measurement_value: '5', weight_metric: 'none', weight_value: 0,
+      block_id: blocks.first.id },
+    { movement: 'Back Squat', measurement_metric: 'reps', measurement_value: '5', weight_metric: 'percent',
+      weight_value: 80, block_id: blocks.second.id },
+    { movement: 'Row', measurement_metric: 'distance', measurement_value: '200', weight_metric: 'none',
+      weight_value: 0, block_id: blocks.third.id },
+    { movement: 'Box Jump', measurement_metric: 'reps', measurement_value: '10', weight_metric: 'none',
+      weight_value: 0, block_id: blocks.third.id },
+    { movement: 'Power Clean', measurement_metric: 'reps', measurement_value: '6', weight_metric: 'kg',
+      weight_value: 60, block_id: blocks.third.id }
   ]
 )

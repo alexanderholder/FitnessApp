@@ -17,28 +17,28 @@ class Block < ApplicationRecord
 
   sig { void }
   def confirm_or_create_sort_order
-    self.order = self.set_default_sort_order
+    self.order = set_default_sort_order
   end
 
   sig { void }
   def confirm_or_create_name
-    return if self.name.present?
+    return if name.present?
 
     self.name = "Block #{max_sort_order + 1}"
   end
 
   sig { returns(Integer) }
   def set_default_sort_order
-    return self.order if self.order.present?
+    return order if order.present?
 
     self.order = max_sort_order + 1
   end
 
   sig { returns(Integer) }
   def max_sort_order
-    max_sort_order = self.workout.blocks
-      .map(&:order)
-      .compact
-      .max || 0
+    max_sort_order = workout.blocks
+                            .map(&:order)
+                            .compact
+                            .max || 0
   end
 end

@@ -10,12 +10,12 @@ class Excercise < ApplicationRecord
 
   sig { returns(Integer) }
   def confirm_or_create_sort_order
-    return self.sort_order if self.sort_order.present?
+    return sort_order if sort_order.present?
 
-    max_sort_order = self.block.excercises
-      .map(&:sort_order)
-      .compact
-      .max || 0
+    max_sort_order = block.excercises
+                          .map(&:sort_order)
+                          .compact
+                          .max || 0
 
     self.sort_order = max_sort_order + 1
   end

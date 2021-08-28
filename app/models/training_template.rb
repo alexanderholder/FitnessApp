@@ -5,6 +5,6 @@ class TrainingTemplate < ApplicationRecord
   has_many :blocks, through: :workouts
   has_many :excercises, through: :blocks
 
-  validates :name, :presence => true
+  validates :name, presence: true
   validates :length, numericality: { greater_than: 0 }
 end
