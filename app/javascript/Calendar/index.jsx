@@ -1,76 +1,77 @@
-import React, { useEffect } from "react"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import Calendar from "Calendar/components/Calendar"
-import Navbar from "Calendar/components/Navbar"
-import Sidebar from "Calendar/components/Sidebar"
-import TemplateSearch from "Calendar/components/TemplateSearch"
-import ButtonGroup from "components/ButtonGroup"
-import FullPageModal from "components/FullPageModal"
-import Search from "components/Search"
-import WindowState from "windowState"
-import * as Selectors from "Calendar/redux/selectors"
-import { removeExcercise } from "Calendar/redux/reducers/excercisesSlice"
-import { removeBlock } from "Calendar/redux/reducers/blocksSlice"
-import { copyWorkout, removeWorkout } from "Calendar/redux/reducers/workoutsSlice"
-import { saveNewTrainingTemplate} from "Calendar/redux/reducers/templatesSlice"
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Calendar from "Calendar/components/Calendar";
+import Navbar from "Calendar/components/Navbar";
+import Sidebar from "Calendar/components/Sidebar";
+import TemplateSearch from "Calendar/components/TemplateSearch";
+import ButtonGroup from "components/ButtonGroup";
+import FullPageModal from "components/FullPageModal";
+import Search from "components/Search";
+import WindowState from "windowState";
+import * as Selectors from "Calendar/redux/selectors";
+import { removeExcercise } from "Calendar/redux/reducers/excercisesSlice";
+import { removeBlock } from "Calendar/redux/reducers/blocksSlice";
+import {
+  copyWorkout,
+  removeWorkout,
+} from "Calendar/redux/reducers/workoutsSlice";
+import { saveNewTrainingTemplate } from "Calendar/redux/reducers/templatesSlice";
 
-const DELETE_KEYCODE = 46
-const BACKSPACE_KEYCODE = 8
+const DELETE_KEYCODE = 46;
+const BACKSPACE_KEYCODE = 8;
 
 function App(props) {
-  const [newTemplateName, setNewTemplateName] = React.useState("")
-  const [newTemplateLength, setNewTemplateLength] = React.useState(6)
-  const [search, setSearch] = React.useState("")
+  const [newTemplateName, setNewTemplateName] = React.useState("");
+  const [newTemplateLength, setNewTemplateLength] = React.useState(6);
+  const [search, setSearch] = React.useState("");
 
   const handleUserKeyPress = (e) => {
     if (e.keyCode === DELETE_KEYCODE || e.keyCode === BACKSPACE_KEYCODE) {
       if (WindowState.hovered_card_id) {
         if (props.view === "Session") {
-          props.deleteWorkout(WindowState.hovered_card_id)
+          props.deleteWorkout(WindowState.hovered_card_id);
         } else if (props.view === "Block") {
-          props.deleteBlock(WindowState.hovered_card_id)
+          props.deleteBlock(WindowState.hovered_card_id);
         } else if (props.view === "Excercise") {
-          props.deleteExcercise(WindowState.hovered_card_id)
+          props.deleteExcercise(WindowState.hovered_card_id);
         }
       }
     } else if ((e.metaKey || e.ctrlKey) && e.key === "c") {
       if (WindowState.hovered_card_id) {
-        WindowState.copied_card_id = WindowState.hovered_card_id
+        WindowState.copied_card_id = WindowState.hovered_card_id;
       }
     } else if ((e.metaKey || e.ctrlKey) && e.key === "v") {
       if (WindowState.copied_card_id && WindowState.hovered_day) {
-        props.copyWorkout(WindowState.copied_card_id, WindowState.hovered_day)
+        props.copyWorkout(WindowState.copied_card_id, WindowState.hovered_day);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleUserKeyPress)
+    window.addEventListener("keydown", handleUserKeyPress);
 
     return () => {
-      window.removeEventListener("keydown", handleUserKeyPress)
-    }
-  })
+      window.removeEventListener("keydown", handleUserKeyPress);
+    };
+  });
 
   if (props.signedIn) {
     if (props.currentTemplate) {
       return (
         <div className="dark:bg-gray-800 dark:text-gray-200">
           <nav className="h-20 flex sticky top-0 justify-around bg-white shadow dark:bg-gray-800">
-            <h1 className="my-6 text-xl font-mono dark:text-gray-200">AptusFit</h1>
+            <h1 className="my-6 text-xl font-mono dark:text-gray-200">
+              AptusFit
+            </h1>
 
             <TemplateSearch className="my-1" />
 
-            <Search
-              className="w-96 my-1"
-              value={search}
-              onChange={setSearch}
-            />
+            <Search className="w-96 my-1" value={search} onChange={setSearch} />
 
             <ButtonGroup
               className="mr-4 my-2 dark:bg-gray-200"
-              inputs={["Session","Block","Excercise"]}
+              inputs={["Session", "Block", "Excercise"]}
               selected={props.view}
               setSelection={props.changeView}
             />
@@ -81,10 +82,13 @@ function App(props) {
               <Sidebar />
             </aside>
 
-            <Calendar search={search} className="dark:bg-gray-700 dark:text-white" />
+            <Calendar
+              search={search}
+              className="dark:bg-gray-700 dark:text-white"
+            />
           </main>
         </div>
-      )
+      );
     } else {
       return (
         <FullPageModal
@@ -112,16 +116,18 @@ function App(props) {
             </form>
           }
           submitText="Get started"
-          submitFunction={() => props.templateAdded({
-            name: newTemplateName,
-            length: parseInt(newTemplateLength, 10),
-          })}
+          submitFunction={() =>
+            props.templateAdded({
+              name: newTemplateName,
+              length: parseInt(newTemplateLength, 10),
+            })
+          }
         />
-      )
+      );
     }
   } else {
-    window.location.href = props.response_url
-    return null
+    window.location.href = props.response_url;
+    return null;
   }
 }
 
@@ -129,14 +135,17 @@ App.propTypes = {
   signedIn: PropTypes.bool.isRequired,
   currentTemplate: PropTypes.object,
   response_url: PropTypes.string,
-}
+};
 
 const mapStateToProps = (state) => ({
   signedIn: state.user.signed_in,
-  currentTemplate: Selectors.getTemplateById(state, state.user.selected_template),
+  currentTemplate: Selectors.getTemplateById(
+    state,
+    state.user.selected_template
+  ),
   response_url: state.user.response_url,
   view: state.user.selected_view,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   copyWorkout: (id, day) => dispatch(copyWorkout(id, day)),
@@ -145,6 +154,6 @@ const mapDispatchToProps = (dispatch) => ({
   deleteExcercise: (id) => dispatch(removeExcercise(id)),
   templateAdded: (template) => dispatch(saveNewTrainingTemplate(template)),
   changeView: (view) => dispatch({ type: "user/viewChanged", payload: view }),
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

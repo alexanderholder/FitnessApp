@@ -7,12 +7,20 @@ export default function ProgressionsTable(props) {
     for (let i = 0; i < 4; i++) {
       rows.push(
         <tr className="w-16">
-          <td><input className="border" /></td>
-          <td><input className="border" /></td>
-          <td><input className="border" /></td>
-          <td><input className="border" /></td>
+          <td>
+            <input className="border" />
+          </td>
+          <td>
+            <input className="border" />
+          </td>
+          <td>
+            <input className="border" />
+          </td>
+          <td>
+            <input className="border" />
+          </td>
         </tr>
-      )
+      );
     }
 
     return rows;
@@ -33,7 +41,7 @@ export default function ProgressionsTable(props) {
           </tr>
           <Rows />
         </table>
-      )
+      );
     }
 
     return tables;
@@ -41,8 +49,13 @@ export default function ProgressionsTable(props) {
 
   return (
     <React.Fragment>
-      <input placeholder="Strength A" label="Progression Name" className="border" /><br/>
+      <input
+        placeholder="Strength A"
+        label="Progression Name"
+        className="border"
+      />
+      <br />
       <Tables />
     </React.Fragment>
-  )
+  );
 }

@@ -1,25 +1,17 @@
 // @flow
-import axios, {
-  AxiosPromise,
-  $AxiosXHR,
-} from "axios"
-import addInterceptor from "./axiosIntercepter"
+import axios, { AxiosPromise, $AxiosXHR } from "axios";
+import addInterceptor from "./axiosIntercepter";
 
-addInterceptor(axios)
+addInterceptor(axios);
 
-const del = axios.delete
-const get = axios.get
-const post = axios.post
-const put = axios.put
+const del = axios.delete;
+const get = axios.get;
+const post = axios.post;
+const put = axios.put;
 
-export const Result = AxiosPromise
-export const Response = $AxiosXHR
+export const Result = AxiosPromise;
+export const Response = $AxiosXHR;
 
-export {
-  del,
-  get,
-  post,
-  put,
-}
+export { del, get, post, put };
 
-export default axios
+export default axios;

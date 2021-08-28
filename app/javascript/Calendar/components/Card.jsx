@@ -1,54 +1,58 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import { connect } from "react-redux"
-import WindowState from "windowState"
-import * as Selectors from "Calendar/redux/selectors"
-import { copyWorkout, updateWorkout } from "Calendar/redux/reducers/workoutsSlice"
-import SessionForm from "./forms/SessionForm"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import WindowState from "windowState";
+import * as Selectors from "Calendar/redux/selectors";
+import {
+  copyWorkout,
+  updateWorkout,
+} from "Calendar/redux/reducers/workoutsSlice";
+import SessionForm from "./forms/SessionForm";
 
 function Card(props) {
-  const [anchorEl, setAnchorEl] = useState(props.newCard)
-  const [dragOverIsShown, setDragOverIsShown] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(props.newCard);
+  const [dragOverIsShown, setDragOverIsShown] = useState(false);
 
   const handleMouseEnter = () => {
     // TODO: this will stop copy paste from tempaltes :(
     if (!props.templateWorkout) {
-      WindowState.hovered_card_id = props.id
+      WindowState.hovered_card_id = props.id;
     }
-  }
+  };
 
   const handleMouseLeave = () => {
     // TODO: this will stop copy paste from tempaltes :(
     if (!props.templateWorkout) {
-      WindowState.hovered_card_id = null
+      WindowState.hovered_card_id = null;
     }
-  }
+  };
 
   const handleClick = (event) => {
     if (!props.templateWorkout) {
-      setAnchorEl(event.currentTarget)
-      props.setIsShown(false)
+      setAnchorEl(event.currentTarget);
+      props.setIsShown(false);
     }
-  }
+  };
 
-  const handleClose = () => { // TODO
-    setAnchorEl(null)
-    WindowState.new_card_id = null
-  }
+  const handleClose = () => {
+    // TODO
+    setAnchorEl(null);
+    WindowState.new_card_id = null;
+  };
 
   const handleDragEnd = () => {
     if (props.templateWorkout) {
-      props.copyWorkout()
+      props.copyWorkout();
     } else {
-      props.updateWorkout({ day_number: WindowState.hovered_day })
+      props.updateWorkout({ day_number: WindowState.hovered_day });
     }
-  }
+  };
 
   const handleDragEnter = (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-    WindowState.hovered_card_id = props.id
-  }
+    e.stopPropagation();
+    e.preventDefault();
+    WindowState.hovered_card_id = props.id;
+  };
 
   return (
     <React.Fragment>
@@ -63,56 +67,55 @@ function Card(props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        { `${props.cardName} ${props.setsAndReps ? ` ${props.setsAndReps}` : ""}` }
+        {`${props.cardName} ${
+          props.setsAndReps ? ` ${props.setsAndReps}` : ""
+        }`}
       </div>
-      { Boolean(anchorEl) &&
-        <SessionForm
-          workoutId={props.workoutId}
-          setAnchorEl={setAnchorEl}
-        />
-      }
+      {Boolean(anchorEl) && (
+        <SessionForm workoutId={props.workoutId} setAnchorEl={setAnchorEl} />
+      )}
     </React.Fragment>
-  )
+  );
 }
 
 Card.propTypes = {
   templateWorkout: PropTypes.bool,
   setIsShown: PropTypes.func.isRequired,
   workoutId: PropTypes.number,
-}
+};
 
 Card.defaultProps = {
   templateWorkout: false,
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
-  const newCard = ownProps.workoutId == WindowState.new_card_id ? true : false
-  const view = state.user.selected_view
-  let cardName
-  let id
-  let setsAndReps
+  const newCard = ownProps.workoutId == WindowState.new_card_id ? true : false;
+  const view = state.user.selected_view;
+  let cardName;
+  let id;
+  let setsAndReps;
 
   if (view === "Excercise") {
-    let excercise = Selectors.getExcerciseById(state, ownProps.excerciseId)
-    cardName = excercise?.movement
-    setsAndReps = excercise?.measurement_value
-    id = ownProps.excerciseId
-  }
-  else if (view === "Block") {
-    cardName = Selectors.getBlockById(state, ownProps.blockId)?.name
-    id = ownProps.blockId
-  }
-  else {
-    cardName = Selectors.getWorkoutById(state, ownProps.workoutId).name
-    id = ownProps.workoutId
+    let excercise = Selectors.getExcerciseById(state, ownProps.excerciseId);
+    cardName = excercise?.movement;
+    setsAndReps = excercise?.measurement_value;
+    id = ownProps.excerciseId;
+  } else if (view === "Block") {
+    cardName = Selectors.getBlockById(state, ownProps.blockId)?.name;
+    id = ownProps.blockId;
+  } else {
+    cardName = Selectors.getWorkoutById(state, ownProps.workoutId).name;
+    id = ownProps.workoutId;
   }
 
-  return { cardName, newCard, view, id, setsAndReps }
-}
+  return { cardName, newCard, view, id, setsAndReps };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  copyWorkout: () => dispatch(copyWorkout(ownProps.workoutId, WindowState.hovered_day)),
-  updateWorkout: (payload) => dispatch(updateWorkout(ownProps.workoutId, payload))
-})
+  copyWorkout: () =>
+    dispatch(copyWorkout(ownProps.workoutId, WindowState.hovered_day)),
+  updateWorkout: (payload) =>
+    dispatch(updateWorkout(ownProps.workoutId, payload)),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card)
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

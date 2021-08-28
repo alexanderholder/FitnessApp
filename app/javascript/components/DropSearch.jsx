@@ -1,8 +1,7 @@
-import React from "react"
+import React from "react";
 
 export default function DropSearch(props) {
-
-  return(
+  return (
     <div className="py-2 px-6">
       <input
         className={props.className}
@@ -16,10 +15,10 @@ export default function DropSearch(props) {
         value={props.value}
       />
       <datalist id={`${props.id}-options`}>
-        {props.datalist.map((option) =>
+        {props.datalist.map((option) => (
           <option value={option} key={option} />
-        )}
+        ))}
       </datalist>
     </div>
-  )
+  );
 }

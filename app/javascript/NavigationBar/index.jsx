@@ -1,12 +1,12 @@
-import React, { Fragment } from "react"
-import { Disclosure, Menu, Transition } from "@headlessui/react"
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline"
+import React, { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
-const navigation = ["Dashboard", "Team", "Projects", "Calendar", "Reports"]
-const profile = ["Your Profile", "Settings", "Sign out"]
+const navigation = ["Dashboard", "Team", "Projects", "Calendar", "Reports"];
+const profile = ["Your Profile", "Settings", "Sign out"];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Navigation() {
@@ -31,7 +31,10 @@ export default function Navigation() {
                         itemIdx === 0 ? (
                           <Fragment key={item}>
                             {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                            <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <a
+                              href="#"
+                              className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                            >
                               {item}
                             </a>
                           </Fragment>
@@ -125,7 +128,10 @@ export default function Navigation() {
                   itemIdx === 0 ? (
                     <Fragment key={item}>
                       {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-                      <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">
+                      <a
+                        href="#"
+                        className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      >
                         {item}
                       </a>
                     </Fragment>
@@ -150,8 +156,12 @@ export default function Navigation() {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">Tom Cook</div>
-                    <div className="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
+                    <div className="text-base font-medium leading-none text-white">
+                      Tom Cook
+                    </div>
+                    <div className="text-sm font-medium leading-none text-gray-400">
+                      tom@example.com
+                    </div>
                   </div>
                   <button className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">View notifications</span>
@@ -190,5 +200,5 @@ export default function Navigation() {
         </div>
       </main>
     </div>
-  )
+  );
 }
