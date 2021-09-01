@@ -5,6 +5,8 @@ import templates from "./templatesSlice";
 import workouts from "./workoutsSlice";
 import user from "./usersSlice";
 import sessionProgressions from "./sessionProgressionsSlice";
+import setsRepsSchemeList from "./setsRepsSchemeListSlice";
+import excerciseList from "./excerciseListSlice";
 
 export default combineReducers({
   workouts,
@@ -13,4 +15,6 @@ export default combineReducers({
   templates,
   user,
   sessionProgressions,
+  setsRepsSchemeList,
+  excerciseList,
 });

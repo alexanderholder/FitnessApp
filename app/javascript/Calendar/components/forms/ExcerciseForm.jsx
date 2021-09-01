@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as Selectors from "Calendar/redux/selectors";
 import * as Actions from "Calendar/redux/reducers/excercisesSlice";
-import { setsRepsSchemeList, excerciseList } from "./excercises";
 import DropSearch from "components/DropSearch";
 
 function ExcerciseForm(props) {
@@ -35,7 +34,7 @@ function ExcerciseForm(props) {
       </button>
       <DropSearch
         className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
-        datalist={excerciseList.map((excercise) => excercise.title)}
+        datalist={props.excerciseList}
         id="excercise-search"
         onChange={(e) => setName(e)}
         onClick={() => setName("")} // TODO: I think there is a better way...
@@ -45,7 +44,7 @@ function ExcerciseForm(props) {
       />
       <DropSearch
         className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
-        datalist={setsRepsSchemeList.map((setsRep) => setsRep.title)}
+        datalist={props.setsRepsSchemeList}
         id="sets-reps-search"
         onChange={(e) => setSetsReps(e)}
         onClick={() => setSetsReps("")} // TODO: I think there is a better way...
@@ -86,6 +85,8 @@ ExcerciseForm.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   excercise: Selectors.getExcerciseById(state, ownProps.excerciseId),
+  setsRepsSchemeList: state.setsRepsSchemeList,
+  excerciseList: state.excerciseList,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
