@@ -68,7 +68,7 @@ function BlockForm(props) {
   return (
     <div
       className={
-        props.view != "Excercise" && "m-1 px-3 border rounded-lg cursor-move"
+        props.view != "Excercise" ? "m-1 px-3 border rounded-lg cursor-move" : undefined
       }
       onMouseEnter={() => props.view != "Excercise" && setShowMenuIcons(true)}
       onMouseLeave={() => props.view != "Excercise" && setShowMenuIcons(false)}
