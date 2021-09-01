@@ -4,6 +4,25 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
+# INSTRUCTIONS TO UPGRADE RAILS:
+# if you're doing a minor update (6.0.3.2 -> 6.0.3.3, or 6.0.2 -> 6.0.3), update the version number above.
+# then run these commands:
+#  => bundle update rails actioncable actionmailbox actionmailer actionpack actiontext actionview activejob activemodel activerecord activestorage activesupport railties rails-i18n marcel --conservative
+#  => bundle update rails actioncable actionmailbox actionmailer actionpack actiontext actionview activejob activemodel activerecord activestorage activesupport railties rails-i18n marcel --conservative --gemfile GemfileNext
+#  => bundle exec tapioca sync
+# if they have all run successfully you're good to go. commit your changes and start a PR to run tests.
+#
+# NOTE: If Sorbet complains about an error @ sorbet/rbi/gems/activerecord@X.X.X.X.rbi:4977 #def create_table(table_name, **options); end
+#  This is an ongoing issue and the line should be commented out before proceeding (tapioca sync will uncomment it)
+#
+# for MAJOR Rails upgrades (5.2 -> 6.0, 6.0 -> 6.1, etc), it's a bit different.
+# first, comment out the `gem "rails"` call line above and the `gem "rails-i18n"` call below, and START UNCOMMENTING HERE:
+# running_next_rails = ["1", "true"].include?(ENV["RAILS_NEXT"])
+# gem "rails", (running_next_rails ? "6.1.3.2" : "6.0.3.7")
+# gem "rails-i18n", (running_next_rails ? "~> 6" : "~> 5")
+# END UNCOMMENTING HERE ^
+# update the relevant version numbers in those conditionals ^ true case is next version. false case is current version.
+# then open the `GemfileNext` file and read it for further instructions.
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.3.0', '>= 6.0'
