@@ -1,7 +1,7 @@
-version: "3"
+version: "3.9"
 services:
   db:
-    image: postgres
+    image: postgres:9.6.19-alpine
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
