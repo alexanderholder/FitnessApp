@@ -76,14 +76,23 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'localhost:3000', protocol: 'http' }
-  config.action_mailer.smtp_settings = {
-    user_name: 'ea93bdf4e3b6d7',
-    password: '0c78106f6af07c',
-    address: 'smtp.mailtrap.io',
-    domain: 'smtp.mailtrap.io',
-    port: '2525',
-    authentication: :cram_md5
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   user_name: 'ea93bdf4e3b6d7',
+  #   password: '0c78106f6af07c',
+  #   address: 'smtp.mailtrap.io',
+  #   domain: 'smtp.mailtrap.io',
+  #   port: '2525',
+  #   authentication: :cram_md5
+  # }
+  puts(<<-MSG)
+    sending emails to mailhog http://localhost:8025
+  MSG
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings   = {
+    address: "mail",
+    port:    "1025"
   }
 end

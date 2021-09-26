@@ -15,3 +15,10 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  mail:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
