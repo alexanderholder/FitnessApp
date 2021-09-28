@@ -14,10 +14,12 @@ function ExcerciseDetails(props) {
   );
   const [weight, setWeight] = useState(props.excercise.weight_value);
   const [weightMetric, setWeightMetric] = React.useState("KG");
+  const { innerWidth: width, innerHeight: height } = window;
 
   return (
-    <React.Fragment
-      className="p-1 max-w-sm mx-auto bg-white rounded-xl shadow-md items-center space-x-4 fixed inline-block"
+    <div
+      className="items-start p-1 max-w-sm mx-auto bg-white rounded-xl shadow-md space-x-4 absolute"
+      style={{ marginLeft: innerWidth*0.38 }}
       key={`excercise-popover-${props.excerciseId}`}
     >
       <div>
@@ -96,7 +98,7 @@ function ExcerciseDetails(props) {
         }}
         value={measurement}
       />
-    </React.Fragment>
+    </div>
   );
 }
 

@@ -67,9 +67,11 @@ function Card(props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        {`${props.cardName} ${
-          props.setsAndReps ? ` ${props.setsAndReps}` : ""
-        }`}
+        <p className='text-center'>
+          {`${props.cardName} ${
+            props.setsAndReps ? ` ${props.setsAndReps}` : ""
+          }`}
+        </p>
       </div>
       {Boolean(anchorEl) && (
         <SessionForm workoutId={props.workoutId} setAnchorEl={setAnchorEl} />

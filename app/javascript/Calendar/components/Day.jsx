@@ -66,7 +66,7 @@ function CardWrapper(props) {
           key={`${props.day_number}-length`}
           onClick={() => props.setDayPopoverIsShown(true)}
         >
-          {`${props.workouts.length - 5} more`}
+          <p className='text-center'>{`${props.workouts.length - 5} more`}</p>
         </div>
       );
     }
@@ -128,7 +128,7 @@ function Day(props) {
 
   return (
     <td
-      className="h-40 text-xs text-center align-top border border-t-0 dark:bg-gray-700 dark:text-gray-200"
+      className="h-40 align-top border border-t-0 dark:bg-gray-700 dark:text-gray-200"
       key={props.dayNumber}
       onDragEnter={handleDragEnter}
       onDragLeave={() => setDragOverIsShown(false)}
@@ -139,11 +139,11 @@ function Day(props) {
     >
       {isDayPopoverShown && (
         <div
-          className="w-40 p-1 rounded-xl shadow-md items-center fixed bg-white dark:bg-gray-600 dark:text-gray-200"
+          className="w-40 p-1 rounded-xl shadow-md dark:bg-gray-600 dark:text-gray-200"
           key={`${props.dayNumber}-day-popover`}
           ref={dayPopoverRef}
         >
-          {props.dayNumber}
+          <p className='text-center'>{props.dayNumber}</p>
           {props.workouts.map((workout, index) => (
             <Card
               key={workout.id}
@@ -155,11 +155,11 @@ function Day(props) {
             className="cursor-pointer dark:text-gray-200"
             onClick={handleClick}
           >
-            {`+ New ${props.view}`}
+            <p className='text-center'>{`+ New ${props.view}`}</p>
           </div>
         </div>
       )}
-      {props.dayNumber}
+      <p className='text-center'>{props.dayNumber}</p>
       <CardWrapper
         blocks={props.blocks}
         excercises={props.excercises}
@@ -182,7 +182,7 @@ function Day(props) {
           className="cursor-pointer dark:text-gray-200"
           onClick={handleClick}
         >
-          {`+ New ${props.view}`}
+          <p className='text-center'>{`+ New ${props.view}`}</p>
         </div>
       )}
     </td>

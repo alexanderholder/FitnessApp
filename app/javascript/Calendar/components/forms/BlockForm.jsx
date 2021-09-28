@@ -79,21 +79,21 @@ function BlockForm(props) {
             <React.Fragment>
               <input
                 autoFocus
-                className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
-                // label="Block Name"
+                className="rounded border py-2 my-2 px-3 mx-3 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
                 onChange={(e) => {
                   setName(e.target.value);
                   props.updateBlock({ name: e.target.value });
                 }}
+                placeholder="Block Name"
                 value={name}
               />
               <input
-                // label="Block Rounds"
-                className="rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
+                className="rounded border py-2 my-2 px-3 mx-3 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400 dark:text-gray-800"
                 onChange={(e) => {
                   setRounds(e.target.value);
                   props.updateBlock({ sets: e.target.value });
                 }}
+                placeholder="Block Rounds"
                 value={rounds}
               />
             </React.Fragment>
@@ -198,7 +198,7 @@ function BlockForm(props) {
         setShowExcerciseDetails={props.setShowExcerciseDetails}
       />
       <div
-        className="cursor-pointer dark:text-gray-200"
+        className="text-left cursor-pointer dark:text-gray-200"
         onClick={props.addExcercise}
       >
         + Add Excercise

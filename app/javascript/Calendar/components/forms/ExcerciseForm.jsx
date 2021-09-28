@@ -33,7 +33,7 @@ function ExcerciseForm(props) {
         </svg>
       </button>
       <DropSearch
-        className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
+        className="bg-white flex items-center border rounded-xl shadow-md w-full py-2 mx-3 px-3 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
         datalist={props.excerciseList}
         id="excercise-search"
         onChange={(e) => setName(e)}
@@ -43,7 +43,7 @@ function ExcerciseForm(props) {
         value={name}
       />
       <DropSearch
-        className="bg-white flex items-center border rounded-xl shadow-md w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
+        className="bg-white flex items-center border rounded-xl shadow-md w-full py-2 mx-3 px-3 text-gray-700 leading-tight focus:outline-none dark:bg-gray-400"
         datalist={props.setsRepsSchemeList}
         id="sets-reps-search"
         onChange={(e) => setSetsReps(e)}
