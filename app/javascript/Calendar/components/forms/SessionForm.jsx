@@ -51,6 +51,10 @@ function WorkoutForm(props) {
   const [menuShown, setMenuShown] = useState(false);
   const [showExcerciseDetails, setShowExcerciseDetails] = useState(false);
 
+  const { innerWidth: width, innerHeight: height } = window;
+  const xPosition = props.anchorEl.getBoundingClientRect().x;
+  const yPosition = props.anchorEl.getBoundingClientRect().y;
+
   const onSortEnd = useCallback(({ oldIndex, newIndex, collection }) => {
     const newOrder = arrayMove(collection, oldIndex, newIndex);
     newOrder.map((block, index) => {
@@ -69,9 +73,20 @@ function WorkoutForm(props) {
   };
 
   return (
-    // TODO the div below item start like google
-    <div className="items-start">
-      <div className="p-2 mx-auto bg-white rounded-xl shadow-2xl fixed dark:bg-gray-600 dark:text-gray-200">
+    <React.Fragment>
+      <div
+        className="p-2 mx-auto absolute bg-white rounded-xl shadow-2xl dark:bg-gray-600 dark:text-gray-200"
+        style={{
+          marginLeft:
+            innerWidth < 685 + xPosition
+              ? `${innerWidth - 685}px`
+              : `${xPosition}px`,
+          marginTop:
+            innerHeight < 235 + yPosition
+              ? `${innerHeight - 235}px`
+              : `${yPosition}px`,
+        }}
+      >
         <div
           onMouseEnter={() => props.view === "Session" && setMenuShown(true)}
           onMouseLeave={() => props.view === "Session" && setMenuShown(false)}
@@ -185,9 +200,11 @@ function WorkoutForm(props) {
         <ExcerciseDetails
           excerciseId={showExcerciseDetails}
           setShowExcerciseDetails={setShowExcerciseDetails}
+          xPosition={xPosition}
+          yPosition={yPosition}
         />
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

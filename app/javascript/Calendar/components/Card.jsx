@@ -67,14 +67,21 @@ function Card(props) {
         onDragEnter={handleDragEnter}
         onDragOver={(e) => e.preventDefault()}
       >
-        <p className='text-center'>
+        <p className="text-center">
           {`${props.cardName} ${
             props.setsAndReps ? ` ${props.setsAndReps}` : ""
           }`}
         </p>
       </div>
+
       {Boolean(anchorEl) && (
-        <SessionForm workoutId={props.workoutId} setAnchorEl={setAnchorEl} />
+        <div className="absolute inset-0">
+          <SessionForm
+            workoutId={props.workoutId}
+            setAnchorEl={setAnchorEl}
+            anchorEl={anchorEl}
+          />
+        </div>
       )}
     </React.Fragment>
   );
