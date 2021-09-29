@@ -14,12 +14,20 @@ function ExcerciseDetails(props) {
   );
   const [weight, setWeight] = useState(props.excercise.weight_value);
   const [weightMetric, setWeightMetric] = React.useState("KG");
+
   const { innerWidth: width, innerHeight: height } = window;
+  const { xPosition, yPosition } = props;
 
   return (
     <div
-      className="items-start p-1 max-w-sm mx-auto bg-white rounded-xl shadow-md space-x-4 absolute"
-      style={{ marginLeft: innerWidth*0.38 }}
+      className="p-1 max-w-sm bg-white rounded-xl shadow-2xl absolute"
+      style={{
+        marginLeft:
+          innerWidth < 685 + xPosition
+            ? `${innerWidth - 155}px`
+            : `${xPosition + 530}px`,
+        marginTop: `${yPosition}px`,
+      }}
       key={`excercise-popover-${props.excerciseId}`}
     >
       <div>
