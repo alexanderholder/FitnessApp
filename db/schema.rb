@@ -111,7 +111,12 @@ ActiveRecord::Schema.define(version: 2021_04_28_091233) do
 
   create_table "progressions", force: :cascade do |t|
     t.bigint "session_progression_id", null: false
-    t.text "sets_reps"
+    t.integer "week"
+    t.integer "set"
+    t.integer "reps"
+    t.integer "percent"
+    t.integer "rir"
+    t.integer "rpe"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["session_progression_id"], name: "index_progressions_on_session_progression_id"

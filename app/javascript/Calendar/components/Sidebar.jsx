@@ -31,6 +31,9 @@ function Sidebar(props) {
   const [open, setOpen] = useState(false);
   const [openBuilder, setOpenBuilder] = useState(false);
   const [menu, setMenu] = useState("Home");
+  const [numberOfWeeks, setNumberOfWeeks] = useState(4);
+  const [newProgressionName, setNewProgressionName] = useState("");
+  const [newProgressionsArray, setNewProgressionsArray] = useState([]);
 
   switch (menu) {
     case "favSessions":
@@ -148,9 +151,18 @@ function Sidebar(props) {
             open={open}
             setOpen={setOpen}
             title="Create Progression"
-            body={<ProgressionsTable />}
+            body={
+              <ProgressionsTable
+                setNumberOfWeeks={setNumberOfWeeks}
+                numberOfWeeks={numberOfWeeks}
+                setNewProgressionName={setNewProgressionName}
+                setNewProgressionsArray={setNewProgressionsArray}
+              />
+            }
             submitText="Create Progression"
-            submitFunction={() => props.saveNewProgression(name, [])}
+            submitFunction={() =>
+              props.saveNewProgression(newProgressionName, newProgressionsArray)
+            }
           />
         </React.Fragment>
       );
@@ -244,10 +256,10 @@ const mapStateToProps = (state) => ({
   progressions: state.sessionProgressions,
   workouts: getFavouriteWorkouts(state),
   blocks: getFavouriteBlocks(state),
-  progressions: state.sessionProgressions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  // TODO this currently creates a autobuild of the progression (createProgression)
   createProgression: (excercise, progression, day) =>
     dispatch(createProgressionTemplate(excercise, progression, day)),
   copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id)),

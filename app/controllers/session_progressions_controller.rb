@@ -73,7 +73,7 @@ class SessionProgressionsController < ApplicationController
   def session_progression_params
     params.require(:session_progression).permit(
       :name,
-      progressions: [:sets_reps],
+      progressions: %i[week set reps percent rir rpe],
       workout_progressions: %i[excercise progression_id day_number]
     )
   end
