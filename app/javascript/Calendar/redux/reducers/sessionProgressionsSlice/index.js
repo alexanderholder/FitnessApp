@@ -29,6 +29,7 @@ export function saveNewProgression(name, progressions) {
   };
 }
 
+// auto craete tool
 export function createProgressionTemplate(excercise, progression, day) {
   return async function createProgressionTemplate(dispatch, getState) {
     const response = await Request.post(
