@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import WindowState from "windowState";
 import { createProgressionTemplate } from "Calendar/redux/reducers/sessionProgressionsSlice";
@@ -8,11 +7,10 @@ import {
   getFavouriteBlocks,
 } from "Calendar/redux/selectors";
 import { copyBlock } from "Calendar/redux/reducers/blocksSlice";
-import { saveNewProgression } from "Calendar/redux/reducers/sessionProgressionsSlice";
 import DropSearch from "components/DropSearch";
 import FullPageModal from "components/FullPageModal";
-import ProgressionsTable from "./ProgressionsTable";
-import Card from "./Card";
+import ProgressionsTable from "./components/ProgressionsTable";
+import Card from "../Card";
 
 const DAYS_OF_THE_WEEK = [
   "Monday",
@@ -28,12 +26,9 @@ function Sidebar(props) {
   const [excercise, setExcercise] = useState("");
   const [progression, setProgression] = useState("");
   const [ancorDay, setAncorDay] = useState("");
-  const [open, setOpen] = useState(false);
+  const [openProgressions, setOpenProgressions] = useState(false);
   const [openBuilder, setOpenBuilder] = useState(false);
   const [menu, setMenu] = useState("Home");
-  const [numberOfWeeks, setNumberOfWeeks] = useState(4);
-  const [newProgressionName, setNewProgressionName] = useState("");
-  const [newProgressionsArray, setNewProgressionsArray] = useState([]);
 
   switch (menu) {
     case "favSessions":
@@ -143,26 +138,13 @@ function Sidebar(props) {
             ))}
           <ul
             className="font-sans text-base hover:text-blue-600 cursor-pointer"
-            onClick={() => setOpen(true)}
+            onClick={() => setOpenProgressions(true)}
           >
             Add progression
           </ul>
-          <FullPageModal
-            open={open}
-            setOpen={setOpen}
-            title="Create Progression"
-            body={
-              <ProgressionsTable
-                setNumberOfWeeks={setNumberOfWeeks}
-                numberOfWeeks={numberOfWeeks}
-                setNewProgressionName={setNewProgressionName}
-                setNewProgressionsArray={setNewProgressionsArray}
-              />
-            }
-            submitText="Create Progression"
-            submitFunction={() =>
-              props.saveNewProgression(newProgressionName, newProgressionsArray)
-            }
+          <ProgressionsTable
+            openProgressions={openProgressions}
+            setOpenProgressions={setOpenProgressions}
           />
         </React.Fragment>
       );
@@ -263,8 +245,6 @@ const mapDispatchToProps = (dispatch) => ({
   createProgression: (excercise, progression, day) =>
     dispatch(createProgressionTemplate(excercise, progression, day)),
   copyBlock: (id) => dispatch(copyBlock(id, WindowState.hovered_card_id)),
-  saveNewProgression: (name, progressions) =>
-    dispatch(saveNewProgression(name, progressions)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
