@@ -13,7 +13,7 @@
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
-    "is-svg": "4.2.2",
+    "is-svg": "4.3.0",
     "jquery": "^3.5.1",
     "loglevel": "^1.7.1",
     "loglevel-plugin-remote": "^0.6.8",
